@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>startnewgame label x</key>
+	<real>0.5</real>
+	<key>startnewgame label y</key>
+	<string>0.35</string>
+	<key>startnewgame text</key>
+	<string>New Game</string>
+	<key>startnewgame font</key>
+	<string>Helvetica</string>
+	<key>startnewgame size</key>
+	<string>24</string>
+	<key>startnewgame color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
+	<key>continue label x</key>
+	<string>0.5</string>
+	<key>continue label y</key>
+	<string>0.2</string>
+	<key>continue text</key>
+	<string>Continue</string>
+	<key>continue font</key>
+	<string>Helvetica</string>
+	<key>continue size</key>
+	<string>24</string>
+	<key>continue color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
+	<key>title x</key>
+	<string>0.5</string>
+	<key>title y</key>
+	<string>0.75</string>
+	<key>title image</key>
+	<string>title.png</string>
+	<key>background image</key>
+	<string>pond.png</string>
+	<key>script to load</key>
+	<string>demo script</string>
+</dict>
+</plist>
