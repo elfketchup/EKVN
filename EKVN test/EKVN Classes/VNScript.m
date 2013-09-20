@@ -445,6 +445,46 @@
         type = @VNScriptCommandEffectMoveSprite;
         analyzedArray = @[type, parameter1, moveByX, moveByY, duration];
         
+    } else if ( [action caseInsensitiveCompare:VNScriptStringEffectMoveBackground] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .MOVEBACKGROUND
+        //
+        //  Uses Cocos2D actions to move the background by a certain number of points. This is normally used to
+        //  pan the background (along the X-axis), but you can move the background up and down as well.
+        //
+        //  Parameters:
+        //
+        //      #1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)
+        //
+        //      #2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)
+        //
+        //      #3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)
+        //          This measures how long it takes to move the sprite, in seconds.
+        //
+        //  Example: .movebackground:100:0:1.0
+        //
+        
+        // Set default values for extra parameters
+        NSString* xParameter = @"0";
+        NSString* yParameter = @"0";
+        NSString* durationParameter = @"0.5";
+        
+        // Overwrite default values with ones that exist in the script (assuming they exist, of course)
+        if( command.count > 1 ) xParameter = [command objectAtIndex:1];
+        if( command.count > 2 ) yParameter = [command objectAtIndex:2];
+        if( command.count > 3 ) durationParameter = [command objectAtIndex:3];
+        
+        // Convert parameters (which are NSStrings) to NSNumber values
+        NSNumber* moveByX = @([xParameter floatValue]);
+        NSNumber* moveByY = @([yParameter floatValue]);
+        NSNumber* duration = @([durationParameter doubleValue]);
+        
+        // syntax = command:sprite:xcoord:ycoord:duration
+        type = @VNScriptCommandEffectMoveBackground;
+        analyzedArray = @[type, moveByX, moveByY, duration];
+        
     } else if ( [action caseInsensitiveCompare:VNScriptStringSetSpritePosition] == NSOrderedSame ) {
         
         // Function definition
@@ -599,9 +639,7 @@
         //
         //  Parameters:
         //
-        //      #1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")
-        //
-        //      #2: The name of the conversation to jump to (string) (example: "fleeing sequence")
+        //      #1: Whether or not to show the speech box (Boolean)
         //
         //  Example: .SHOWSPEECH:NO
         //

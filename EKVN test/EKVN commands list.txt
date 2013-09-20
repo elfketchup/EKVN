@@ -124,6 +124,24 @@ Example: .addsprite:girl.png:NO
 
 ================
 
+  Name: .MOVEBACKGROUND
+
+  Uses Cocos2D actions to move the background by a certain number of points. This is normally used to
+  pan the background (along the X-axis), but you can move the background up and down as well.
+
+  Parameters:
+
+      #1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)
+
+      #2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)
+
+      #3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)
+          This measures how long it takes to move the sprite, in seconds.
+
+  Example: .movebackground:100:0:1.0
+
+================
+
   Name: .SETSPEAKER
 
   The "speaker name" is the title of the person speaking. If you set this to "nil" then it
@@ -178,9 +196,7 @@ Example: .addsprite:girl.png:NO
 
   Parameters:
 
-      #1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")
-
-      #2: The name of the conversation to jump to (string) (example: "fleeing sequence")
+      #1: Whether or not to show the speech box (BOOL value)
 
   Example: .SHOWSPEECH:NO
 

@@ -17,8 +17,10 @@
 		<string>Hello.</string>
 		<string>.SETBACKGROUND:pond.png</string>
 		<string>Hey, a background!</string>
+		<string>.movebackground:100:10:2.0</string>
 		<string>.ADDSPRITE:matsuri_close.png</string>
 		<string>Suddenly, an anime girl appears!</string>
+		<string>.systemcall:autosave</string>
 		<string>.SETSPEAKER:Matsuri</string>
 		<string>Hi, my name is Matsuri.</string>
 		<string>.SETSPEAKER:nil</string>

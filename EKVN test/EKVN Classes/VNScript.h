@@ -52,53 +52,54 @@
 #define VNScriptCurrentIndexKey                @"current index"
 
 // The command types, in numeric format
-#define VNScriptCommandSayLine                 100
-#define VNScriptCommandAddSprite               101
-#define VNScriptCommandSetBackground           102
-#define VNScriptCommandSetSpeaker              103
-#define VNScriptCommandChangeConversation      104
-#define VNScriptCommandJumpOnChoice            105
-#define VNScriptCommandShowSpeechOrNot         106
-#define VNScriptCommandEffectFadeIn            107
-#define VNScriptCommandEffectFadeOut           108
-//#define VNScriptCommandEffectChangeLight       109
-#define VNScriptCommandEffectMoveSprite        110
-#define VNScriptCommandSetSpritePosition       111
-#define VNScriptCommandPlaySound               112
-#define VNScriptCommandPlayMusic               113
-#define VNScriptCommandSetFlag                 114
-#define VNScriptCommandModifyFlagValue         115 // Add or subtract
-#define VNScriptCommandIfFlagHasValue          116 // An "if" command, really
-#define VNScriptCommandModifyFlagOnChoice      117 // Choice changes variable
-#define VNScriptCommandAlignSprite             118
-#define VNScriptCommandRemoveSprite            119
-#define VNScriptCommandJumpOnFlag              120 // Change conversation if a certain flag holds a particular value
-#define VNScriptCommandSystemCall              121
-#define VNScriptCommandCallCode                122
+#define VNScriptCommandSayLine                  100
+#define VNScriptCommandAddSprite                101
+#define VNScriptCommandSetBackground            102
+#define VNScriptCommandSetSpeaker               103
+#define VNScriptCommandChangeConversation       104
+#define VNScriptCommandJumpOnChoice             105
+#define VNScriptCommandShowSpeechOrNot          106
+#define VNScriptCommandEffectFadeIn             107
+#define VNScriptCommandEffectFadeOut            108
+#define VNScriptCommandEffectMoveBackground     109
+#define VNScriptCommandEffectMoveSprite         110
+#define VNScriptCommandSetSpritePosition        111
+#define VNScriptCommandPlaySound                112
+#define VNScriptCommandPlayMusic                113
+#define VNScriptCommandSetFlag                  114
+#define VNScriptCommandModifyFlagValue          115 // Add or subtract
+#define VNScriptCommandIfFlagHasValue           116 // An "if" command, really
+#define VNScriptCommandModifyFlagOnChoice       117 // Choice changes variable
+#define VNScriptCommandAlignSprite              118
+#define VNScriptCommandRemoveSprite             119
+#define VNScriptCommandJumpOnFlag               120 // Change conversation if a certain flag holds a particular value
+#define VNScriptCommandSystemCall               121
+#define VNScriptCommandCallCode                 122
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
-#define VNScriptStringAddSprite                @".addsprite"           // Adds a sprite to the screen (sprite fades in)
-#define VNScriptStringSetBackground            @".setbackground"       // Changes the background of the visual novel scene
-#define VNScriptStringSetSpeaker               @".setspeaker"          // Determines what name shows up when someone speaks
-#define VNScriptStringChangeConversation       @".setconversation"     // Switches to a different section of the script
-#define VNScriptStringJumpOnChoice             @".jumponchoice"        // Switches to different section based on user choice
-#define VNScriptStringShowSpeechOrNot          @".showspeech"          // Determines whether speech text should be shown
-#define VNScriptStringEffectFadeIn             @".fadein"              // Fades in the scene (background + characters)
-#define VNScriptStringEffectFadeOut            @".fadeout"             // The scene fades out to black
-#define VNScriptStringEffectMoveSprite         @".movesprite"          // Moves a sprite around the screen
-#define VNScriptStringSetSpritePosition        @".setspriteposition"   // Sets the sprite's exact position
-#define VNScriptStringPlaySound                @".playsound"           // Plays a sound effect once
-#define VNScriptStringPlayMusic                @".playmusic"           // Plays a sound file on infinite loop
-#define VNScriptStringSetFlag                  @".setflag"             // Sets a "flag" (numeric value)
-#define VNScriptStringModifyFlagValue          @".modifyflag"          // Modifies the numeric value of a flag
-#define VNScriptStringIfFlagHasValue           @".isflag"              // Executes another command if a flag has a certain value
-#define VNScriptStringModifyFlagOnChoice       @".modifyflagbychoice"  // Modifies a flag's value based on user input
-#define VNScriptStringAlignSprite              @".alignsprite"         // Repositions a sprite (left, center, or right)
-#define VNScriptStringRemoveSprite             @".removesprite"        // Removes a sprite from the screen
-#define VNScriptStringJumpOnFlag               @".jumponflag"          // Changes script section based on flag value
-#define VNScriptStringSystemCall               @".systemcall"          // Calls a predefined function outside the VN system
-#define VNScriptStringCallCode                 @".callcode"            // Call any function (from a static object, usually)
+#define VNScriptStringAddSprite                 @".addsprite"           // Adds a sprite to the screen (sprite fades in)
+#define VNScriptStringSetBackground             @".setbackground"       // Changes the background of the visual novel scene
+#define VNScriptStringSetSpeaker                @".setspeaker"          // Determines what name shows up when someone speaks
+#define VNScriptStringChangeConversation        @".setconversation"     // Switches to a different section of the script
+#define VNScriptStringJumpOnChoice              @".jumponchoice"        // Switches to different section based on user choice
+#define VNScriptStringShowSpeechOrNot           @".showspeech"          // Determines whether speech text should be shown
+#define VNScriptStringEffectFadeIn              @".fadein"              // Fades in the scene (background + characters)
+#define VNScriptStringEffectFadeOut             @".fadeout"             // The scene fades out to black
+#define VNScriptStringEffectMoveBackground      @".movebackground"      // Moves/pans the background
+#define VNScriptStringEffectMoveSprite          @".movesprite"          // Moves a sprite around the screen
+#define VNScriptStringSetSpritePosition         @".setspriteposition"   // Sets the sprite's exact position
+#define VNScriptStringPlaySound                 @".playsound"           // Plays a sound effect once
+#define VNScriptStringPlayMusic                 @".playmusic"           // Plays a sound file on infinite loop
+#define VNScriptStringSetFlag                   @".setflag"             // Sets a "flag" (numeric value)
+#define VNScriptStringModifyFlagValue           @".modifyflag"          // Modifies the numeric value of a flag
+#define VNScriptStringIfFlagHasValue            @".isflag"              // Executes another command if a flag has a certain value
+#define VNScriptStringModifyFlagOnChoice        @".modifyflagbychoice"  // Modifies a flag's value based on user input
+#define VNScriptStringAlignSprite               @".alignsprite"         // Repositions a sprite (left, center, or right)
+#define VNScriptStringRemoveSprite              @".removesprite"        // Removes a sprite from the screen
+#define VNScriptStringJumpOnFlag                @".jumponflag"          // Changes script section based on flag value
+#define VNScriptStringSystemCall                @".systemcall"          // Calls a predefined function outside the VN system
+#define VNScriptStringCallCode                  @".callcode"            // Call any function (from a static object, usually)
 
 // Script syntax
 #define VNScriptSeparationString               @":"

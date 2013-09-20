@@ -159,10 +159,11 @@ In that case, the files you'll need are:
     backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
     backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer
   
-(you'll need similar background images if you use the .SETBACKGROUND script command in EKVN.)
+(NOTE: You'll need similar background images if you use the .SETBACKGROUND script command in EKVN,
+       though you can ignore the last two if your app doesn't support the iPad. Also, background can
+       really be of any sizes you like; EKVN doesn't enforce mandatory sizes. And if you plan to pan/move
+       the background, you should probably use larger images than the ones mentioned here.)
 
-(Also, you don't need the last two if you don't support the iPad in your own apps)
-  
 The SECOND value ("title image") is just a title or logo image. Similar to the background
 images, you'll need two (or four, for the iPad), but there are no specific sizes required.
 Keep in mind, however, that images for the iPhone 4 (and newer) and the iPad 1 & 2 will 

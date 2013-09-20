@@ -7,8 +7,8 @@
   <meta name="Generator" content="Cocoa HTML Writer">
   <meta name="CocoaVersion" content="1187.39">
   <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Monaco; min-height: 19.0px}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Monaco}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco}
     span.Apple-tab-span {white-space:pre}
   </style>
 </head>
@@ -139,6 +139,24 @@
 <p class="p1"><br></p>
 <p class="p2">================</p>
 <p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span>Name: .MOVEBACKGROUND</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move the background by a certain number of points. This is normally used to</p>
+<p class="p2"><span class="Apple-converted-space">  </span>pan the background (along the X-axis), but you can move the background up and down as well.</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">      </span>#1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">      </span>#2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">      </span>#3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)</p>
+<p class="p2"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span>Example: .movebackground:100:0:1.0</p>
+<p class="p1"><br></p>
+<p class="p2">================</p>
+<p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEAKER</p>
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>The "speaker name" is the title of the person speaking. If you set this to "nil" then it</p>
@@ -193,9 +211,7 @@
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
 <p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The name of the conversation to jump to (string) (example: "fleeing sequence")</p>
+<p class="p2"><span class="Apple-converted-space">      </span>#1: Whether or not to show the speech box (BOOL value)</p>
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>Example: .SHOWSPEECH:NO</p>
 <p class="p1"><br></p>

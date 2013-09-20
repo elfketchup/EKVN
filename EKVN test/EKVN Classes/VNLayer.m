@@ -120,6 +120,8 @@ VNLayer* theCurrentScene = nil;
 	NSString* savedSpeech       = [record objectForKey:VNLayerSpeechToDisplayKey];
     NSNumber* showSpeechKey     = [record objectForKey:VNLayerShowSpeechKey];
     NSNumber* musicShouldLoop   = [record objectForKey:VNLayerMusicShouldLoopKey];
+    NSNumber* savedBackgroundX  = [record objectForKey:VNLayerBackgroundXKey];
+    NSNumber* savedBackgroundY  = [record objectForKey:VNLayerBackgroundYKey];
     CGSize screenSize           = [CCDirector sharedDirector].winSize; // Screensize is loaded to help position UI elements]
     
     // This determines whether or not the speechbox will be shown. By default, the speechbox is hidden
@@ -160,8 +162,15 @@ VNLayer* theCurrentScene = nil;
     
     // Load background image (CCSprite)
 	if( savedBackground ) {
+        
+        // Create/load saved background coordinates
+        float backgroundX = screenSize.width * 0.5; // By default, the background would be positioned in the middle of the screen
+        float backgroundY = screenSize.height * 0.5;
+        if( savedBackgroundX ) backgroundX = [savedBackgroundX floatValue];
+        if( savedBackgroundY ) backgroundY = [savedBackgroundY floatValue];
+        
 		CCSprite* background = [CCSprite spriteWithFile:savedBackground];
-		background.position = ccp( screenSize.width * 0.5, screenSize.height * 0.5 ); // Position the sprite / background image right in the middle of the screen
+		background.position = ccp( backgroundX, backgroundY ); // Position the sprite / background image right in the middle of the screen
 		[self addChild:background z:VNLayerBackgroundLayer tag:VNLayerTagBackground]; // Add to layer
 	}
 	
@@ -1110,11 +1119,46 @@ VNLayer* theCurrentScene = nil;
             
         }break;
             
+        // This command is used to move/pan the background around. It relies on the CCMoveBy action in Cocos2D.
+        case VNScriptCommandEffectMoveBackground: {
+            
+            // Check if the background even exists to begin with, because otherwise there's no point to any of this!
+            CCSprite* background = (CCSprite*) [self getChildByTag:VNLayerTagBackground];
+            if( background == nil )
+                return;
+            
+            [self createSafeSave];
+            
+            NSNumber* moveByX = [command objectAtIndex:1]; // How far to move on X-plane
+            NSNumber* moveByY = [command objectAtIndex:2]; // How far to move on Y-plane
+            NSNumber* duration = [command objectAtIndex:3]; // How long this whole process takes (default is 0.5 seconds)
+            double durationAsDouble = 0.5; // Default
+            
+            if( duration) {
+                durationAsDouble = [duration doubleValue];
+            }
+            
+            [self setEffectRunningFlag];
+            
+            // Also update the background's position in the record, so that when the game is loaded from a saved game,
+            // then the background will be where it should be (that is, where it will be once the CCAction has finished).
+            float finishedX = background.position.x + [moveByX floatValue];
+            float finishedY = background.position.y + [moveByY floatValue];
+            [record setObject:@(finishedX) forKey:VNLayerBackgroundXKey];
+            [record setObject:@(finishedY) forKey:VNLayerBackgroundYKey];
+            
+            // Set up the movement sequence
+            CGPoint movementAmount = CGPointMake( [moveByX floatValue], [moveByY floatValue] );
+            CCMoveBy* moveByAction = [CCMoveBy actionWithDuration:durationAsDouble position:movementAmount];
+            CCCallFunc* clearEffectFlag = [CCCallFunc actionWithTarget:self selector:@selector(clearEffectRunningFlag)];
+            CCSequence* movementSequence = [CCSequence actions:moveByAction, clearEffectFlag, nil];
+            [background runAction:movementSequence];
+            
+        }break;
+            
         // This command moves a sprite by a certain number of points (since Cocos2D uses points instead of pixels). This
         // is really just a "wrapper" of sorts for the CCMoveBy action in Cocos2D.
         case VNScriptCommandEffectMoveSprite: {
-            
-            [self createSafeSave]; // Create safe-save since VNLayer is about to perform an effect
             
             NSString* spriteName = parameter1;
             NSNumber* moveByX = [command objectAtIndex:2]; // How far to move on X-plane
@@ -1122,14 +1166,16 @@ VNLayer* theCurrentScene = nil;
             NSNumber* duration = [command objectAtIndex:4]; // How long this whole process takes (default is 0.5 seconds)
             double durationAsDouble = 0.0; // Default duration
             
-            if( duration ) {
-                durationAsDouble = [duration doubleValue]; // Overwrite default duration if a duration parameter is found
-            }
-
             // Find the sprite! If it exists, of course... if not, just stop the function
             CCSprite* sprite = [sprites objectForKey:spriteName];
             if( sprite == nil ) {
                 return;
+            }
+            
+            [self createSafeSave]; // Create safe-save since VNLayer is about to perform an effect
+            
+            if( duration ) {
+                durationAsDouble = [duration doubleValue]; // Overwrite default duration if a duration parameter is found
             }
             
             // Check if this is meant to be done instantly. In that case, instantly move the sprite and stop the function
@@ -1182,6 +1228,8 @@ VNLayer* theCurrentScene = nil;
             
             // Also remove background data from records
             [record removeObjectForKey:VNLayerBackgroundToShowKey];
+            [record removeObjectForKey:VNLayerBackgroundXKey];
+            [record removeObjectForKey:VNLayerBackgroundYKey];
             
             // Check the value of the string. If the string is "nil", then just get rid of any existing background
             // data. Otherwise, VNLayerView will try to use the string as a file name.
@@ -1195,6 +1243,8 @@ VNLayer* theCurrentScene = nil;
                              z:VNLayerBackgroundLayer
                            tag:VNLayerTagBackground];
                 [record setObject:backgroundName forKey:VNLayerBackgroundToShowKey]; // Update record with the background image's file name
+                [record setObject:@(updatedBackground.position.x) forKey:VNLayerBackgroundXKey];
+                [record setObject:@(updatedBackground.position.y) forKey:VNLayerBackgroundYKey];
             }
             
         }break;

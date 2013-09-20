@@ -119,6 +119,8 @@
 #define VNLayerSpeakerNameToShowKey		@"speaker name to show"
 #define VNLayerSpeechToDisplayKey		@"speech to display"
 #define VNLayerShowSpeechKey            @"show speech"
+#define VNLayerBackgroundXKey           @"background x"
+#define VNLayerBackgroundYKey           @"background y"
 
 // Graphics/display stuff
 #define VNLayerViewSettingsFileName     @"vnlayer view settings"
