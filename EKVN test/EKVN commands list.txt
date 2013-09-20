@@ -127,18 +127,28 @@ Example: .addsprite:girl.png:NO
   Name: .MOVEBACKGROUND
 
   Uses Cocos2D actions to move the background by a certain number of points. This is normally used to
-  pan the background (along the X-axis), but you can move the background up and down as well.
+  pan the background (along the X-axis), but you can move the background up and down as well. Character
+  sprites can also be moved along with the background, though usually at a slightly different rate;
+  the rate is referred to as the "parallax factor." A parallax factor of 1.0 means that the character
+  sprites move just as quickly as the background does, while a factor 0.0 means that the character
+  sprites do not move at all.
 
   Parameters:
 
       #1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)
 
-      #2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)
+      #2: Amount to move the sprite by Y points (float) (OPTIONAL) (example: 256) (default is ZERO)
 
-      #3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)
+      #3: Duration in seconds (float) (OPTIONAL) (example: 0.5) (default is 0.5 seconds)
           This measures how long it takes to move the sprite, in seconds.
 
-  Example: .movebackground:100:0:1.0
+      #4: Parallax factor (float) (OPTIONAL) (example: 0.5) (default is 0.95)
+          The rate at which sprites move compared to the background. 1.00 means that the
+          sprites move at exactly the same rate as the background, while 0.00 means that
+          the sprites do not move at all. You'll probably want to set it something in between.
+
+  Example: .MOVEBACKGROUND:100:0:1.0:0.99
+
 
 ================
 

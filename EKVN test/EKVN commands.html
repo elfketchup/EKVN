@@ -142,18 +142,28 @@
 <p class="p2"><span class="Apple-converted-space">  </span>Name: .MOVEBACKGROUND</p>
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move the background by a certain number of points. This is normally used to</p>
-<p class="p2"><span class="Apple-converted-space">  </span>pan the background (along the X-axis), but you can move the background up and down as well.</p>
+<p class="p2"><span class="Apple-converted-space">  </span>pan the background (along the X-axis), but you can move the background up and down as well. Character</p>
+<p class="p2"><span class="Apple-converted-space">  </span>sprites can also be moved along with the background, though usually at a slightly different rate;</p>
+<p class="p2"><span class="Apple-converted-space">  </span>the rate is referred to as the "parallax factor." A parallax factor of 1.0 means that the character</p>
+<p class="p2"><span class="Apple-converted-space">  </span>sprites move just as quickly as the background does, while a factor 0.0 means that the character</p>
+<p class="p2"><span class="Apple-converted-space">  </span>sprites do not move at all.</p>
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
 <p class="p1"><br></p>
 <p class="p2"><span class="Apple-converted-space">      </span>#1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</p>
 <p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)</p>
+<p class="p2"><span class="Apple-converted-space">      </span>#2: Amount to move the sprite by Y points (float) (OPTIONAL) (example: 256) (default is ZERO)</p>
 <p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)</p>
+<p class="p2"><span class="Apple-converted-space">      </span>#3: Duration in seconds (float) (OPTIONAL) (example: 0.5) (default is 0.5 seconds)</p>
 <p class="p2"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</p>
 <p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .movebackground:100:0:1.0</p>
+<p class="p2"><span class="Apple-converted-space">      </span>#4: Parallax factor (float) (OPTIONAL) (example: 0.5) (default is 0.95)</p>
+<p class="p2"><span class="Apple-converted-space">          </span>The rate at which sprites move compared to the background. 1.00 means that the</p>
+<p class="p2"><span class="Apple-converted-space">          </span>sprites move at exactly the same rate as the background, while 0.00 means that</p>
+<p class="p2"><span class="Apple-converted-space">          </span>the sprites do not move at all. You'll probably want to set it something in between.</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">  </span>Example: .MOVEBACKGROUND:100:0:1.0:0.99</p>
+<p class="p1"><br></p>
 <p class="p1"><br></p>
 <p class="p2">================</p>
 <p class="p1"><br></p>

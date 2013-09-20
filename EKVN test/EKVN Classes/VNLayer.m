@@ -1132,11 +1132,11 @@ VNLayer* theCurrentScene = nil;
             NSNumber* moveByX = [command objectAtIndex:1]; // How far to move on X-plane
             NSNumber* moveByY = [command objectAtIndex:2]; // How far to move on Y-plane
             NSNumber* duration = [command objectAtIndex:3]; // How long this whole process takes (default is 0.5 seconds)
-            double durationAsDouble = 0.5; // Default
+            NSNumber* parallaxing = [command objectAtIndex:4]; // Parallax factor for sprites (in relation to background)
             
-            if( duration) {
-                durationAsDouble = [duration doubleValue];
-            }
+            // Convert to scalars
+            double durationAsDouble = [duration doubleValue];
+            double parallaxFactor = [parallaxing floatValue];
             
             [self setEffectRunningFlag];
             
@@ -1146,6 +1146,25 @@ VNLayer* theCurrentScene = nil;
             float finishedY = background.position.y + [moveByY floatValue];
             [record setObject:@(finishedX) forKey:VNLayerBackgroundXKey];
             [record setObject:@(finishedY) forKey:VNLayerBackgroundYKey];
+            
+            // Make all the active sprites move in relation to the background, parallax style
+            for( NSString* spriteName in [sprites allKeys] ) {
+                
+                CCSprite* currentSprite = [sprites objectForKey:spriteName];
+                
+                // Make sure this sprite is onscreen (by checking if it has a parent)
+                if( currentSprite.parent ) {
+                    
+                    // Calculate the rate at which the sprite should move
+                    float spriteMovementX = parallaxFactor * [moveByX floatValue];
+                    float spriteMovementY = parallaxFactor * [moveByY floatValue];
+                    
+                    CGPoint amountOfMovement = ccp( spriteMovementX, spriteMovementY );
+                    CCMoveBy* movementAction = [CCMoveBy actionWithDuration:durationAsDouble position:amountOfMovement];
+                    [currentSprite runAction:movementAction];
+                }
+            }
+            
             
             // Set up the movement sequence
             CGPoint movementAmount = CGPointMake( [moveByX floatValue], [moveByY floatValue] );
@@ -1189,7 +1208,7 @@ VNLayer* theCurrentScene = nil;
             }
             
             [self setEffectRunningFlag];
-            
+
             // Set up movement action, and then have the "effect is running" flag get cleared at the end of the sequence
             CGPoint movementAmount = ccp( [moveByX floatValue], [moveByY floatValue] );
             CCMoveBy* moveByAction = [CCMoveBy actionWithDuration:durationAsDouble position:movementAmount];

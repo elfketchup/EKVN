@@ -452,16 +452,25 @@
         //  Name: .MOVEBACKGROUND
         //
         //  Uses Cocos2D actions to move the background by a certain number of points. This is normally used to
-        //  pan the background (along the X-axis), but you can move the background up and down as well.
+        //  pan the background (along the X-axis), but you can move the background up and down as well. Character
+        //  sprites can also be moved along with the background, though usually at a slightly different rate;
+        //  the rate is referred to as the "parallax factor." A parallax factor of 1.0 means that the character
+        //  sprites move just as quickly as the background does, while a factor 0.0 means that the character
+        //  sprites do not move at all.
         //
         //  Parameters:
         //
         //      #1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)
         //
-        //      #2: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)
+        //      #2: Amount to move the sprite by Y points (float) (OPTIONAL) (example: 256) (default is ZERO)
         //
-        //      #3: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)
+        //      #3: Duration in seconds (float) (OPTIONAL) (example: 0.5) (default is 0.5 seconds)
         //          This measures how long it takes to move the sprite, in seconds.
+        //
+        //      #4: Parallax factor (float) (OPTIONAL) (example: 0.5) (default is 0.95)
+        //          The rate at which sprites move compared to the background. 1.00 means that the
+        //          sprites move at exactly the same rate as the background, while 0.00 means that
+        //          the sprites do not move at all. You'll probably want to set it something in between.
         //
         //  Example: .movebackground:100:0:1.0
         //
@@ -470,20 +479,23 @@
         NSString* xParameter = @"0";
         NSString* yParameter = @"0";
         NSString* durationParameter = @"0.5";
+        NSString* parallaxFactor = @"0.95";
         
         // Overwrite default values with ones that exist in the script (assuming they exist, of course)
         if( command.count > 1 ) xParameter = [command objectAtIndex:1];
         if( command.count > 2 ) yParameter = [command objectAtIndex:2];
         if( command.count > 3 ) durationParameter = [command objectAtIndex:3];
+        if( command.count > 4 ) parallaxFactor = [command objectAtIndex:4];
         
         // Convert parameters (which are NSStrings) to NSNumber values
         NSNumber* moveByX = @([xParameter floatValue]);
         NSNumber* moveByY = @([yParameter floatValue]);
         NSNumber* duration = @([durationParameter doubleValue]);
+        NSNumber* parallaxing = @([parallaxFactor floatValue]);
         
-        // syntax = command:sprite:xcoord:ycoord:duration
+        // syntax = command:xcoord:ycoord:duration:parallaxing
         type = @VNScriptCommandEffectMoveBackground;
-        analyzedArray = @[type, moveByX, moveByY, duration];
+        analyzedArray = @[type, moveByX, moveByY, duration, parallaxing];
         
     } else if ( [action caseInsensitiveCompare:VNScriptStringSetSpritePosition] == NSOrderedSame ) {
         
