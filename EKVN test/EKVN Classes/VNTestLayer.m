@@ -151,11 +151,15 @@
     // Create a blank dictionary with no real data, except for the name of which script file to load.
     // You can pass this in to VNLayer with nothing but that information, and it will load a new game
     // (or at least, a new VNLayer scene!)
-    NSMutableDictionary* tempDict = [NSMutableDictionary dictionary];
-    [tempDict setObject:nameOfScript forKey:VNLayerToPlayKey];
+    //NSMutableDictionary* tempDict = [NSMutableDictionary dictionary];
+    //[tempDict setObject:nameOfScript forKey:VNLayerToPlayKey];
+    
+    NSDictionary* settingsForScene = @{ VNLayerToPlayKey: nameOfScript};
     
     // Create an all-new scene and add VNLayer to it
-    [[CCDirector sharedDirector] pushScene:[VNLayer sceneWithSettings:tempDict]];
+    //[[CCDirector sharedDirector] pushScene:[VNLayer sceneWithSettings:tempDict]];
+
+    [[CCDirector sharedDirector] pushScene:[VNLayer sceneWithSettings:settingsForScene]];
 }
 
 - (void)loadSavedGame

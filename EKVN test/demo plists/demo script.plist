@@ -35,7 +35,8 @@
 		<string>And any flags that were accessed or changed by the visual novel are forcibly saved.</string>
 		<string>Anyways, I suppose that&apos;s it for now.</string>
 		<string>Hopefully, you can use this to make some good games!</string>
-		<string>You can contact the author/programmer at Twitter.com/elfketchup</string>
+		<string>You can contact the author/programmer at: http://twitter.com/elfketchup</string>
+		<string>Or at -&gt; jbriones310 @ gmail</string>
 		<string>Alright, bye for real this time.</string>
 		<string>(The end?)</string>
 	</array>
@@ -60,7 +61,6 @@
 	<key>start</key>
 	<array>
 		<string>.SETBACKGROUND:skyspace.png</string>
-		<string>.SHOWSPEECH:YES</string>
 		<string>First up, it&apos;s probably a good idea to have the dialogue box up.</string>
 		<string>Unless you&apos;d rather hide it.</string>
 		<string>.SHOWSPEECH:NO</string>
@@ -77,7 +77,7 @@
 		<string>By default, character sprites appear in the middle of the screen.</string>
 		<string>The best way to move them around is to use the .ALIGNSPRITE command.</string>
 		<string>.ALIGNSPRITE:matsuri_close.png:LEFT</string>
-		<string>If you want to remove them, one way is to just move them offscreen</string>
+		<string>If you want to remove them, one way is to just move them offscreen.</string>
 		<string>.ALIGNSPRITE:matsuri_close.png:extreme left</string>
 		<string>But that&apos;s not really a good solution.</string>
 		<string>.ALIGNSPRITE:matsuri_close.png:center</string>

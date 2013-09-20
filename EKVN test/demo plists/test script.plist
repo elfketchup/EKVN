@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sketch</key>
+	<array>
+		<string>.ADDSPRITE:sketchmatsuri_close.png</string>
+		<string>Matsuri reappears, but now she just looks like a sketch of an anime girl.</string>
+	</array>
+	<key>color</key>
+	<array>
+		<string>.ADDSPRITE:matsuri_close.png</string>
+		<string>Matsuri reappears, in color again!</string>
+	</array>
+	<key>start</key>
+	<array>
+		<string>Hello.</string>
+		<string>.SETBACKGROUND:pond.png</string>
+		<string>Hey, a background!</string>
+		<string>.ADDSPRITE:matsuri_close.png</string>
+		<string>Suddenly, an anime girl appears!</string>
+		<string>.SETSPEAKER:Matsuri</string>
+		<string>Hi, my name is Matsuri.</string>
+		<string>.SETSPEAKER:nil</string>
+		<string>You&apos;ve now met your first character.</string>
+		<string>.PLAYMUSIC:music01.mp3</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:left</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:right</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:center</string>
+		<string>Is she... dancing?</string>
+		<string>.PLAYMUSIC:nil</string>
+		<string>.REMOVESPRITE:matsuri_close.png</string>
+		<string>The music stops, and the girl disappears.</string>
+		<string>That wasn&apos;t strange at all.</string>
+		<string>.SYSTEMCALL:AUTOSAVE</string>
+		<string>Would you prefer Matsuri to have color, or not?</string>
+		<string>.SETFLAG:matsuri_color:0</string>
+		<string>.MODIFYFLAGBYCHOICE:&quot;She should have color&quot;:matsuri_color:1:No color is better:matsuri_color:0</string>
+		<string>Well, you&apos;ve made your choice.</string>
+		<string>.ISFLAG:matsuri_color:1:You like the full-color version better, huh?</string>
+		<string>.ISFLAG:matsuri_color:0:You like the non-colored version better?</string>
+		<string>.JUMPONFLAG:matsuri_color:1:color</string>
+		<string>.SETCONVERSATION:sketch</string>
+	</array>
+</dict>
+</plist>

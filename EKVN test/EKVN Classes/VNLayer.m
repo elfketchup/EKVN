@@ -153,6 +153,7 @@ VNLayer* theCurrentScene = nil;
         
 		[speech setString:savedSpeech];
         
+        
         if( self.wasJustLoadedFromSave == YES )
             [speech setString:@" "]; // Use empty text as the default
     }
@@ -519,6 +520,8 @@ VNLayer* theCurrentScene = nil;
     NSArray* spritesToSave = [self spriteDataFromScene];
     if( spritesToSave ) {
         [record setValue:spritesToSave forKey:VNLayerSpritesToShowKey];
+    } else {
+        [record removeObjectForKey:VNLayerSpritesToShowKey];
     }
     
     // Load all flag data back to EKRecord. Remember that VNLayer doesn't have a monopoly on flag data;
@@ -564,8 +567,10 @@ VNLayer* theCurrentScene = nil;
 // the sprites can be easily reloaded and repositioned.
 - (NSArray*)spriteDataFromScene
 {
-    if( sprites == nil || sprites.count < 1 )
+    if( sprites == nil || sprites.count < 1 ) {
+        CCLOG(@"[VNLayer] No sprite data found in scene.");
         return nil;
+    }
     
     CCLOG(@"[VNLayer] Retrieving sprite data from scene!");
     
@@ -927,6 +932,13 @@ VNLayer* theCurrentScene = nil;
         // Now have the text fade into full visibility.
         CCFadeIn* fadeIn = [CCFadeIn actionWithDuration:speechTransitionSpeed];
         [speech runAction:fadeIn];
+        
+        // If the speech-box isn't visible, then it should fade-in as well
+        if( speechBox.opacity < 250 ) {
+            
+            CCFadeIn* fadeInSpeechBox = [CCFadeIn actionWithDuration:speechTransitionSpeed];
+            [speechBox runAction:fadeInSpeechBox];
+        }
         
         return;
     }
@@ -1520,7 +1532,11 @@ VNLayer* theCurrentScene = nil;
             
             // If this point has been reached, then it's time to run the second command
             [self processCommand:secondaryCommand];
-            script.currentIndex--; // This makes sure that things don't get knocked out of order by the "secondary command"
+            
+            int secondaryCommandType = [[secondaryCommand objectAtIndex:0] intValue];
+            if( secondaryCommandType != VNScriptCommandChangeConversation ) {
+                script.currentIndex--; // This makes sure that things don't get knocked out of order by the "secondary command"
+            }
             
         }break;
             

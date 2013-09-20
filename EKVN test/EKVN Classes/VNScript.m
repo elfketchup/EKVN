@@ -99,24 +99,29 @@
         // This retrieves the actual array data so that it can be processed. There's an "original array" that holds
         // the raw text data (taken from the Property List) and then a "translated array" that holds the data that's
         // been converted to processed data.
-        NSArray* originalArray          = [dict objectForKey:conversationKey]; // Get original text array
-        NSMutableArray* translatedArray = [[NSMutableArray alloc] initWithCapacity:[originalArray count]];
+        NSArray* originalArray = [dict objectForKey:conversationKey]; // Get original text array
         
-        // Now go through each line in this particular "conversation" and convert it from raw text to processed data
-        for( NSString* line in originalArray ) {
-            
-            // Break the string down into its individual components and translate it into something easy for the program to "read"
-            NSArray* commandFromLine = [line componentsSeparatedByString:VNScriptSeparationString];
-            NSArray* translatedLine = [self analyzedCommand:commandFromLine];
-            
-            // Add the translated line to the correct, "finished product" array
-            if( translatedLine != nil ) {
-                [translatedArray addObject:translatedLine];
+        // Make sure this is actually an NSArray object, and not some other kind of object that just happened to be in the dictionary
+        if( [originalArray isKindOfClass:[NSArray class]] ) {
+
+            NSMutableArray* translatedArray = [[NSMutableArray alloc] initWithCapacity:[originalArray count]];
+        
+            // Now go through each line in this particular "conversation" and convert it from raw text to processed data
+            for( NSString* line in originalArray ) {
+                
+                // Break the string down into its individual components and translate it into something easy for the program to "read"
+                NSArray* commandFromLine = [line componentsSeparatedByString:VNScriptSeparationString];
+                NSArray* translatedLine = [self analyzedCommand:commandFromLine];
+                
+                // Add the translated line to the correct, "finished product" array
+                if( translatedLine != nil ) {
+                    [translatedArray addObject:translatedLine];
+                }
             }
+            
+            // Add this translated "conversation" to the script
+            [translatedScript setObject:translatedArray forKey:conversationKey];
         }
-        
-        // Add this translated "conversation" to the script
-        [translatedScript setObject:translatedArray forKey:conversationKey];
     }
     
     // At this point, the entire script should be translated, and can now be used in the actual game.
@@ -244,12 +249,33 @@
     NSArray* analyzedArray = nil;
     NSNumber* type = nil;
     
+    unichar firstCharacter = [[command objectAtIndex:0] characterAtIndex:0];
+    
     // Check if this is really just a line of dialogue being spoken by a character/narrator. Since "real"
-    // commands always have two or more items in the array, this is the easiest way to check.
-    if( command.count < 2 ) {
+    // commands always have two or more items in the array, AND start with a "." character, this is
+    // the easiest way to check.
+    if( command.count < 2 || firstCharacter != '.' ) {
+        
+        // Any time that a line of dialogue has colons, it will be treated as a command and split into
+        // different sections. However, it's possible that it really was just meant to be a regular
+        // line (and not a command), so it's sometimes necessary to take the different substrings and
+        // merge them back into one fixed string. This is kind of a cheap, hack-y way to do it, but
+        // it works.
+        NSMutableString* fixedString = [NSMutableString stringWithFormat:@"%@", [command objectAtIndex:0]];
+        if( firstCharacter != '.' && command.count > 1 ) {
+            
+            for( int part = 1; part < command.count; part++ ) {
+                
+                NSString* currentPart = [command objectAtIndex:part];
+                NSString* fixedSubString = [[NSString alloc] initWithFormat:@":%@", currentPart];
+                [fixedString appendString:fixedSubString];
+            }
+        }
+        
         // Example: "Hi there"
         type = @VNScriptCommandSayLine;
-        analyzedArray = @[type, [command objectAtIndex:0]];
+        //analyzedArray = @[type, [command objectAtIndex:0]];
+        analyzedArray = @[type, fixedString];
         return analyzedArray; // Return the data at once (instead of doing more processing)
     }
     

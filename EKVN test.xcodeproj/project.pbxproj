@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A036C7417EA307B009CB8EF /* EKVN license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7317EA307B009CB8EF /* EKVN license.txt */; };
+		1A036C7817EA31AE009CB8EF /* EKVN commands list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */; };
+		1A036C7A17EA6DEC009CB8EF /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7917EA6DEC009CB8EF /* README.txt */; };
 		1A4976DC17EA187E005D8D50 /* EKRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D317EA187E005D8D50 /* EKRecord.m */; };
 		1A4976DD17EA187E005D8D50 /* VNLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D517EA187E005D8D50 /* VNLayer.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1A4976DE17EA187E005D8D50 /* VNScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D717EA187E005D8D50 /* VNScript.m */; };
@@ -45,6 +48,7 @@
 		1A49772417EA188D005D8D50 /* talkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A49770417EA188D005D8D50 /* talkbox.png */; };
 		1A49772517EA188D005D8D50 /* vnlayer view settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A49770517EA188D005D8D50 /* vnlayer view settings.plist */; };
 		1A49772717EA1DD2005D8D50 /* main_menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A49772617EA1DD2005D8D50 /* main_menu.plist */; };
+		1A4B754117EAB2A70086F1A4 /* test script.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A4B754017EAB2A70086F1A4 /* test script.plist */; };
 		1AD2895B17EA1104002FC4FA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD2895A17EA1104002FC4FA /* QuartzCore.framework */; };
 		1AD2895D17EA1104002FC4FA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD2895C17EA1104002FC4FA /* OpenGLES.framework */; };
 		1AD2895F17EA1104002FC4FA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD2895E17EA1104002FC4FA /* OpenAL.framework */; };
@@ -180,6 +184,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A036C7317EA307B009CB8EF /* EKVN license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "EKVN license.txt"; sourceTree = "<group>"; };
+		1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "EKVN commands list.txt"; sourceTree = "<group>"; };
+		1A036C7917EA6DEC009CB8EF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		1A4976D217EA187E005D8D50 /* EKRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKRecord.h; sourceTree = "<group>"; };
 		1A4976D317EA187E005D8D50 /* EKRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKRecord.m; sourceTree = "<group>"; };
 		1A4976D417EA187E005D8D50 /* VNLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VNLayer.h; sourceTree = "<group>"; };
@@ -223,6 +230,7 @@
 		1A49770417EA188D005D8D50 /* talkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkbox.png; sourceTree = "<group>"; };
 		1A49770517EA188D005D8D50 /* vnlayer view settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "vnlayer view settings.plist"; sourceTree = "<group>"; };
 		1A49772617EA1DD2005D8D50 /* main_menu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main_menu.plist; sourceTree = "<group>"; };
+		1A4B754017EAB2A70086F1A4 /* test script.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "test script.plist"; sourceTree = "<group>"; };
 		1AD2895717EA1104002FC4FA /* EKVN test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKVN test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD2895A17EA1104002FC4FA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1AD2895C17EA1104002FC4FA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -587,6 +595,7 @@
 			isa = PBXGroup;
 			children = (
 				1A4976FB17EA188D005D8D50 /* demo script.plist */,
+				1A4B754017EAB2A70086F1A4 /* test script.plist */,
 			);
 			path = "demo plists";
 			sourceTree = "<group>";
@@ -647,6 +656,9 @@
 			children = (
 				1AD28AFF17EA1107002FC4FA /* AppDelegate.h */,
 				1AD28B0017EA1107002FC4FA /* AppDelegate.m */,
+				1A036C7317EA307B009CB8EF /* EKVN license.txt */,
+				1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */,
+				1A036C7917EA6DEC009CB8EF /* README.txt */,
 				1A4976D117EA187D005D8D50 /* EKVN Classes */,
 				1AD2896F17EA1105002FC4FA /* Resources */,
 				1AD2898717EA1105002FC4FA /* libs */,
@@ -1097,9 +1109,11 @@
 				1A49771A17EA188D005D8D50 /* sketchmatsuri_close-ipadhd.png in Resources */,
 				1A49770717EA188D005D8D50 /* pond-ipad.png in Resources */,
 				1A49771E17EA188D005D8D50 /* choicebox-ipad.png in Resources */,
+				1A036C7A17EA6DEC009CB8EF /* README.txt in Resources */,
 				1AD2898117EA1105002FC4FA /* Icon.png in Resources */,
 				1A49772417EA188D005D8D50 /* talkbox.png in Resources */,
 				1AD28ADF17EA1106002FC4FA /* ChangeLog in Resources */,
+				1A036C7417EA307B009CB8EF /* EKVN license.txt in Resources */,
 				1A49772117EA188D005D8D50 /* talkbox-hd.png in Resources */,
 				1A49771B17EA188D005D8D50 /* sketchmatsuri_close.png in Resources */,
 				1AD2897317EA1105002FC4FA /* Default@2x.png in Resources */,
@@ -1110,9 +1124,11 @@
 				1AD2897D17EA1105002FC4FA /* Icon-Small.png in Resources */,
 				1A49770C17EA188D005D8D50 /* skyspace-ipadhd.png in Resources */,
 				1A49770E17EA188D005D8D50 /* title-hd.png in Resources */,
+				1A4B754117EAB2A70086F1A4 /* test script.plist in Resources */,
 				1AD2897917EA1105002FC4FA /* Icon-72.png in Resources */,
 				1AD2897117EA1105002FC4FA /* Default.png in Resources */,
 				1A49771017EA188D005D8D50 /* title-ipadhd.png in Resources */,
+				1A036C7817EA31AE009CB8EF /* EKVN commands list.txt in Resources */,
 				1AD2897B17EA1105002FC4FA /* Icon-Small-50.png in Resources */,
 				1A49770B17EA188D005D8D50 /* skyspace-ipad.png in Resources */,
 				1A49771117EA188D005D8D50 /* title.png in Resources */,

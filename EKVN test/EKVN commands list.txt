@@ -1,0 +1,374 @@
+
+  Name: .ADDSPRITE
+
+  Uses Cocos2D to add a sprite to the screen. By default, the sprite usually appears right
+  at the center of the screen.
+
+  Parameters:
+
+      #1: Sprite name (string) (example: "girl.png")
+          Quite simply, the name of a file where the sprite is. Currently, the VN system doesn't
+          support sprite sheets, so it needs to be a single image in a single file.
+
+      #2: (OPTIONAL) Sprite appears at once? (Boolean value) (example: "NO") (default is NO)
+          If set to YES, the sprite appears immediately (no fade-in). If set to NO, then the
+          sprite "gradually" fades in (though the fade-in usually takes a second or less).
+
+Example: .addsprite:girl.png:NO
+
+================
+
+  Name: .ALIGNSPRITE
+
+  Aligns a particular sprite in either the center, left, or right ends of the screen. This is done
+  by finding the center of the sprite and setting the X coordinate to either 25% of the screen's
+  width (on the iPhone 4S, this is 480*0.25 or 120), 50% (the middle), or 75% (the right).
+
+  There's also the Far Left (the left border of the screen), Far Right (the right border of the screen),
+  and Extreme Left and Extremem Right, which are so far that the sprite is drawn offscreen.
+
+  Parameters:
+
+      #1: Name of sprite (string) (example: "girl.png")
+          This is the name of the sprite to manipulate/align. All sprites currently displayed by the
+          VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.
+
+      #2: Alignment name (string) (example: "left") (default is "center")
+          (Other, more unusual values also include FAR LEFT, FAR RIGHT, EXTREME LEFT, EXTREME RIGHT)
+          Determines whether to move the sprite to the LEFT, CENTER, or RIGHT of the screen.
+
+          It has to be one of those values; partial/percentage values aren't supported.
+
+      #2: (OPTIONAL) Alignment duration in SECONDS (double value) (example: "0.5") (Default is 0.5)
+          Determines how long it takes for the sprite to move from its current position to the
+          new position. Setting it to zero makes the transition instant. Time is measured in seconds.
+
+  Example: .alignsprite:girl.png:center
+
+================
+
+  Name: .REMOVESPRITE
+
+  Removes a sprite from the screen, assuming that it's part of the VN system's dictionary of
+  existing sprite objects.
+
+  Parameters:
+
+      #1: Name of sprite (string) (example: "girl.png")
+          This is the name of the sprite to manipulate/align. All sprites currently displayed by the
+          VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.
+
+      #2: (OPTIONAL) Sprite appears at once (Boolean value) (example: "NO") (Default is NO)
+          Determines whether the sprite disappears from the screen instantly or fades out gradually.
+
+  Example: .removesprite:girl.png:NO
+
+================
+
+  Name: .MOVESPRITE
+
+  Uses Cocos2D actions to move a sprite by a certain number of points.
+
+  Parameters:
+
+   (note that all parameters after the first are TECHNICALLY optional, but if you use one,
+    you had better call the ones that come before it!)
+
+      #1: The name of the sprite to move (string) (example: "girl.png")
+
+      #2: Amount to move sprite by X points (float) (example: 128) (default is ZERO)
+
+      #3: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)
+
+      #4: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)
+          This measures how long it takes to move the sprite, in seconds.
+
+  Example: .movesprite:girl.png:128:-128:1.0
+
+================
+
+  Name: .SETSPRITEPOSITION
+
+  NOTE that unlike .MOVESPRITE, this call is instantaneous. I don't remember why I made it that
+  way (probably since sprites usually don't move instantly in most visual novels), but it's probably
+  best to keep things simple like that anyways.
+
+  Parameters:
+
+      #1: The name of the sprite (string) (example: "girl.png")
+
+      #2: The sprite's X coordinate, in points (float) (example: 10)
+
+      #3: The sprite's Y coordinate, in points (float) (example: 10)
+
+  Example: .setspriteposition:girl.png:100:100
+
+
+================
+
+  Name: .SETBACKGROUND
+
+  Changes whatever image (if any) is used as the background. You can set this to 'nil' which removes
+  the background entirely, and shows whatever is behind. This is useful if you're overlaying the VN
+  scene over an existing Cocos2D layer/scene node.
+
+  Unlike some of the other image-switching commands, this one is supposed to do the change instantly.
+  It might be helpful to fade-out and then fade-in the scene during transistions so that the background
+  change isn't too jarring for the person playing the game.
+
+  Parameters:
+
+      #1: The name of the background image (string) (example: "beach.png")
+
+  Example: .setbackground:beach.png
+
+================
+
+  Name: .SETSPEAKER
+
+  The "speaker name" is the title of the person speaking. If you set this to "nil" then it
+  removes whatever the previous speaker name was.
+
+  Parameters:
+
+      #1: The name of the character speaking (string) (example: "Harry Potter")
+
+  Example: .setspeaker:John Smith
+
+
+================
+
+  Name: .SETCONVERSATION
+
+  This jumps to a new conversation. The beginning conversation name is "start" and the other
+  arrays in the script's Property List represent other conversations.
+
+  Parameters:
+
+      #1: The name of the conversation/array to switch to (string) (example: "flirt sequence")
+
+  Example: .setconversation:flirt sequence
+ 
+
+================
+
+  Name: .JUMPONCHOICE
+
+  This presents the player with multiple choices. Each choice causes the scene to jump to a different
+  "conversation" (or rather, an array in the script dictionary). The function can have multipe parameters,
+  but the number should always be even-numbered.
+
+  Parameters:
+
+      #1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")
+
+      #2: The name of the conversation to jump to (string) (example: "fleeing sequence")
+
+      ...these variables can be repeated multiple times.
+
+  Example: .JUMPONCHOICE:"Hug someone":hug sequence:"Glomp someone":glomp sequence
+
+
+================
+
+  Name: .SHOWSPEECH
+
+  Determines whether or not to show the speech (and accompanying speech-box or speech-area). You
+  can set it to NO if you don't want any text to show up.
+
+  Parameters:
+
+      #1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")
+
+      #2: The name of the conversation to jump to (string) (example: "fleeing sequence")
+
+  Example: .SHOWSPEECH:NO
+
+
+================
+
+  Name: .FADEIN
+
+  Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI
+  elements like speech text are unaffected).
+
+  Parameters:
+
+      #1: Duration of fade-in sequence, in seconds (double)
+
+  Example: .FADEIN:0.5
+
+
+================
+
+  Name: .FADEOUT
+
+  Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI
+  elements like speech text are unaffected).
+
+  Parameters:
+
+      #1: Duration of fade-out sequence, in seconds (double)
+
+  Example: .FADEOUT:1.0
+
+
+================
+
+  Name: .PLAYSOUND
+
+  Plays a sound (any type of sound file supported by Cocos2D/SimpleAudioEngine)
+
+  Parameters:
+
+      #1: name of sound file (string)
+
+  Example: .PLAYSOUND:effect1.caf
+
+
+================
+
+  Name: .PLAYMUSIC
+
+  Plays background music. May or may not loop. You can also stop any background music
+  by calling this with the parameter set to "nil"
+
+  Parameters:
+
+      #1: name of music filename (string)
+          (you can write "nil" to stop all the music)
+
+      #2: (Optional) Should this loop forever? (BOOL value) (default is YES)
+
+  Example: .PLAYMUSIC:LevelUpper.mp3:NO
+
+
+================
+
+  Name: .SETFLAG
+
+  Used to manually set a "flag" value in the VN system.
+
+  Parameters:
+
+      #1: Name of flag (string)
+
+      #2: The value to set the flag to (integer)
+
+  Example: .SETFLAG:number of friends:12
+
+
+================
+
+  Name: .MODIFYFLAG
+
+  Modifies a flag (which stores a numeric, integer value) by another integer. The catch is,
+  the modifying value has to be a "literal" number value, and not another flag/variable.
+
+  Parameters:
+
+      #1: Name of the flag/variable to modify (string)
+
+      #2: The number to modify the flag by (integer)
+
+  Example: .MODIFYFLAG:number of friends:1
+
+
+================
+
+  Name: .ISFLAG
+
+  Checks if a flag matches a certain value. If it does, then it immediately runs another command.
+  In theory, you could probably even nest .ISFLAG commands inside each other, but I've never tried
+  this before.
+
+  Parameters:
+
+      #1: Name of flag (string)
+
+      #2: Expected value (integer)
+
+      #3: Another command
+
+  Example: .ISFLAG:number of friends:1:.SETSPEAKER:That One Friend You Have
+
+
+================
+
+  Name: .MODIFYFLAGBYCHOICE
+
+  This presents a choice menu. Each choice causes a particular flag/variable to be changed
+  by a particular integer value.
+
+  Parameters:
+
+      #1: The text that will appear on the choice (string)
+
+      #2: The name of the flag/variable to be modified (string)
+
+      #3: The amount to modify the flag/variable by (integer)
+
+      ...these variables can be repeated multiple times.
+
+  Example: .MODIFYFLAGBYCHOICE:"Be nice":niceness:1:"Be rude":niceness:-1
+
+
+================
+
+  Name: .JUMPONFLAG
+
+  If a particular flag has a particular value, then this command will jump to a different
+  conversation/dialogue-sequence in the script.
+
+  Parameters:
+
+      #1: The name of the flag to be checked (string)
+
+      #2: The expected value of the flag (integer)
+
+      #3: The scene to jump to, if the flag's vaue matches the expected value in parameter #2 (string)
+
+  Example: .JUMPONFLAG:should jump to beach scene:1:BeachScene
+
+
+================
+
+  Name: .SYSTEMCALL
+
+  Used to do a "system call," which is usually game-specific. This command will try to contact the
+  VNSystemCall class, and use it to perform some kind of particular task. Some examples of this would
+  be starting a mini-game or some other activity that's specific to a particular app.
+
+  Parameters:
+
+      #1: The "call string" or a string that described what the activity/system-call type will be (string)
+
+      #2: (OPTIONAL) The first parameter to pass in to the system call (string?)
+
+      ...more parameters can be passed in as necessary
+
+  Example: .SYSTEMCALL:start-bullet-hell-minigame:BulletHellLevel01
+
+
+
+================
+
+  Name: .CALLCODE
+
+  This action can be used to call functions (usually from static objects). Careful when using it to
+  call classes or functions that the VN system doesn't have access to! You may need to include header
+  files from certain places if you really want to use certain classes.
+
+  Parameters:
+
+      #1: The name of the class to call (string)
+
+      #2: The name of a static function to call (string)
+
+		#3: (OPTIONAL) The name of another function, PRESUMABLY a function that belongs to the class
+			instance that was returned by the function called in #2 (string)
+
+		#4: (OPTIONAL) A parameter to pass into the function called in #3 (string?)
+
+  Example: .CALLCODE:EKRecord:sharedRecord:flagNamed:times played
+
