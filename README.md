@@ -15,6 +15,13 @@ To start projects with EKVN, you'll need:
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
 
+Contact
+-------
+
+Twitter: http://twitter.com/elfketchup
+
+e-mail: jbriones310 @ gmail
+
 Getting Started
 ===============
 
