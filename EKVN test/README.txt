@@ -15,8 +15,8 @@ To start projects with EKVN, you'll need:
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
 
-Getting Started, Introduction
------------------------------
+Getting Started
+===============
 
 Most of this file consists of one long tutorial on how to get started using EKVN. If some of it seems
 awfully basic, that's because it was written partly for people who didn't know much about Cocos2D / iOS,
@@ -363,14 +363,30 @@ you to change things like fonts, margins/offsets, text sizes, etc. (If a particu
 mysterious, try changing it around and seeing what happens... you may get interesting results!)
 
 You can also completely change the look of the speech/dialogue-boxes and menu buttons just
-by overwriting the "choicebox" and "talkbox" image files stored in the UI Files folder. However,
-changing the images -- but not the view settings property list -- can result in some strange behavior,
-so be careful!
+by overwriting the "choicebox" and "talkbox" image files stored in the UI Files folder. For example,
+let's say you want to change the look of the speech-boxes where dialogue pops up. The simplest
+way is to just overwrite "talkbox.png" (and its higher-resolution counterparts). The names
+and sizes for the "talkbox.png" are:
+
+    talkbox.png <- iPhone 3GS version, 480x120
+    talkbox-hd.png <- iPhone 4 and newer, 1136x240
+    talkbox-ipad.png <- iPad 1 & 2 and iPad Mini, 1024x170
+    talkbox-ipadhd.png <- iPad 3 and newer, 2048x340
+    
+(NOTE: Because the iPad has a much wider screen, the UI files for them are wider, but also shorter in height)
+
+If you overwrite them with images that use differents sizes (say you replace talkbox.png with
+an image that's 480x200, or 320x100), you MIGHT need to change the values in the file
+"vnlayer view settings.plist" so that the text displays properly. Normally, EKVN tries to 
+calculate where and how text should be laid out, though there's no guarantee that the 
+auto-generated values will look good. In that case, tweaking the view settings' values
+should be enough to get it looking good. In the most extreme scenario, you may need to
+change the UI code yourself to get things to look exactly how you want to.
 
 Getting Started, Part 5: Coding
 -------------------------------
 
-It's entirely possible to create a working visual novel using just the first three or four "Getting Starte"
+It's entirely possible to create a working visual novel using just the first three or four "Getting Started"
 steps, but if you really want to get the most out of EKVN, and do things like extend or modify the existing
 functionality (or outright add new features), you'll have to do some programming. Most of the code
 is fairly well-commented, so it should be easy enough to figure out how things work.
