@@ -10,6 +10,7 @@
 		1A036C7417EA307B009CB8EF /* EKVN license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7317EA307B009CB8EF /* EKVN license.txt */; };
 		1A036C7817EA31AE009CB8EF /* EKVN commands list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */; };
 		1A036C7A17EA6DEC009CB8EF /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A036C7917EA6DEC009CB8EF /* README.txt */; };
+		1A3DDA1217EC12B7009FF311 /* EKVN commands.html in Resources */ = {isa = PBXBuildFile; fileRef = 1A3DDA1117EC12B7009FF311 /* EKVN commands.html */; };
 		1A4976DC17EA187E005D8D50 /* EKRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D317EA187E005D8D50 /* EKRecord.m */; };
 		1A4976DD17EA187E005D8D50 /* VNLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D517EA187E005D8D50 /* VNLayer.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1A4976DE17EA187E005D8D50 /* VNScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4976D717EA187E005D8D50 /* VNScript.m */; };
@@ -187,6 +188,7 @@
 		1A036C7317EA307B009CB8EF /* EKVN license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "EKVN license.txt"; sourceTree = "<group>"; };
 		1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "EKVN commands list.txt"; sourceTree = "<group>"; };
 		1A036C7917EA6DEC009CB8EF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		1A3DDA1117EC12B7009FF311 /* EKVN commands.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "EKVN commands.html"; sourceTree = "<group>"; };
 		1A4976D217EA187E005D8D50 /* EKRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKRecord.h; sourceTree = "<group>"; };
 		1A4976D317EA187E005D8D50 /* EKRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKRecord.m; sourceTree = "<group>"; };
 		1A4976D417EA187E005D8D50 /* VNLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VNLayer.h; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				1AD28AFF17EA1107002FC4FA /* AppDelegate.h */,
 				1AD28B0017EA1107002FC4FA /* AppDelegate.m */,
 				1A036C7317EA307B009CB8EF /* EKVN license.txt */,
+				1A3DDA1117EC12B7009FF311 /* EKVN commands.html */,
 				1A036C7717EA31AE009CB8EF /* EKVN commands list.txt */,
 				1A036C7917EA6DEC009CB8EF /* README.txt */,
 				1A4976D117EA187D005D8D50 /* EKVN Classes */,
@@ -1151,6 +1154,7 @@
 				1A49771817EA188D005D8D50 /* sketchmatsuri_close-hd.png in Resources */,
 				1A49770D17EA188D005D8D50 /* skyspace.png in Resources */,
 				1A49771417EA188D005D8D50 /* matsuri_close-hd.png in Resources */,
+				1A3DDA1217EC12B7009FF311 /* EKVN commands.html in Resources */,
 				1A49771C17EA188D005D8D50 /* demo script.plist in Resources */,
 				1A49770A17EA188D005D8D50 /* skyspace-hd.png in Resources */,
 			);

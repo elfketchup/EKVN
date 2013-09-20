@@ -210,7 +210,7 @@ characters would appear onscreen, and there wouldn't be much interaction going o
 This is where the scripting language's commands come in. Each command starts with a dot (".")
 and the command and its parameters are separated by the colon (":") character. The template is
 
-  .(COMMAND NAME):(parameter #1):(possibly more parameters...?)
+    .(COMMAND NAME):(parameter #1):(possibly more parameters...?)
 
 (For reference, the commands given in the guide are all in UPPERCASE, so that it's easier to
 tell which is a command, and which is not. However, commands in EKVN are not case-sensitive. You
@@ -222,46 +222,46 @@ running in the Simulator, but it will have very different results on an actual i
 
 Now, back to the script you're writing. Try entering:
 
-  .SETBACKGROUND:pond.png
+    .SETBACKGROUND:pond.png
   
 Run it, and then... nothing really happens? Actually, something DID happen, except that
 the scene immediately ended afterwards, so it wasn't noticeable. Add the following line:
 
-  Hey, a background!
+    Hey, a background!
 
 Now, your new scene will point out the obvious before returning to the main menu. Still,
 there's not much going on, and a visual novel about changing backgrounds is probably not
 going to be overwhelmingly popular. So, here are a few more lines you can add (in this order):
 
-  .ADDSPRITE:matsuri_close.png
+    .ADDSPRITE:matsuri_close.png
   
-  Suddenly, an anime girl appears!
+    Suddenly, an anime girl appears!
   
-  .SETSPEAKER:Matsuri
+    .SETSPEAKER:Matsuri
   
-  Hi, my name is Matsuri.
+    Hi, my name is Matsuri.
   
-  .SETSPEAKER:nil
+    .SETSPEAKER:nil
   
-  You've now met your first character.
+    You've now met your first character.
   
-  .PLAYMUSIC:music01.mp3
+    .PLAYMUSIC:music01.mp3
   
-  .ALIGNSPRITE:matsuri_close.png:left
+    .ALIGNSPRITE:matsuri_close.png:left
   
-  .ALIGNSPRITE:matsuri_close.png:right
+    .ALIGNSPRITE:matsuri_close.png:right
   
-  .ALIGNSPRITE:matsuri_close.png:center
+    .ALIGNSPRITE:matsuri_close.png:center
   
-  Is she... dancing?
+    Is she... dancing?
   
-  .PLAYMUSIC:nil
+    .PLAYMUSIC:nil
   
-  .REMOVESPRITE:matsuri_close.png
+    .REMOVESPRITE:matsuri_close.png
   
-  The music stops, and the girl disappears.
+    The music stops, and the girl disappears.
   
-  That wasn't strange at all.
+    That wasn't strange at all.
   
 Now, after you've entered those lines, try building and running the game. You should experience
 a strange (but working!) scene, especially if you've imported all of the files from EKVN test.
@@ -274,24 +274,24 @@ of a story (or script, in this case). Click on the "Root" object in the script, 
 Enter. A String object titled "New item" appears, change it to an Array object named "color", and
 then click the triangle and add the following lines:
 
-  .ADDSPRITE:matsuri_close.png
+    .ADDSPRITE:matsuri_close.png
   
-  Matsuri reappears, in color again!
+    Matsuri reappears, in color again!
   
 Now click on the Root, but this time create an Array titled "sketch" with the following lines:
 
-  .ADDSPRITE:sketchmatsuri_close.png
+    .ADDSPRITE:sketchmatsuri_close.png
   
-  Matsuri reappears, but now she just looks like a sketch of an anime girl.
+    Matsuri reappears, but now she just looks like a sketch of an anime girl.
   
 Go back to the "start" section, and at the end (after the line "That wasn't strange at all."),
 add the following lines:
 
-  .SYSTEMCALL:autosave
+    .SYSTEMCALL:autosave
 
-  Would you prefer Matsuri to have color, or not?
+    Would you prefer Matsuri to have color, or not?
   
-  .JUMPONCHOICE:"She should have color":color:No color is better:sketch
+    .JUMPONCHOICE:"She should have color":color:No color is better:sketch
 
 Now, when you run the app, you'll be presented with a choice, and can choose which version
 of Matsuri to see. If you press on the button "She should have color" then EKVN will switch
@@ -308,19 +308,19 @@ Finally (in case this guide isn't long enough!), EKVN also comes with a "Flags" 
 which can also be used for diverging story branches. Delete the last line (with .JUMPONCHOICE)
 and replace it with the following
 
-  .SETFLAG:matsuri_color:0
+    .SETFLAG:matsuri_color:0
   
-  .MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
+    .MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
   
-  Well, you've made your choice.
+    Well, you've made your choice.
   
-  .ISFLAG:matsuri_color:1:You like the full-color version better, huh?
+    .ISFLAG:matsuri_color:1:You like the full-color version better, huh?
   
-  .ISFLAG:matsuri_color:0:You like the non-colored version better?
+    .ISFLAG:matsuri_color:0:You like the non-colored version better?
   
-  .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
   
-  .SETCONVERSATION:sketch
+    .SETCONVERSATION:sketch
   
 Run your scene again, and you'll what happens: MOSTLY the same thing as last time! Now, you might
 be thinking "this latest version is actually more work! Why would I want to do it this way? The earlier
@@ -335,11 +335,11 @@ to different sections and dealing with the hassle of keeping track of all the br
 
 Oh, and one more thing. You can change the last .ISFLAG command from
 
-  .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
   
 into:
 
-  .JUMPONFLAG:matsuri_color:1:color
+    .JUMPONFLAG:matsuri_color:1:color
   
 This is a simpler way to change sections/conversations based on the values of certain flags.
 Also, another thing to keep in mind: All flags, when created, start with a value of ZERO, and 
