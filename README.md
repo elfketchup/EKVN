@@ -154,14 +154,14 @@ about two or four files for the background art, depending on whether or not you 
 support the iPad. For example, let's say you named your background image "backyard.png"
 In that case, the files you'll need are:
 
-  backyard.png <- A 480x320 image, for the old iPhone
-  backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
-  backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
-  backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer
+    backyard.png <- A 480x320 image, for the old iPhone
+    backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
+    backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
+    backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer
   
-  (you'll need similar background images if you use the .SETBACKGROUND script command in EKVN.)
+(you'll need similar background images if you use the .SETBACKGROUND script command in EKVN.)
 
-  (Also, you don't need the last two if you don't support the iPad in your own apps)
+(Also, you don't need the last two if you don't support the iPad in your own apps)
   
 The SECOND value ("title image") is just a title or logo image. Similar to the background
 images, you'll need two (or four, for the iPad), but there are no specific sizes required.
