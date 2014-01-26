@@ -8,7 +8,7 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
-   1. A Mac, running OS X 10.8 ("Mountain Lion")
+   1. A Mac, running OS X 10.6 or newer
    2. Xcode - http://developer.apple.com/xcode
    3. cocos2d-iphone - http://www.cocos2d-iphone.org/
    
@@ -40,78 +40,77 @@ Getting Started, Part 1: Starting a new project
 (This assumes that you've downloaded the "EKVN test" project that has all the code and resource files 
 that you'll need to get started, AND that you've installed the cocos2d-iphone project templates for Xcode)
 
-1. Open up Xcode (I'm using version 5.0)
+1. Open up Xcode (I'm using version 5.0.2 )
 
-2. Choose the "cocos2d iOS" template (under "iOS > cocos2d v2.x")
+2. Choose the "cocos2d iOS" template (under "iOS > cocos2d v3.x")
 
 3. Name your project
 
-4. Once the project is open, go to "Project settings > Build Settings" and then search for 
-"Automated Reference Counting" (a.k.a. "ARC") and set it to "YES" to Enable it.
-(The Project Settings can be accessed by going to the list of files on the left-most
-area of Xcode, and clicking on the item at the very top)
+4. Copy over the files/folders you need (for simplicity's sake, this would normally be the 
+"EKVN Classes" and the "EKVN Resources" folder). Any files you don't need can be removed later.
 
-5. Go to Project Settings > Build Phases > Compile Sources
-
-6. Select all the files. (to do this, just click on one file and hold Command+A)
-
-7. Hit Enter and then type: -fno-objc-arc
-
-8. (Optional, but recommended!) Go to the "Info.plist" file, and then add:
-
-        View controller-based status bar appearance
-
-   and set it to NO. This hides the status bar in iOS 7 (at least while the app is open).
-
-9. Copy over the files/folders you need (this would be the "EKVN Classes" folder, the "UI Files" 
-folder, and any other things you might want to use or overwrite).
-
-(Note: I would advise copying over ALL the folders (except maybe "libs" and "Resources") to the
-       new project, just to make sure you have ALL the files you could possibly need to get the
-       project up and running. Later, you can delete the files that you KNOW you don't need.)
-
-10. Drag the folders from Finder into the project files list in Xcode. (I would leave the 
+5. Drag the folders from Finder into the project files list in Xcode. (I would leave the 
 "Copy items into destination group's folder" option checked)
 
-11. Open AppDelegate.m and replace the line:
+6. Open AppDelegate.m and replace the lines:
 
-        #import "IntroLayer.h"
+        #import "IntroScene.h"
+        #import "HelloWorldScene.h"
 
     with:
  
-        #import "VNTestLayer.h"
+        #import "VNTestScene.h"
 
-12. Scroll down to (or search for) the line that says
+7. Scroll down to (or search for) the line that says
 
-        [director runWithScene: [IntroLayer scene]];
+        return [IntroScene scene];
 
     and replace it with:
 
-        [director runWithScene: [VNTestLayer scene]];
+        return [VNTestScene scene];
 
-13. (Optional) Remove (or comment-out) the line that says:
+8. (Optional) Change the line that says:
 
-        [director_ setDisplayStats:YES];
+        CCSetupShowDebugStats: @(YES),
+
+    to:
+
+        CCSetupShowDebugStats: @(NO),
 
     Unless, of course, you want to see how many frames-per-second the app is running at.
 
-14. (Optional) Delete the following files:
+9. (Optional) Delete the following files from within Xcode:
 
-        HelloWorldLayer.h
-        HelloWorldLayer.m
-        IntroLayer.h
-        IntroLayer.m
+        HelloWorldScene.h
+        HelloWorldScene.m
+        IntroScene.h
+        IntroScene.m
+        NewtonConstants.h
+        NewtonScene.h
+        NewtonScene.m
+        NewtonSphere.h
+        NewtonSphere.m
+        LightBulb.h
+        LightBulb.m
+        Rope.h
+        Rope.m
 
-15. (Optional) If you want to get rid of all the warnings that can pop up when you try to build/run
-the app, you can go to "Project Settings > Build Phases > Compile Sources" and then select the following files:
+        fire.plist
+        fire.png
+        newton-ipadhd.plist
+        newton-ipadhd.png
+        newton-ipad.plist
+        newton-ipad.png
+        newton.plist
+        newton.png
 
-        CCLayer.m
-        CDAudioManager.m
+10. (Optional) If you want to get rid of all the warnings that can pop up when you try to build/run
+the app, you can go to "Project Settings > Build Phases > Compile Sources" and then select the following 
+files:
 
-        VNLayer.m
+        VNScene.m
 
-Then, for the first two, hit Enter and type: -w -fno-objc-arc
-For VNLayer.m, hit Enter and type: -w
+Select VNScene.m, hit Enter and type: -w
 
 This will disable warnings for these files, which is very convenient (if potentially dangerous,
 since it means that you won't be able to see if there are any obvious bugs or inconsistencies
@@ -157,7 +156,7 @@ In that case, the files you'll need are:
     backyard.png <- A 480x320 image, for the old iPhone
     backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
     backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
-    backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer
+    backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer, and iPad mini 2 and newer
   
 (NOTE: You'll need similar background images if you use the .SETBACKGROUND script command in EKVN,
        though you can ignore the last two if your app doesn't support the iPad. Also, background can
@@ -359,7 +358,7 @@ Getting Started, Part 4: Customization
 It's very possible that you don't like the default "look" of the EKVN user interface. The files
 that determine most of how the EKVN looks to the player are stored i the "UI Files" folder,
 and include the Property List files for the main menu ("main_menu.plist") and for the "main" UI
-that appears for everything else (stored in "vnlayer view settings.plist"). The latter allows
+that appears for everything else (stored in "VNScene view settings.plist"). The latter allows
 you to change things like fonts, margins/offsets, text sizes, etc. (If a particular value seems
 mysterious, try changing it around and seeing what happens... you may get interesting results!)
 
@@ -371,14 +370,14 @@ and sizes for the "talkbox.png" are:
 
     talkbox.png <- iPhone 3GS version, 480x120
     talkbox-hd.png <- iPhone 4 and newer, 1136x240
-    talkbox-ipad.png <- iPad 1 & 2 and iPad Mini, 1024x170
-    talkbox-ipadhd.png <- iPad 3 and newer, 2048x340
+    talkbox-ipad.png <- iPad 1 & 2 and iPad Mini (first generation), 1024x170
+    talkbox-ipadhd.png <- iPad 3 and newer, iPad Mini 2 and newer, 2048x340
     
 (NOTE: Because the iPad has a much wider screen, the UI files for them are wider, but also shorter in height)
 
 If you overwrite them with images that use differents sizes (say you replace talkbox.png with
 an image that's 480x200, or 320x100), you MIGHT need to change the values in the file
-"vnlayer view settings.plist" so that the text displays properly. Normally, EKVN tries to 
+"VNScene view settings.plist" so that the text displays properly. Normally, EKVN tries to 
 calculate where and how text should be laid out, though there's no guarantee that the 
 auto-generated values will look good. In that case, tweaking the view settings' values
 should be enough to get it looking good. In the most extreme scenario, you may need to
@@ -395,39 +394,29 @@ is fairly well-commented, so it should be easy enough to figure out how things w
 Of course, you may not want to rely on the rather simplistic "main menu" code I wrote and/or you just
 want to integrate some of EKVN's features into existing code. This section explains some of how to do that.
 
-If you want to run EKVN (or at least, its "central" class, VNLayer) on its own, the simplest way is
+If you want to run EKVN (or at least, its "central" class, VNScene) on its own, the simplest way is
 to do something like this:
 
     NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
-    NSDictionary* settingsForScene = @{ VNLayerToPlayKey: nameOfScriptFile };
-    [[CCDirector sharedDirector] pushScene:[VNLayer sceneWithSettings:settingsForScene]];
+    NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
+    [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
   
-This creates an entirely new CCScene object (with VNLayer as its sole child node), and tells
-it to run with a particular script. Of course, you might not want to run VNLayer on its own
-CCScene. You can add it as a layer on top of an existing CCLayer / CCScene object.
+This creates an entirely new VNScene object, and has it runs as the top-level Cocos2D scene,
+with a particular script.
 
-However, VNLayer needs to be able to have access to user input (that is, tapping). So, if you're
-adding VNLayer on to an existing CCScene / CCLayer object, the simplest way to do that is:
+(NOTE: It's also possible to just add VNScene as a child node to an existing CCScene, but this
+       is something that could potentially get messy, so I don't recommend it unless you're
+       already at least somewhat experienced with Cocos2D).
 
-    NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
-    NSDictionary* settingsForScene = @{ VNLayerToPlayKey: nameOfScriptFile };
-    VNLayer* theVNLayer = [[VNLayer alloc] initWithSettings:settingsForScene];
-    [self addChild:theVNLayer];
-    self.touchesEnabled = NO; // This layer won't handle touches
-    theVNLayer.touchesEnabled = YES; // VNLayer WILL handle touches
-  
-You could, of course, also have your own CCScene / CCLayer handle touches, and just pass it
-off to its child VNLayer in other ways (such as during ccTouchesBegan functions, etc).
-
-Of course, these are only for starting new games. EKVN stores its own saved game data using a
-class called EKRecord, which stores its data in NSUserDefaults. To load a saved EKVN game,
+Of course, this is only for starting new games. EKVN stores its own saved game data using a
+class called EKRecord, which in turn stores its data in NSUserDefaults. To load a saved EKVN game,
 you can just do something like this:
 
     if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
 
         NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
         NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
-        [[CCDirector sharedDirector] pushScene:[VNLayer sceneWithSettings:savedData]];
+        [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:savedData]];
     }
   
 If EKVN has any saved data, then it will reload a previously-saved game, along with whatever

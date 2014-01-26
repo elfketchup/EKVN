@@ -6,7 +6,7 @@
 //
 
 #import "VNSystemCall.h"
-#import "VNLayer.h"
+#import "VNScene.h"
 
 @implementation VNSystemCall
 
@@ -28,20 +28,19 @@
         
         // Do a basic autosave of the VN system
         [self autosave];
-        
     }
 }
 
 - (void)autosave
 {
     // Try to get the current VN scene (if it exists)
-    VNLayer* currentVNLayer = [VNLayer currentVNLayer];
+    VNScene* currentVNScene = [VNScene currentVNScene];
     
     // Now check if the scene exists at all
-    if( currentVNLayer ) {
+    if( currentVNScene ) {
         
         // Check if the scene can't be saved due to it being created/loaded way too recently
-        if( currentVNLayer.wasJustLoadedFromSave == YES ) {
+        if( currentVNScene.wasJustLoadedFromSave == YES ) {
             
             CCLOG(@"[VNSystemCall] Cannot autosave; game was just loaded too recently.");
             return;
@@ -50,7 +49,7 @@
             
             // In THEORY, it should be possible to save the game now...
             CCLOG(@"[VNSystemCall] Autosaving...");
-            [currentVNLayer saveToRecord]; // Attemp to autosave
+            [currentVNScene saveToRecord]; // Attemp to autosave
         }
     }
 }

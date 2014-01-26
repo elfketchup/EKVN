@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1AD2895617EA1104002FC4FA"
+               BlueprintIdentifier = "1AC62C61188F0EB900A5B851"
                BuildableName = "EKVN test.app"
                BlueprintName = "EKVN test"
                ReferencedContainer = "container:EKVN test.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1AD2895617EA1104002FC4FA"
+            BlueprintIdentifier = "1AC62C61188F0EB900A5B851"
             BuildableName = "EKVN test.app"
             BlueprintName = "EKVN test"
             ReferencedContainer = "container:EKVN test.xcodeproj">
@@ -51,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1AD2895617EA1104002FC4FA"
+            BlueprintIdentifier = "1AC62C61188F0EB900A5B851"
             BuildableName = "EKVN test.app"
             BlueprintName = "EKVN test"
             ReferencedContainer = "container:EKVN test.xcodeproj">
@@ -69,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1AD2895617EA1104002FC4FA"
+            BlueprintIdentifier = "1AC62C61188F0EB900A5B851"
             BuildableName = "EKVN test.app"
             BlueprintName = "EKVN test"
             ReferencedContainer = "container:EKVN test.xcodeproj">

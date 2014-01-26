@@ -871,6 +871,100 @@
         type = @VNScriptCommandIfFlagHasValue;
         analyzedArray = @[type, variableName, expectedValue, secondaryCommand];
         
+    } else if ( [action caseInsensitiveCompare:VNScriptStringIsFlagMoreThan] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .ISFLAGMORETHAN
+        //
+        //  Checks if a flag's value is above a certain number. If it is, then a secondary command is run.
+        //
+        //  Parameters:
+        //
+        //      #1: Name of flag (string)
+        //
+        //      #2: Certain number (integer)
+        //
+        //      #3: Another command
+        //
+        //  Example: .ISFLAGMORETHAN:power level:9000:.PLAYSOUND:over nine thousand.mp3
+        //
+        
+        if( command.count < 4 )
+            return nil;
+        
+        NSString* variableName = [command objectAtIndex:1];
+        NSString* expectedValue = [command objectAtIndex:2];
+        int extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
+        
+        if( variableName == nil || expectedValue == nil ) {
+            NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAGMORETHAN command");
+            return nil;
+        }
+        
+        NSMutableArray* extraCommand = [[NSMutableArray alloc] initWithCapacity:extraCount];
+        
+        for( int i = 3; i < command.count; i++ ) {
+            NSString* partOfCommand = [command objectAtIndex:i];
+            [extraCommand addObject:partOfCommand];
+        }
+        
+        NSArray* secondaryCommand = [self analyzedCommand:extraCommand];
+        if( secondaryCommand == nil ) {
+            NSLog(@"[VNScript] ERROR: Could not translate secondary command of .ISFLAGMORETHAN");
+            return nil;
+        }
+        
+        type = @VNScriptCommandIsFlagMoreThan;
+        analyzedArray = @[type, variableName, expectedValue, secondaryCommand];
+        
+    } else if ( [action caseInsensitiveCompare:VNScriptStringIsFlagLessThan] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .ISFLAGLESSTHAN
+        //
+        //  Checks if a flag's value is below a certain number. If it is, then a secondary command is run.
+        //
+        //  Parameters:
+        //
+        //      #1: Name of flag (string)
+        //
+        //      #2: Certain number (integer)
+        //
+        //      #3: Another command
+        //
+        //  Example: .ISFLAGLESSTHAN:time remaining:0:.PLAYMUSIC:time's up.mp3
+        //
+        
+        if( command.count < 4 )
+            return nil;
+        
+        NSString* variableName = [command objectAtIndex:1];
+        NSString* expectedValue = [command objectAtIndex:2];
+        int extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
+        
+        if( variableName == nil || expectedValue == nil ) {
+            NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAGLESSTHAN command");
+            return nil;
+        }
+        
+        NSMutableArray* extraCommand = [[NSMutableArray alloc] initWithCapacity:extraCount];
+        
+        for( int i = 3; i < command.count; i++ ) {
+            NSString* partOfCommand = [command objectAtIndex:i];
+            [extraCommand addObject:partOfCommand];
+        }
+        
+        NSArray* secondaryCommand = [self analyzedCommand:extraCommand];
+        if( secondaryCommand == nil ) {
+            NSLog(@"[VNScript] ERROR: Could not translate secondary command of .ISFLAGLESSTHAN");
+            return nil;
+        }
+        
+        type = @VNScriptCommandIsFlagLessThan;
+        analyzedArray = @[type, variableName, expectedValue, secondaryCommand];
+    
     } else if ( [action caseInsensitiveCompare:VNScriptStringModifyFlagOnChoice] == NSOrderedSame ) {
         
         // Function definition

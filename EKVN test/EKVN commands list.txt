@@ -321,6 +321,40 @@ Example: .addsprite:girl.png:NO
 
 ================
 
+  Name: .ISFLAGMORETHAN
+
+  Checks if a flag's value is GREATER than a given value. If it is, then a secondary command is run.
+
+  Parameters:
+
+      #1: Name of flag (string)
+
+      #2: Certain number (integer)
+
+      #3: Another command
+
+  Example: .ISFLAGMORETHAN:power level:9000:.PLAYSOUND:over nine thousand.mp3
+
+
+================
+
+  Name: .ISFLAGLESSTHAN
+
+  Checks if a flag's value is LESS than a certain number. If it is, then a secondary command is run.
+
+  Parameters:
+
+      #1: Name of flag (string)
+
+      #2: Certain number (integer)
+
+      #3: Another command
+
+  Example: .ISFLAGLESSTHAN:time remaining:0:.PLAYMUSIC:time's up.mp3
+
+
+================
+
   Name: .MODIFYFLAGBYCHOICE
 
   This presents a choice menu. Each choice causes a particular flag/variable to be changed

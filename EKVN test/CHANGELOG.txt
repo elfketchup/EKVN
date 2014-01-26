@@ -1,0 +1,4 @@
+version 1.1 Jan-26-2014
+. [NEW] Updated to cocos2d v3.0
+. [NEW] Added .ISFLAGMORETHAN and .ISFLAGLESSTHAN scripting commands
+. [FIX] VNLayer renamed to VNScene to better comply with changes in cocos2d
