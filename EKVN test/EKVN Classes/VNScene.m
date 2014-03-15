@@ -9,6 +9,8 @@
 #import "EKRecord.h"
 #import "OALSimpleAudio.h"
 
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks" // Disables "performSelector"-related warnings
+
 VNScene* theCurrentScene = nil;
 
 @implementation VNScene
@@ -381,10 +383,10 @@ VNScene* theCurrentScene = nil;
     if( spritesToRemove == nil || spritesToRemove.count < 1 ) // Check if there's nothing that needs doing
         return;
     
-    CCLOG(@"[VNScene] Will now remove unused sprites (%u found).", spritesToRemove.count);
+    CCLOG(@"[VNScene] Will now remove unused sprites (%lu found).", (unsigned long)spritesToRemove.count);
     
     // Get all the CCSprite objects in the array and then remove them, starting from the last item and ending with the first.
-    for( int i = (spritesToRemove.count - 1); i >= 0; i-- ) {
+    for( NSInteger i = (spritesToRemove.count - 1); i >= 0; i-- ) {
         
         CCSprite* sprite = [spritesToRemove objectAtIndex:i];
         
@@ -895,7 +897,7 @@ VNScene* theCurrentScene = nil;
         
         // Helpful output! This is just optional, but it's useful for development (especially for tracking
         // bugs and crashes... hopefully most of those have been ironed out at this point!)
-        CCLOG(@"[%d] %@ - %@", script.currentIndex, [currentCommand objectAtIndex:0], [currentCommand objectAtIndex:1]);
+        CCLOG(@"[%ld] %@ - %@", (long)script.currentIndex, [currentCommand objectAtIndex:0], [currentCommand objectAtIndex:1]);
         
         [self processCommand:currentCommand];   // Handle whatever line was just taken from the script
         script.indexesDone++;                   // Tell the script that it's handled yet another line
@@ -1310,7 +1312,7 @@ VNScene* theCurrentScene = nil;
             
             NSArray* choiceTexts = [command objectAtIndex:1]; // Get the strings to display for individual choices
             NSArray* destinations = [command objectAtIndex:2]; // Get the names of the conversations to "jump" to
-            int numberOfChoices = [choiceTexts count]; // Calculate number of choices
+            NSUInteger numberOfChoices = [choiceTexts count]; // Calculate number of choices
             
             buttons = [[NSMutableArray alloc] initWithCapacity:numberOfChoices];
             choices = [[NSMutableArray alloc] initWithCapacity:numberOfChoices];
@@ -1660,6 +1662,32 @@ VNScene* theCurrentScene = nil;
             
         }break;
             
+        // This checks if a particular flag is between two values (a lesser value and a greater value). If thie is the case,
+        // then a secondary command is run.
+        case VNScriptCommandIsFlagBetween: {
+            
+            NSString* flagName = parameter1;
+            int lesserValue = [[command objectAtIndex:2] intValue];
+            int greaterValue = [[command objectAtIndex:3] intValue];
+            NSArray* secondaryCommand = [command objectAtIndex:4];
+            
+            id theFlag = [flags objectForKey:flagName];
+            if( theFlag == nil )
+                return;
+            
+            int actualValue = [theFlag intValue];
+            if( actualValue <= lesserValue || actualValue >= greaterValue )
+                return;
+            
+            [self processCommand:secondaryCommand];
+            
+            int secondaryCommandType = [[secondaryCommand objectAtIndex:0] intValue];
+            if( secondaryCommandType != VNScriptCommandChangeConversation ) {
+                script.currentIndex--;
+            }
+            
+        }break;
+            
         // This command presents the user with a choice menu. When the user makes a choice, it results in the value of a flag
         // being modified by a certain amount (just like if the .MODIFYFLAG command had been used).
         case VNScriptCommandModifyFlagOnChoice: {
@@ -1670,7 +1698,7 @@ VNScene* theCurrentScene = nil;
             NSArray* choiceTexts    = parameter1;
             NSArray* variableNames  = [command objectAtIndex:2];
             NSArray* variableValues = [command objectAtIndex:3];
-            int numberOfChoices     = [choiceTexts count];
+            NSUInteger numberOfChoices     = [choiceTexts count];
             
             buttons         = [[NSMutableArray alloc] initWithCapacity:numberOfChoices]; // Holds CCSprite objects for individual menu buttons
             choices         = [[NSMutableArray alloc] initWithCapacity:numberOfChoices]; // The names of variables to modify

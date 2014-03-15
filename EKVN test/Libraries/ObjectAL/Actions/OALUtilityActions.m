@@ -209,6 +209,10 @@
 		for(OALAction* action in actions_)
 		{
 			[pDurations_ addObject:[NSNumber numberWithFloat:0]];
+            
+            if( action ) {
+                // do nothing; this is to get Xcode to stop giving the "action is unused" warning :P
+            }
 		}
 	}
 	else

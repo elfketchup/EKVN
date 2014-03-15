@@ -77,6 +77,7 @@
 #define VNScriptCommandCallCode                 122
 #define VNScriptCommandIsFlagMoreThan           123
 #define VNScriptCommandIsFlagLessThan           124
+#define VNScriptCommandIsFlagBetween            125
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -102,8 +103,9 @@
 #define VNScriptStringJumpOnFlag                @".jumponflag"          // Changes script section based on flag value
 #define VNScriptStringSystemCall                @".systemcall"          // Calls a predefined function outside the VN system
 #define VNScriptStringCallCode                  @".callcode"            // Call any function (from a static object, usually)
-#define VNScriptStringIsFlagMoreThan            @".isflagmorethan"
-#define VNScriptStringIsFlagLessThan            @".isflaglessthan"
+#define VNScriptStringIsFlagMoreThan            @".isflagmorethan"      // Runs another command if flag is more than a certain value
+#define VNScriptStringIsFlagLessThan            @".isflaglessthan"      // Runs a command if a flag is LESS than a certain value
+#define VNScriptStringIsFlagBetween             @".isflagbetween"       // Runs a command if a flag is between two values
 
 // Script syntax
 #define VNScriptSeparationString               @":"

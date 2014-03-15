@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, CCTransitionFixedFunction)
     _outgoingOverIncoming = NO;
     
     // find out where the outgoing scene will end (if it is a transition with movement)
-    CGSize size = [CCDirector sharedDirector].designSize;
+    CGSize size = [CCDirector sharedDirector].viewportRect.size;
     switch (direction) {
         case CCTransitionDirectionDown: _outgoingDestination = CGPointMake(0, -size.height); break;
         case CCTransitionDirectionLeft: _outgoingDestination = CGPointMake(-size.width, 0); break;
@@ -188,21 +188,25 @@ typedef NS_ENUM(NSInteger, CCTransitionFixedFunction)
 
     // create render textures
     // get viewport size
-    CGSize size = [CCDirector sharedDirector].designSize;
+    CGRect rect = [CCDirector sharedDirector].viewportRect;
+		
+		// Make sure we aren't rounding down.
+		rect.size.width = ceil(rect.size.width);
+		rect.size.height = ceil(rect.size.height);
 
     // create texture for outgoing scene
-    _outgoingTexture = [CCRenderTexture renderTextureWithWidth:size.width / _outgoingDownScale
-                                                        height:size.height / _outgoingDownScale
+    _outgoingTexture = [CCRenderTexture renderTextureWithWidth:rect.size.width / _outgoingDownScale
+                                                        height:rect.size.height / _outgoingDownScale
                                                    pixelFormat:_transitionPixelFormat];
-    _outgoingTexture.position = CGPointMake(size.width * 0.5f, size.height * 0.5f);
+    _outgoingTexture.position = CGPointMake(rect.size.width * 0.5f + rect.origin.x, rect.size.height * 0.5f + rect.origin.y);
     _outgoingTexture.scale = _outgoingDownScale;
     [self addChild:_outgoingTexture z:_outgoingOverIncoming];
     
     // create texture for incoming scene
-    _incomingTexture = [CCRenderTexture renderTextureWithWidth:size.width / _incomingDownScale
-                                                        height:size.height / _incomingDownScale
+    _incomingTexture = [CCRenderTexture renderTextureWithWidth:rect.size.width / _incomingDownScale
+                                                        height:rect.size.height / _incomingDownScale
                                                    pixelFormat:_transitionPixelFormat];
-    _incomingTexture.position = CGPointMake(size.width * 0.5f, size.height * 0.5f);
+    _incomingTexture.position = CGPointMake(rect.size.width * 0.5f + rect.origin.x, rect.size.height * 0.5f + rect.origin.y);
     _incomingTexture.scale = _incomingDownScale;
     [self addChild:_incomingTexture];
     
@@ -233,16 +237,17 @@ typedef NS_ENUM(NSInteger, CCTransitionFixedFunction)
     // check for runtime expired
     if (_progress >= 1.0f)
     {
-        // exit out scene, and start new scene
+        // Exit out scene
         [_outgoingScene onExit];
         if ([CCDirector sharedDirector].sendCleanupToScene) [_outgoingScene cleanup];
+        _outgoingScene = nil;
+				
+				
+				// Start incoming scene
         [[CCDirector sharedDirector] replaceScene:_incomingScene];
         [_incomingScene onEnterTransitionDidFinish];
-        _incomingScene.paused = _incomingPauseState;
-        
-        // release scenes
+        [_incomingScene setPaused:NO];
         _incomingScene = nil;
-        _outgoingScene = nil;
         
         return;
     }

@@ -169,7 +169,7 @@
         
         // Check if the value that was found matches the value that was expected
         if( valueOfCurrentNumber == slotNumber ) {
-            NSLog(@"[EKRecord] Match found for slot number %u in index %u", slotNumber, i); // Log success
+            NSLog(@"[EKRecord] Match found for slot number %lu in index %lu", (unsigned long)slotNumber, (unsigned long)i); // Log success
             result = YES; // This slot number has indeed been used
         }
     }
@@ -180,7 +180,7 @@
 // This adds a particular value to the list of used slot numbers.
 - (void)addToUsedSlotNumbers:(NSUInteger)slotNumber
 {
-    NSLog(@"[EKRecord] Will now attempt to add %u to array of used slot numbers.", slotNumber);
+    NSLog(@"[EKRecord] Will now attempt to add %lu to array of used slot numbers.", (unsigned long)slotNumber);
     BOOL numberWasAlreadyUsed = [self slotNumberHasBeenUsed:slotNumber];
  
     // If the number has already been used, then there's no point adding another mention of it; that would
@@ -188,7 +188,7 @@
     // if the slot number in question hasn't been used yet.
     if( numberWasAlreadyUsed == NO ) {
         
-        NSLog(@"[EKRecord] Slot number %u has not been used previously.", slotNumber);
+        NSLog(@"[EKRecord] Slot number %lu has not been used previously.", (unsigned long)slotNumber);
         NSMutableArray* slotNumbersArray = [[NSMutableArray alloc] init];
         
         // Check if there was any previous data. If there was, then it'll be added to the new array. If not... well, it's not a big deal!
@@ -203,7 +203,7 @@
         NSArray* unmutableArray = [[NSArray alloc] initWithArray:slotNumbersArray];
         NSUserDefaults* deviceMemory = [NSUserDefaults standardUserDefaults]; // Pointer to NSUserDefaults
         [deviceMemory setObject:unmutableArray forKey:EKRecordUsedSlotNumbersKey]; // Store the updated array in NSUserDefaults
-        NSLog(@"[EKRecord] Slot number %u saved to array of used slot numbers.", slotNumber);
+        NSLog(@"[EKRecord] Slot number %lu saved to array of used slot numbers.", (unsigned long)slotNumber);
     }
 }
 
@@ -272,19 +272,19 @@
 - (NSData*)dataFromSlot:(NSUInteger)slotNumber
 {
     NSUserDefaults* deviceMemory = [NSUserDefaults standardUserDefaults];   // Pointer to where memory is stored in the device
-    NSString* slotKey = [NSString stringWithFormat:@"slot%u", slotNumber];  // Generate name of the dictionary key where save data is stored
+    NSString* slotKey = [NSString stringWithFormat:@"slot%lu", (unsigned long)slotNumber];  // Generate name of the dictionary key where save data is stored
     
     NSLog(@"[EKRecord] Loading record from slot named [%@]", slotKey);
     
     // Try to load the data from the slot that should be stored in the device's memory.
     NSData* slotData = [deviceMemory objectForKey:slotKey];
     if( slotData == nil ) {
-        NSLog(@"[EKRecord] ERROR: No data found in slot number %u", slotNumber );
+        NSLog(@"[EKRecord] ERROR: No data found in slot number %lu", (unsigned long)slotNumber );
         return nil;
     }
     
     // Note how large the data is
-    NSLog(@"[EKRecord] 'dataFromSlot' has loaded an NSData object of size %u bytes.", slotData.length);
+    NSLog(@"[EKRecord] 'dataFromSlot' has loaded an NSData object of size %lu bytes.", (unsigned long)slotData.length);
     
     return [NSData dataWithData:slotData];
 }
@@ -322,12 +322,12 @@
     
         // Copy record data from device memory
         record = [[NSMutableDictionary alloc] initWithDictionary:tempDict];
-        NSLog(@"[EKRecord] Record was successfully loaded from slot %u", self.currentSlot);
+        NSLog(@"[EKRecord] Record was successfully loaded from slot %lu", (unsigned long)self.currentSlot);
         
     } else { // No valid data in dictionary
         
         // Error
-        NSLog(@"[EKRecord] ERROR: Could not load record from slot %u.", self.currentSlot);
+        NSLog(@"[EKRecord] ERROR: Could not load record from slot %lu.", (unsigned long)self.currentSlot);
     }
 }
 
@@ -352,7 +352,7 @@
     [archiver finishEncoding];
     
     // Just note the size of the data object
-    NSLog(@"[EKRecord] 'dataFromRecord' has produced an NSData object of size %u bytes.", data.length);
+    NSLog(@"[EKRecord] 'dataFromRecord' has produced an NSData object of size %lu bytes.", (unsigned long)data.length);
     
     return [NSData dataWithData:data];
 }
@@ -367,7 +367,7 @@
     
     // Store the NSData object into NSUserDefaults, under the key "slotXX" (XX being whatever value 'slotNumber' is)
     NSUserDefaults* deviceMemory = [NSUserDefaults standardUserDefaults];
-    NSString* stringWithSlotNumber = [NSString stringWithFormat:@"slot%u", slotNumber]; // Dictionary key for slot
+    NSString* stringWithSlotNumber = [NSString stringWithFormat:@"slot%lu", (unsigned long)slotNumber]; // Dictionary key for slot
     [deviceMemory setValue:data forKey:stringWithSlotNumber]; // Store data in NSUserDefaults dictionary
     [self addToUsedSlotNumbers:slotNumber]; // Flag this slot number as being used
 }
@@ -439,7 +439,7 @@
         // If a slot number was found, then just get that value and overwrite the default slot number
         if( lastSavedSlot ) {
             self.currentSlot = [lastSavedSlot unsignedIntegerValue];
-            NSLog(@"[EKRecord] Current slot set to %u, which was the value stored in memory.", self.currentSlot);
+            NSLog(@"[EKRecord] Current slot set to %lu, which was the value stored in memory.", (unsigned long)self.currentSlot);
         }
         
         // If there's any previously-saved data, then just load that information. If there is NO previously-saved data, then just do nothing.

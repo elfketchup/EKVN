@@ -52,7 +52,7 @@
 		1AC62CD7188F0EB900A5B851 /* ccDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CD6188F0EB900A5B851 /* ccDeprecated.m */; };
 		1AC62CDB188F0EB900A5B851 /* CCDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CDA188F0EB900A5B851 /* CCDirector.m */; };
 		1AC62CDF188F0EB900A5B851 /* CCDrawingPrimitives.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CDE188F0EB900A5B851 /* CCDrawingPrimitives.m */; };
-		1AC62CE2188F0EBA00A5B851 /* CCDrawNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CE1188F0EBA00A5B851 /* CCDrawNode.m */; };
+		1AC62CE2188F0EBA00A5B851 /* CCDrawNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CE1188F0EBA00A5B851 /* CCDrawNode.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1AC62CE5188F0EBA00A5B851 /* ccFPSImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CE4188F0EBA00A5B851 /* ccFPSImages.m */; };
 		1AC62CE9188F0EBA00A5B851 /* CCGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CE8188F0EBA00A5B851 /* CCGLProgram.m */; };
 		1AC62CEC188F0EBA00A5B851 /* ccGLStateCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CEB188F0EBA00A5B851 /* ccGLStateCache.m */; };
@@ -169,7 +169,7 @@
 		1AC62E82188F0EBC00A5B851 /* LICENSE_Kazmath.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1AC62E81188F0EBC00A5B851 /* LICENSE_Kazmath.txt */; };
 		1AC62E86188F0EBC00A5B851 /* CCBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E85188F0EBC00A5B851 /* CCBAnimationManager.m */; };
 		1AC62E89188F0EBC00A5B851 /* CCBKeyframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E88188F0EBC00A5B851 /* CCBKeyframe.m */; };
-		1AC62E8C188F0EBC00A5B851 /* CCBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E8B188F0EBC00A5B851 /* CCBReader.m */; };
+		1AC62E8C188F0EBC00A5B851 /* CCBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E8B188F0EBC00A5B851 /* CCBReader.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1AC62E8F188F0EBC00A5B851 /* CCBsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E8E188F0EBC00A5B851 /* CCBsequence.m */; };
 		1AC62E92188F0EBC00A5B851 /* CCBSequenceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E91188F0EBC00A5B851 /* CCBSequenceProperty.m */; };
 		1AC62E95188F0EBC00A5B851 /* CCBLocalizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E94188F0EBC00A5B851 /* CCBLocalizationManager.m */; };
@@ -1762,7 +1762,7 @@
 		1AC62C5A188F0EB900A5B851 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "James Briones";
 			};
 			buildConfigurationList = 1AC62C5D188F0EB900A5B851 /* Build configuration list for PBXProject "EKVN test" */;
@@ -2054,8 +2054,13 @@
 		1AC62F33188F0EBC00A5B851 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2065,9 +2070,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2076,8 +2086,13 @@
 		1AC62F34188F0EBC00A5B851 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2085,7 +2100,11 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -2097,7 +2116,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -2113,7 +2131,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -2129,7 +2146,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2140,7 +2156,7 @@
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
 				INFOPLIST_FILE = "EKVN test/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
@@ -2155,7 +2171,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EKVN test/Supporting Files/Prefix.pch";
@@ -2165,7 +2180,7 @@
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
 				INFOPLIST_FILE = "EKVN test/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",

@@ -291,7 +291,12 @@
 -(void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[self startAnimation];
+
+    UIApplicationState state = UIApplication.sharedApplication.applicationState;
+    if (state != UIApplicationStateBackground)
+    {
+        [self startAnimation];
+    }
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -344,7 +349,7 @@
 
 -(void)getFPSImageData:(unsigned char**)datapointer length:(NSUInteger*)len contentScale:(CGFloat *)scale
 {
-	int device = [[CCConfiguration sharedConfiguration] runningDevice];
+	NSInteger device = [[CCConfiguration sharedConfiguration] runningDevice];
 
 	if( device == CCDeviceiPadRetinaDisplay) {
 		*datapointer = cc_fps_images_ipadhd_png;

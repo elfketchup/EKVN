@@ -355,6 +355,25 @@ Example: .addsprite:girl.png:NO
 
 ================
 
+  Name: .ISFLAGBETWEEN
+
+  Checks if a flag's value is between two numbers, and if it is, this will run another command.
+
+  Parameters:
+
+      #1: Name of flag (string)
+
+      #2: First number (integer)
+
+      #3: Second number (integer)
+
+      #4: Another command
+
+  Example: .ISFLAGBETWEEN:number of cookies:1:3:YOU HAVE EXACTLY TWO COOKIES!
+
+
+================
+
   Name: .MODIFYFLAGBYCHOICE
 
   This presents a choice menu. Each choice causes a particular flag/variable to be changed

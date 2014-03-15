@@ -174,7 +174,7 @@
     return NO;
 }
 
-- (id)commandAtLine:(int)line
+- (id)commandAtLine:(NSInteger)line
 {
     // Check if conversation data is valid
     if( self.conversation  ) {
@@ -613,7 +613,7 @@
         //
         
         // Figure out how many choices there are
-        int numberOfChoices = (command.count - 1) / 2;
+        NSInteger numberOfChoices = (command.count - 1) / 2;
         
         // Check if there's not enough data
         if( numberOfChoices < 1 || command.count < 3 ) 
@@ -840,7 +840,7 @@
         
         NSString* variableName = [command objectAtIndex:1];
         NSString* expectedValue = [command objectAtIndex:2];
-        int extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
+        NSInteger extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
         
         if( variableName == nil || expectedValue == nil ) {
             NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAG command");
@@ -895,7 +895,7 @@
         
         NSString* variableName = [command objectAtIndex:1];
         NSString* expectedValue = [command objectAtIndex:2];
-        int extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
+        NSInteger extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
         
         if( variableName == nil || expectedValue == nil ) {
             NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAGMORETHAN command");
@@ -942,7 +942,7 @@
         
         NSString* variableName = [command objectAtIndex:1];
         NSString* expectedValue = [command objectAtIndex:2];
-        int extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
+        NSInteger extraCount = command.count - 3; // This number = secondary command + secondary command's parameters
         
         if( variableName == nil || expectedValue == nil ) {
             NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAGLESSTHAN command");
@@ -965,6 +965,75 @@
         type = @VNScriptCommandIsFlagLessThan;
         analyzedArray = @[type, variableName, expectedValue, secondaryCommand];
     
+    }else if ( [action caseInsensitiveCompare:VNScriptStringIsFlagBetween] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .ISFLAGBETWEEN
+        //
+        //  Checks if a flag's value is between two numbers, and if it is, this will run another command.
+        //
+        //  Parameters:
+        //
+        //      #1: Name of flag (string)
+        //
+        //      #2: First number (integer)
+        //
+        //      #3: Second number (integer)
+        //
+        //      #4: Another command
+        //
+        //  Example: .ISFLAGBETWEEN:number of cookies:1:3:YOU HAVE EXACTLY TWO COOKIES!
+        //
+        
+        if( command.count < 5 )
+            return nil;
+        
+        NSString* variableName  = [command objectAtIndex:1];
+        NSString* firstValue    = [command objectAtIndex:2];
+        NSString* secondValue   = [command objectAtIndex:3];
+        NSInteger extraCount    = command.count - 4; // This number = secondary command + secondary command's parameters
+        
+        if( variableName == nil || firstValue == nil || secondValue == nil ) {
+            NSLog(@"[VNScript] ERROR: Invalid variable name or value in .ISFLAGBETWEEN command");
+            return nil;
+        }
+        
+        // Figure out which value is the lesser value, and which one is the greater value. By default,
+        // it's assumed first value is the "lesser" value, and the second ond is the "greater" one
+        int first           = [firstValue intValue];
+        int second          = [secondValue intValue];
+        int lesserValue     = first;
+        int greaterValue    = second;
+        
+        // Check if the default value assignment is wrong. In this case, the second value is the lesser one,
+        // and that the first value is the greater one.
+        if( first > second ) {
+            // Reassign the values appropriately
+            greaterValue = first;
+            lesserValue = second;
+        }
+        
+        NSMutableArray* extraCommand = [[NSMutableArray alloc] initWithCapacity:extraCount];
+        
+        for( int i = 4; i < command.count; i++ ) {
+            NSString* partOfCommand = [command objectAtIndex:i];
+            [extraCommand addObject:partOfCommand];
+        }
+        
+        NSArray* secondaryCommand = [self analyzedCommand:extraCommand];
+        if( secondaryCommand == nil ) {
+            NSLog(@"[VNScript] ERROR: Could not translate secondary command of .ISFLAGBETWEEN");
+            return nil;
+        }
+        
+        // Convert greater/lesser scalar values back into NSString format for the script
+        NSString* lesserValueString = [NSString stringWithFormat:@"%d", lesserValue];
+        NSString* greaterValueString = [NSString stringWithFormat:@"%d", greaterValue];
+        
+        type = @VNScriptCommandIsFlagBetween;
+        analyzedArray = @[type, variableName, lesserValueString, greaterValueString, secondaryCommand];
+        
     } else if ( [action caseInsensitiveCompare:VNScriptStringModifyFlagOnChoice] == NSOrderedSame ) {
         
         // Function definition
@@ -990,7 +1059,7 @@
         // Since the first item in the command array is the ".MODIFYFLAG" string, we'll just ignore that first index
         // when counting the number of choices. Also, since each set of parameters consists of three parts (choice text,
         // variable name, and variable value), the number will be divided by three to get the actual number of choices.
-        int numberOfChoices = (command.count - 1) / 3;
+        NSInteger numberOfChoices = (command.count - 1) / 3;
         
         // Create some empty mutable arrays
         NSMutableArray* choiceText = [[NSMutableArray alloc] initWithCapacity:numberOfChoices];

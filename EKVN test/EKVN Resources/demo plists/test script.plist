@@ -39,6 +39,12 @@
 		<string>.REMOVESPRITE:matsuri_close.png</string>
 		<string>The music stops, and the girl disappears.</string>
 		<string>That wasn&apos;t strange at all.</string>
+		<string>.SETFLAG:betweenFlag:2</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Hey, the betweenFlag is between 1 and 3!</string>
+		<string>.SETFLAG:betweenFlag:0</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Wait, betweenFlag is zero, so you shouldn&apos;t see this!</string>
+		<string>.SETFLAG:betweenFlag:4</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Woah, betweenFlag is FOUR so you shouldn&apos;t see this!</string>
 		<string>.SYSTEMCALL:AUTOSAVE</string>
 		<string>Would you prefer Matsuri to have color, or not?</string>
 		<string>.SETFLAG:matsuri_color:0</string>
