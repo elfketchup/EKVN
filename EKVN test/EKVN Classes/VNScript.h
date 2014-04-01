@@ -78,6 +78,7 @@
 #define VNScriptCommandIsFlagMoreThan           123
 #define VNScriptCommandIsFlagLessThan           124
 #define VNScriptCommandIsFlagBetween            125
+#define VNScriptCommandSwitchScript             126
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -106,6 +107,7 @@
 #define VNScriptStringIsFlagMoreThan            @".isflagmorethan"      // Runs another command if flag is more than a certain value
 #define VNScriptStringIsFlagLessThan            @".isflaglessthan"      // Runs a command if a flag is LESS than a certain value
 #define VNScriptStringIsFlagBetween             @".isflagbetween"       // Runs a command if a flag is between two values
+#define VNScriptStringSwitchScript              @".switchscript"        // Changes to another VNScript (stored in a different .plist file)
 
 // Script syntax
 #define VNScriptSeparationString               @":"
@@ -139,6 +141,7 @@
 
 // The default initialization function; just pass in the script's filename and everything should work.
 - (id)initFromFile:(NSString*)nameOfFile;
+- (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName;
 
 // This version is used for loading the dictionary AND jumping to a particular part of the script.
 - (id)initWithInfo:(NSDictionary*)dict;

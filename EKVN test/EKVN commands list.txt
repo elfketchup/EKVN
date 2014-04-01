@@ -451,3 +451,17 @@ Example: .addsprite:girl.png:NO
 
   Example: .CALLCODE:EKRecord:sharedRecord:flagNamed:times played
 
+================
+
+  Name: .SWITCHSCRIPT
+
+  Replaces a scene's script with a script loaded from another .PLIST file. This is useful if your script is
+  split up between multiple .PLIST files.
+
+  Parameters:
+
+      #1: The name of the .PLIST file to load (string)
+
+      #2: (OPTIONAL) The name of the "conversation"/array to start at to (string) (default is "start")
+
+  Example: .SWITCHSCRIPT:my other script:Some Random Event

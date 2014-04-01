@@ -16,7 +16,9 @@
 // For example, if the script is stored as "ThisScript.plist" in the bundle, just pass in "ThisScript" as the parameter.
 - (id)initFromFile:(NSString *)nameOfFile
 {
-    if( self = [super init] ) {
+    return [self initFromFile:nameOfFile withConversation:VNScriptStartingPoint];
+    
+    /*if( self = [super init] ) {
  
         // Load a dictionary from a .plist file in the app bundle
         NSString* filepath              = [[NSBundle mainBundle] pathForResource:nameOfFile ofType:@"plist"];
@@ -26,6 +28,29 @@
         // Now actually load some of the data
         [self prepareScript:loadedDictionary]; // Convert the script from text into binary data that's more easily read
         [self changeConversationTo:VNScriptStartingPoint]; // Automatically move to the 'start' array (and set "index" data)
+        
+        // Check if no valid data could be loaded from the file
+        if( self.data == nil ) {
+            NSLog(@"[VNScript] ERROR: VNScript could not translate script.");
+            return nil;
+        }
+    }
+    
+    return self;*/
+}
+
+- (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName
+{
+    if( self = [super init] ) {
+        
+        // Load a dictionary from a .plist file in the app bundle
+        NSString* filepath              = [[NSBundle mainBundle] pathForResource:nameOfFile ofType:@"plist"];
+        NSDictionary* loadedDictionary  = [[NSDictionary alloc] initWithContentsOfFile:filepath]; // All data in the file
+        self.filename                   = [[NSString alloc] initWithString:nameOfFile]; // Save filename
+        
+        // Now actually load some of the data
+        [self prepareScript:loadedDictionary]; // Convert the script from text into binary data that's more easily read
+        [self changeConversationTo:conversationName]; // Automatically move to the 'start' array (and set "index" data)
         
         // Check if no valid data could be loaded from the file
         if( self.data == nil ) {
@@ -1202,6 +1227,45 @@
         
         type = @VNScriptCommandCallCode;
         analyzedArray = @[type, callingArray];
+    } else if( [action caseInsensitiveCompare:VNScriptStringSwitchScript] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SWITCHSCRIPT
+        //
+        //  Replaces a scene's script with a script loaded from another .PLIST file. This is useful if you're
+        //  using multiple .PLIST files.
+        //
+        //  Parameters:
+        //
+        //      #1: The name of the .PLIST file to load (string)
+        //
+        //      #2: (OPTIONAL) The name of the "conversation"/array to start at to (string) (default is "start")
+        //
+        //  Example: .SWITCHSCRIPT:script number 2:Some Random Event
+        //
+        
+        if( command.count < 2 )
+            return nil;
+        
+        NSString* scriptName = [command objectAtIndex:1];
+        NSString* startingPoint = VNScriptStartingPoint;
+        
+        // Check if the script name is missing
+        if( scriptName == nil )
+            return nil;
+
+        // Load non-default starting point (if it exists)
+        if( command.count > 2 ) {
+            startingPoint = [command objectAtIndex:2];
+        }
+        
+        type = @VNScriptCommandSwitchScript;
+        
+        NSLog(@"Hey, starting point is: %@", startingPoint);
+        NSLog(@"Command.count is %lu", (unsigned long)command.count);
+        analyzedArray = @[type, scriptName, startingPoint];
+        NSLog(@"Anaylzed array is: %@", analyzedArray);
     }
 
     

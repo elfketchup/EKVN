@@ -1,3 +1,7 @@
+version 1.1.2 Apr-01-2014
+. [NEW] Added .SWITCHSCRIPT scripting command
+. [NEW] Now supports having one "scene" spread across multiple .PLIST files
+
 version 1.1.1 Mar-15-2014
 . [NEW] Updated to cocos2d v3.0 (RC4)
 . [NEW] Now supports 64bit

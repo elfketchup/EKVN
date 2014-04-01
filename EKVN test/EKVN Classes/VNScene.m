@@ -1843,6 +1843,60 @@ VNScene* theCurrentScene = nil;
             
             
         }break;
+         
+        // This command replaces the scene's script with a script loaded from another .PLIST file. This is useful in case
+        // your script is actually broken up into multiple .PLIST files.
+        case VNScriptCommandSwitchScript:
+        {
+            NSString* scriptName = [command objectAtIndex:1];
+            NSString* startingPoint = [command objectAtIndex:2];
+            
+            /*NSDictionary* scriptLoadingDict = @{
+                                                VNScriptFilenameKey         : scriptName,
+                                                VNScriptConversationNameKey : startingPoint
+                                                 };*/
+            
+            CCLOG(@"Switching to script named [%@] with starting point [%@]", scriptName, startingPoint);
+            
+            script = [[VNScript alloc] initFromFile:scriptName withConversation:startingPoint];
+            script.indexesDone--;
+            
+            CCLOG(@"Script object replaced.");
+            
+            
+            
+            /*
+            NSString* updatedConversationName = parameter1;
+            
+            // Check if this conversation actually exists
+            NSArray* convo = [script.data objectForKey:updatedConversationName];
+            if( convo == nil ) {
+                NSLog(@"[VNScene] ERROR: No section titled %@ was found in script!", updatedConversationName);
+                return;
+            }
+            
+            // If the conversation actually exists, then just switch to it
+            [script changeConversationTo:updatedConversationName];
+            script.indexesDone--;*/
+            
+            
+            
+            /*
+            if( savedScriptInfo ) {
+                
+                // Load script data from a saved game
+                script = [[VNScript alloc] initWithInfo:savedScriptInfo]; // Load saved data
+                self.wasJustLoadedFromSave = YES; // Set flag; this is important since it's meant to prevent autosave errors
+                script.indexesDone = script.currentIndex;
+                CCLOG(@"[VNScene] Settings were loaded from a saved game.");
+                
+            } else {
+                
+                // Create all-new script data
+                script = [[VNScript alloc] initFromFile:[settings objectForKey:VNSceneToPlayKey]]; // Load data from script file
+                CCLOG(@"[VNScene] Settings were loaded from a script file.");
+            }*/
+        }break;
             
             
         default:
