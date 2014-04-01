@@ -14,31 +14,6 @@
 
 // Load the script from a Property List (.plist) file in the app bundle. Make sure to not include the ".plist" in the file name.
 // For example, if the script is stored as "ThisScript.plist" in the bundle, just pass in "ThisScript" as the parameter.
-- (id)initFromFile:(NSString *)nameOfFile
-{
-    return [self initFromFile:nameOfFile withConversation:VNScriptStartingPoint];
-    
-    /*if( self = [super init] ) {
- 
-        // Load a dictionary from a .plist file in the app bundle
-        NSString* filepath              = [[NSBundle mainBundle] pathForResource:nameOfFile ofType:@"plist"];
-        NSDictionary* loadedDictionary  = [[NSDictionary alloc] initWithContentsOfFile:filepath]; // All data in the file
-        self.filename                   = [[NSString alloc] initWithString:nameOfFile]; // Save filename
-        
-        // Now actually load some of the data
-        [self prepareScript:loadedDictionary]; // Convert the script from text into binary data that's more easily read
-        [self changeConversationTo:VNScriptStartingPoint]; // Automatically move to the 'start' array (and set "index" data)
-        
-        // Check if no valid data could be loaded from the file
-        if( self.data == nil ) {
-            NSLog(@"[VNScript] ERROR: VNScript could not translate script.");
-            return nil;
-        }
-    }
-    
-    return self;*/
-}
-
 - (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName
 {
     if( self = [super init] ) {
@@ -60,6 +35,11 @@
     }
     
     return self;
+}
+
+- (id)initFromFile:(NSString *)nameOfFile
+{
+    return [self initFromFile:nameOfFile withConversation:VNScriptStartingPoint];
 }
 
 // Loads the script from a dictionary with a lot of other data (such as specific conversation names, indexes, etc).
