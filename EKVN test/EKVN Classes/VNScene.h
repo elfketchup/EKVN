@@ -113,6 +113,10 @@
 #define VNSceneViewButtonFilenameKey            @"button filename"
 #define VNSceneViewFontSizeKey                  @"font size"
 #define VNSceneViewFontNameKey                  @"font name"
+#define VNSceneViewOverrideSpeechFontKey        @"override speech font from save"
+#define VNSceneViewOverrideSpeechSizeKey        @"override speech size from save"
+#define VNSceneViewOverrideSpeakerFontKey       @"override speaker font from save"
+#define VNSceneViewOverrideSpeakerSizeKey       @"override speaker size from save"
 
 // Dictionary keys
 #define VNSceneSavedScriptInfoKey       @"script info"
@@ -128,6 +132,14 @@
 #define VNSceneShowSpeechKey            @"show speech"
 #define VNSceneBackgroundXKey           @"background x"
 #define VNSceneBackgroundYKey           @"background y"
+
+// UI "override" keys (used when you change things like font size/font name in the middle of a scene).
+// By default, any changes will be restored when a saved game is loaded, though the "override X from save"
+// settings can change this.
+#define VNSceneOverrideSpeechFontKey    @"override speech font"
+#define VNSceneOverrideSpeechSizeKey    @"override speech size"
+#define VNSceneOverrideSpeakerFontKey   @"override speaker font"
+#define VNSceneOverrideSpeakerSizeKey   @"override speaker size"
 
 // Graphics/display stuff
 #define VNSceneViewSettingsFileName     @"vnscene view settings"
@@ -199,6 +211,11 @@
     CCSprite* speechBox; // Dialogue box
     CCLabelTTF* speech;  // The text displayed as dialogue
     CCLabelTTF* speaker; // Name of speaker
+    
+    NSString* speechFont; // The name of the font used by the speech text
+    NSString* speakerFont; // The name of the font used by the speaker text
+    float fontSizeForSpeech;
+    float fontSizeForSpeaker;
     
     float spriteTransitionSpeed, speechTransitionSpeed, speakerTransitionSpeed;
     ccColor3B buttonTouchedColors, buttonUntouchedColors;

@@ -32,6 +32,14 @@
 	<string>Helvetica</string>
 	<key>multiply font size for iPad</key>
 	<real>1.5</real>
+	<key>override speech font from save</key>
+	<true/>
+	<key>override speech size from save</key>
+	<true/>
+	<key>override speaker font from save</key>
+	<true/>
+	<key>override speaker size from save</key>
+	<true/>
 	<key>button untouched colors</key>
 	<dict>
 		<key>r</key>

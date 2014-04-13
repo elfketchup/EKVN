@@ -20,9 +20,20 @@
 	</array>
 	<key>start</key>
 	<array>
+		<string>.setspeaker:Mysterious Narrator!</string>
 		<string>Hello.</string>
 		<string>.SETBACKGROUND:pond.png</string>
 		<string>Hey, a background!</string>
+		<string>Also, I&apos;m going to change the font name.</string>
+		<string>.SETSPEECHFONT:Courier New</string>
+		<string>How does this look?</string>
+		<string>Now let&apos;s change the speaker font.</string>
+		<string>.SETSPEAKERFONT:Times New Roman</string>
+		<string>Now how does that look?</string>
+		<string>Let&apos;s change some sizes too.</string>
+		<string>.SETSPEAKERFONTSIZE:15.0</string>
+		<string>.SETSPEECHFONTSIZE:13.0</string>
+		<string>OK, that might be too tiny. But whatever, let&apos;s get on with it!</string>
 		<string>.ADDSPRITE:matsuri_close.png</string>
 		<string>Suddenly, an anime girl appears!</string>
 		<string>.systemcall:autosave</string>

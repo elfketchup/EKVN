@@ -465,3 +465,51 @@ Example: .addsprite:girl.png:NO
       #2: (OPTIONAL) The name of the "conversation"/array to start at to (string) (default is "start")
 
   Example: .SWITCHSCRIPT:my other script:Some Random Event
+
+================
+
+  Name: .SETSPEAKERFONT
+
+  Replaces the current font used by the "speaker name" label with another font.
+
+  Parameters:
+
+      #1: The name of the font to use (string)
+
+  Example: .SETSPEAKERFONT:Helvetica
+
+================
+
+  Name: .SETSPEAKERFONTSIZE
+
+  Changes the font size used by the "speaker name" label.
+
+  Parameters:
+
+      #1: Font size (float)
+
+  Example: .SETSPEAKERFONTSIZE:17.0
+
+================
+
+  Name: .SETSPEECHFONT
+
+  Replaces the current font used by the speech/dialogue label with another font.
+
+  Parameters:
+
+      #1: The name of the font to use (string)
+
+  Example: .SETSPEECHFONT:Courier New
+
+================
+
+  Name: .SETSPEECHFONTSIZE
+
+  Changes the speech/dialogue font size.
+
+  Parameters:
+
+      #1: Font size (float)
+
+  Example: .SETSPEECHFONTSIZE:18.0

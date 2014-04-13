@@ -53,6 +53,10 @@ VNScene* theCurrentScene = nil;
         sprites         = [[NSMutableDictionary alloc] init];
         record          = [[NSMutableDictionary alloc] initWithDictionary:settings]; // Copy data to local dictionary
         flags           = [[NSMutableDictionary alloc] initWithDictionary:[[[EKRecord sharedRecord] flags] copy]]; // Create independent copy of flag data
+        
+        // Set default UI values
+        fontSizeForSpeaker  = 0.0;
+        fontSizeForSpeech   = 0.0;
 
         CCLOG(@"[VNScene] Loading settings...");
         // Try to load script info from any saved script data that might exist. Otherwise, just create a fresh script object
@@ -237,6 +241,12 @@ VNScene* theCurrentScene = nil;
     [viewSettings setValue:@"Helvetica" forKey:VNSceneViewFontNameKey];
     [viewSettings setValue:@(iPadFontSizeMultiplier) forKey:VNSceneViewMultiplyFontSizeForiPadKey]; // This is used for the iPad
     
+    // Create default settings for whether or not the "override from save" values should take place.
+    [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeakerFontKey];
+    [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeakerSizeKey];
+    [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeechFontKey];
+    [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeechSizeKey];
+    
     NSDictionary* buttonTouchedColorsDict = @{ @"r":@(0),
                                                @"g":@(0),
                                                @"b":@(255) }; // BLUE <- r0, g0, b255
@@ -371,10 +381,30 @@ VNScene* theCurrentScene = nil;
         buttonTouchedColors.b = [[buttonTouchedColorsDict objectForKey:@"b"] unsignedCharValue];
     }
     
-    // Part 5: Load any other stuff. Transition speeds (which determine how quickly things appear or disappear) go here.
+    // Part 5: Load transition speeds
     spriteTransitionSpeed   = [[viewSettings objectForKey:VNSceneViewSpriteTransitionSpeedKey] floatValue];
     speechTransitionSpeed   = [[viewSettings objectForKey:VNSceneViewTextTransitionSpeedKey]   floatValue];
     speakerTransitionSpeed  = [[viewSettings objectForKey:VNSceneViewNameTransitionSpeedKey]   floatValue];
+    
+    // Part 6: Load overrides, if any are found
+    NSString* overrideSpeechFont    = [record objectForKey:VNSceneOverrideSpeechFontKey];
+    NSString* overrideSpeakerFont   = [record objectForKey:VNSceneOverrideSpeakerFontKey];
+    NSNumber* overrideSpeechSize    = [record objectForKey:VNSceneOverrideSpeechSizeKey];
+    NSNumber* overrideSpeakerSize   = [record objectForKey:VNSceneOverrideSpeakerSizeKey];
+    
+    BOOL shouldOverrideSpeechFont = [[viewSettings objectForKey:VNSceneViewOverrideSpeechFontKey] boolValue];
+    BOOL shouldOverrideSpeechSize = [[viewSettings objectForKey:VNSceneViewOverrideSpeechSizeKey] boolValue];
+    BOOL shouldOverrideSpeakerFont = [[viewSettings objectForKey:VNSceneViewOverrideSpeakerFontKey] boolValue];
+    BOOL shouldOverrideSpeakerSize = [[viewSettings objectForKey:VNSceneViewOverrideSpeakerSizeKey] boolValue];
+    
+    if( shouldOverrideSpeakerFont && overrideSpeakerFont )
+        speaker.fontName = overrideSpeakerFont;
+    if( shouldOverrideSpeakerSize && overrideSpeakerSize )
+        speaker.fontSize = [overrideSpeakerSize floatValue];
+    if( shouldOverrideSpeechFont && overrideSpeechFont )
+        speech.fontName = overrideSpeechFont;
+    if( shouldOverrideSpeechSize && overrideSpeechSize )
+        speech.fontSize = [overrideSpeechSize floatValue];
 }
 
 // Removes unused character sprites (CCSprite objects) from memory.
@@ -1859,7 +1889,64 @@ VNScene* theCurrentScene = nil;
             CCLOG(@"Script object replaced.");
 
         }break;
+        
+        case VNScriptCommandSetSpeechFont:
+        {
+            speechFont = parameter1;
             
+            // This will only change the font if the font name is of a "proper" length; no supported font on iOS
+            // is shorter than 4 characters (as far as I know).
+            if( speechFont.length > 3) {
+                speech.fontName = parameter1;
+                
+                // Update record with override
+                [record setObject:speechFont forKey:VNSceneOverrideSpeechFontKey];
+            }
+            
+        }break;
+            
+        case VNScriptCommandSetSpeechFontSize:
+        {
+            fontSizeForSpeech = [parameter1 floatValue];
+            
+            // Check for a font size that's too small; if this is the case, then just switch to a "normal" font size
+            if( fontSizeForSpeech < 1.0 )
+                fontSizeForSpeech = 13.0;
+            
+            speech.fontSize = fontSizeForSpeech;
+            
+            // Store override data
+            [record setObject:@(fontSizeForSpeech) forKey:VNSceneOverrideSpeechSizeKey];
+            
+        }break;
+            
+        case VNScriptCommandSetSpeakerFont:
+        {
+            speakerFont = parameter1;
+            
+            if( speakerFont.length > 3 ) {
+                speaker.fontName = speakerFont;
+                
+                // Update record with override
+                [record setObject:speakerFont forKey:VNSceneOverrideSpeakerFontKey];
+            }
+            
+        }break;
+            
+        case VNScriptCommandSetSpeakerFontSize:
+        {
+            fontSizeForSpeaker = [parameter1 floatValue];
+            
+            if( fontSizeForSpeaker < 1.0 )
+                fontSizeForSpeaker = 13.0;
+            
+            speaker.fontSize = fontSizeForSpeaker;
+            
+            // Store override data
+            [record setObject:@(fontSizeForSpeaker) forKey:VNSceneOverrideSpeakerSizeKey];
+            
+        }break;
+    
             
         default:
         {

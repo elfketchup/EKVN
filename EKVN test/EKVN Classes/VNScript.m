@@ -1229,7 +1229,7 @@
             return nil;
         
         NSString* scriptName = [command objectAtIndex:1];
-        NSString* startingPoint = VNScriptStartingPoint;
+        NSString* startingPoint = VNScriptStartingPoint; // Default value
         
         // Check if the script name is missing
         if( scriptName == nil )
@@ -1246,6 +1246,77 @@
         NSLog(@"Command.count is %lu", (unsigned long)command.count);
         analyzedArray = @[type, scriptName, startingPoint];
         NSLog(@"Anaylzed array is: %@", analyzedArray);
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeakerFont] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETSPEAKERFONT
+        //
+        //  Replaces the current font used by the "speaker name" label with another font.
+        //
+        //  Parameters:
+        //
+        //      #1: The name of the font to use (string)
+        //
+        //  Example: .SETSPEAKERFONT:Helvetica
+        //
+        
+        type = @VNScriptCommandSetSpeakerFont;
+        analyzedArray = @[type, parameter1];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeakerFontSize] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETSPEAKERFONTSIZE
+        //
+        //  Changes the font size used by the "speaker name" label.
+        //
+        //  Parameters:
+        //
+        //      #1: Font size (float)
+        //
+        //  Example: .SETSPEAKERFONTSIZE:17.0
+        //
+        
+        type = @VNScriptCommandSetSpeakerFontSize;
+        analyzedArray = @[type, parameter1];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeechFont] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETSPEECHFONT
+        //
+        //  Replaces the current font used by the speech/dialogue label with another font.
+        //
+        //  Parameters:
+        //
+        //      #1: The name of the font to use (string)
+        //
+        //  Example: .SETSPEECHFONT:Courier New
+        //
+        
+        type = @VNScriptCommandSetSpeechFont;
+        analyzedArray = @[type, parameter1];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeechFontSize] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETSPEECHFONTSIZE
+        //
+        //  Changes the speech/dialogue font size.
+        //
+        //  Parameters:
+        //
+        //      #1: Font size (float)
+        //
+        //  Example: .SETSPEECHFONTSIZE:18.0
+        //
+        
+        type = @VNScriptCommandSetSpeechFontSize;
+        analyzedArray = @[type, parameter1];
     }
 
     
