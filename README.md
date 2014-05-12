@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 EKVN - ElfKetchup Visual Novel system
 =====================================
 
