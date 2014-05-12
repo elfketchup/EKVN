@@ -105,6 +105,15 @@
     
     // Grab script name information
     nameOfScript = standardSettings[VNTestSceneScriptToLoad];
+    
+    // The music data is loaded last since it looks weird if music is playing but nothing has shown up on the screen yet.
+    NSString* musicFilename = standardSettings[VNTestSceneMenuMusic];
+    // Make sure the music isn't set to 'nil'
+    if( [musicFilename caseInsensitiveCompare:@"nil"] != NSOrderedSame ) {
+        
+        isPlayingMusic = YES;
+        [[OALSimpleAudio sharedInstance] playBg:musicFilename loop:true];
+    }
 }
 
 // This creates a dictionary that's got the default UI values loaded onto them. If you want to change how it looks,
@@ -140,6 +149,9 @@
     
     // Set up script data
     [resourcesDict setObject:@"demo script" forKey:VNTestSceneScriptToLoad];
+    
+    // Set default music data
+    [resourcesDict setObject:@"nil" forKey:VNTestSceneMenuMusic];
     
     return [NSDictionary dictionaryWithDictionary:resourcesDict];
 }
@@ -198,6 +210,15 @@
     // just so that Cocos2D will pay attention to all the "real" action going on in the touchEnded function.
 }
 
+- (void)stopMenuMusic
+{
+    if( isPlayingMusic ) {
+        [[OALSimpleAudio sharedInstance] stopBg];
+    }
+    
+    isPlayingMusic = NO;
+}
+
 //- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
@@ -205,7 +226,7 @@
     
     // Check if the user tapped on the "play" label
     if( CGRectContainsPoint([playLabel boundingBox], touchPos) ) {
-        
+        [self stopMenuMusic];
         [self startNewGame];
     }
     
@@ -214,8 +235,10 @@
         
         // Loading the game is only possible if the label is fully opaque. And it will only be fully
         // opaque if previous save game data has been found.
-        if( loadLabel.opacity > 0.98 )
+        if( loadLabel.opacity > 0.98 ) {
+            [self stopMenuMusic];
             [self loadSavedGame];
+        }
     }
 }
 
@@ -224,6 +247,7 @@
     if( self = [super init] ) {
         
         BOOL previousSaveData = [[EKRecord sharedRecord] hasAnySavedData];
+        isPlayingMusic = NO;
         
         [self loadUI];
         

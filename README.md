@@ -20,7 +20,7 @@ Contact
 
 Twitter: http://twitter.com/elfketchup
 
-e-mail: jbriones310 @ gmail
+Tumblr: http://elfketchup.tumblr.com/
 
 Getting Started
 ===============

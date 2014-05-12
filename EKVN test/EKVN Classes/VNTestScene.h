@@ -44,6 +44,7 @@
 #define VNTestSceneTitleImage               @"title image"
 #define VNTestSceneBackgroundImage          @"background image"
 #define VNTestSceneScriptToLoad             @"script to load"
+#define VNTestSceneMenuMusic                @"menu music"
 
 @interface VNTestScene : CCScene
 {
@@ -55,6 +56,8 @@
     
     NSString* nameOfScript; // The name of the property list that has all the script data
     VNScene* testScene;
+    
+    BOOL isPlayingMusic;
 }
 
 + (id)scene;
