@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 EKVN - ElfKetchup Visual Novel system
 =====================================
 
@@ -20,8 +19,6 @@ Contact
 -------
 
 Twitter: http://twitter.com/elfketchup
-
-Tumblr: http://elfketchup.tumblr.com/
 
 Getting Started
 ===============
