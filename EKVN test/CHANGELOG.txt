@@ -1,3 +1,6 @@
+version 1.1.5 Nov-01-2014
+. [NEW] Added “no skipping until text is shown” Boolean flag to “vnscene view settings.plist” (and VNScene), which prevents skipping dialogue until the text has completely appeared on screen (default value for flag is “NO”)
+
 version 1.1.4 May-12-2014
 . [NEW] Can now edit main_menu.plist to have music playing in the opening menu.
 

@@ -53,6 +53,7 @@ VNScene* theCurrentScene = nil;
         sprites         = [[NSMutableDictionary alloc] init];
         record          = [[NSMutableDictionary alloc] initWithDictionary:settings]; // Copy data to local dictionary
         flags           = [[NSMutableDictionary alloc] initWithDictionary:[[[EKRecord sharedRecord] flags] copy]]; // Create independent copy of flag data
+        noSkippingUntilTextIsShown = NO; // By default is set to NO, so it IS possible to skip text before it's shown
         
         // Set default UI values
         fontSizeForSpeaker  = 0.0;
@@ -247,6 +248,9 @@ VNScene* theCurrentScene = nil;
     [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeechFontKey];
     [viewSettings setValue:@YES forKey:VNSceneViewOverrideSpeechSizeKey];
     
+    // Load other settings
+    [viewSettings setValue:@NO forKey:VNSceneViewNoSkipUntilTextShownKey];
+    
     NSDictionary* buttonTouchedColorsDict = @{ @"r":@(0),
                                                @"g":@(0),
                                                @"b":@(255) }; // BLUE <- r0, g0, b255
@@ -405,6 +409,12 @@ VNScene* theCurrentScene = nil;
         speech.fontName = overrideSpeechFont;
     if( shouldOverrideSpeechSize && overrideSpeechSize )
         speech.fontSize = [overrideSpeechSize floatValue];
+    
+    // Part 7: Load extra features
+    NSNumber* blockSkippingUntilTextIsDone = [viewSettings objectForKey:VNSceneViewNoSkipUntilTextShownKey];
+    if( blockSkippingUntilTextIsDone ) {
+        noSkippingUntilTextIsShown = [blockSkippingUntilTextIsDone boolValue];
+    }
 }
 
 // Removes unused character sprites (CCSprite objects) from memory.
@@ -696,7 +706,15 @@ VNScene* theCurrentScene = nil;
             self.wasJustLoadedFromSave = NO; // Remove flag
         }
         
-        [script advanceIndex]; // Move the script forward
+        if( noSkippingUntilTextIsShown == NO ){
+            [script advanceIndex]; // Move the script forward
+        } else {
+            
+            // Only allow advancing/skipping if there's no text or if the opacity/alpha has reached 1.0
+            if( speech == nil || speech.string.length < 1 || speech.opacity >= 1.0 ) {
+                [script advanceIndex];
+            }
+        }
         
     // If the current mode is some kind of choice menu, then Touches Ended actually picks a choice (assuming,
     // of course, that the touch landed on a button).

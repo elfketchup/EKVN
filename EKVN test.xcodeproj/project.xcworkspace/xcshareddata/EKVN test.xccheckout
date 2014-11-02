@@ -14,7 +14,7 @@
 		<string>https://github.com/elfketchup/EKVN.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>EKVN test.xcodeproj/project.xcworkspace</string>
+	<string>EKVN test.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>909B91C7185F9B4EE665450EFFBA3C75B13EA8FD</key>

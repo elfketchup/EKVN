@@ -40,6 +40,8 @@
 	<true/>
 	<key>override speaker size from save</key>
 	<true/>
+	<key>no skipping until text is shown</key>
+	<false/>
 	<key>button untouched colors</key>
 	<dict>
 		<key>r</key>
