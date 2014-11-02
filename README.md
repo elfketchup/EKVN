@@ -8,7 +8,11 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
+<<<<<<< HEAD
    1. A Mac, running OS X 10.6 or newer
+=======
+   1. A Mac, running OS X 10.6 or newer
+>>>>>>> FETCH_HEAD
    2. Xcode - http://developer.apple.com/xcode
    3. cocos2d-iphone - http://www.cocos2d-iphone.org/
    
