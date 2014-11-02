@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 EKVN - ElfKetchup Visual Novel system
 =====================================
 
@@ -9,17 +8,12 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
-   1. A Mac, running OS X 10.8 ("Mountain Lion")
+   1. A Mac, running OS X 10.6 or newer
    2. Xcode - http://developer.apple.com/xcode
    3. cocos2d-iphone - http://www.cocos2d-iphone.org/
    
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
-
-Contact
--------
-
-Twitter: http://twitter.com/elfketchup
 
 Getting Started
 ===============
@@ -46,109 +40,6 @@ Getting Started, Part 1: Starting a new project
 (This assumes that you've downloaded the "EKVN test" project that has all the code and resource files 
 that you'll need to get started, AND that you've installed the cocos2d-iphone project templates for Xcode)
 
-=======
-=======
->>>>>>> FETCH_HEAD
-EKVN - ElfKetchup Visual Novel system
-=====================================
-
-EKVN is a framework, built on top of cocos2d-iphone, that can be used to create either
-short dialogue scenes for games, or full-length "visual novel" games (or anything in between).
-It has a simple "scripting language" for creating scenes, support for branching story paths,
-built-in save game features, and a customizable user interface.
-
-To start projects with EKVN, you'll need:
-
-   1. A Mac, running OS X 10.8 ("Mountain Lion")
-   2. Xcode - http://developer.apple.com/xcode
-   3. cocos2d-iphone - http://www.cocos2d-iphone.org/
-   
-(And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
-iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
-
-Contact
--------
-
-Twitter: http://twitter.com/elfketchup
-
-Tumblr: http://elfketchup.tumblr.com/
-
-Getting Started
-===============
-
-Most of this file consists of one long tutorial on how to get started using EKVN. If some of it seems
-awfully basic, that's because it was written partly for people who didn't know much about Cocos2D / iOS,
-but still wanted to make visual novels for iOS devices. More experienced/advanced developers may want
-to skip the "simple" stuff and jump straight to the more complex ones; if that's the case, I would recommend
-focusing more on Parts 3 and 5 of "Getting Started."
-
-The file "EKVN commands list.txt" has a list of all the scripting language commands that can be used
-by EKVN, and the source code (in the "EKVN Classes" folder) is fairly simple and well-commented, so anyone
-who really wants to learn the ins and outs of EKVN should be able to do so easily (especially if they
-already have experience with Cocos2D!)
-
-The sample scripts ("demo script" and "test script") also show a lot of the scripting language and
-its conventions in use. I would recommend playing around with them and changing certain values to
-see what might happen.
-
-
-Getting Started, Part 1: Starting a new project
------------------------------------------------
-
-(This assumes that you've downloaded the "EKVN test" project that has all the code and resource files 
-that you'll need to get started, AND that you've installed the cocos2d-iphone project templates for Xcode)
-
-=======
-EKVN - ElfKetchup Visual Novel system
-=====================================
-
-EKVN is a framework, built on top of cocos2d-iphone, that can be used to create either
-short dialogue scenes for games, or full-length "visual novel" games (or anything in between).
-It has a simple "scripting language" for creating scenes, support for branching story paths,
-built-in save game features, and a customizable user interface.
-
-To start projects with EKVN, you'll need:
-
-   1. A Mac, running OS X 10.8 ("Mountain Lion")
-   2. Xcode - http://developer.apple.com/xcode
-   3. cocos2d-iphone - http://www.cocos2d-iphone.org/
-   
-(And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
-iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
-
-Contact
--------
-
-Twitter: http://twitter.com/elfketchup
-
-Tumblr: http://elfketchup.tumblr.com/
-
-Getting Started
-===============
-
-Most of this file consists of one long tutorial on how to get started using EKVN. If some of it seems
-awfully basic, that's because it was written partly for people who didn't know much about Cocos2D / iOS,
-but still wanted to make visual novels for iOS devices. More experienced/advanced developers may want
-to skip the "simple" stuff and jump straight to the more complex ones; if that's the case, I would recommend
-focusing more on Parts 3 and 5 of "Getting Started."
-
-The file "EKVN commands list.txt" has a list of all the scripting language commands that can be used
-by EKVN, and the source code (in the "EKVN Classes" folder) is fairly simple and well-commented, so anyone
-who really wants to learn the ins and outs of EKVN should be able to do so easily (especially if they
-already have experience with Cocos2D!)
-
-The sample scripts ("demo script" and "test script") also show a lot of the scripting language and
-its conventions in use. I would recommend playing around with them and changing certain values to
-see what might happen.
-
-
-Getting Started, Part 1: Starting a new project
------------------------------------------------
-
-(This assumes that you've downloaded the "EKVN test" project that has all the code and resource files 
-that you'll need to get started, AND that you've installed the cocos2d-iphone project templates for Xcode)
-
->>>>>>> FETCH_HEAD
 1. Open up Xcode (I'm using version 5.0.2 )
 
 2. Choose the "cocos2d iOS" template (under "iOS > cocos2d v3.x")
@@ -224,6 +115,7 @@ Select VNScene.m, hit Enter and type: -w
 This will disable warnings for these files, which is very convenient (if potentially dangerous,
 since it means that you won't be able to see if there are any obvious bugs or inconsistencies
 in the code).
+
 
 Getting Started, Part 2: Main Menu
 ----------------------------------
@@ -466,7 +358,7 @@ Getting Started, Part 4: Customization
 It's very possible that you don't like the default "look" of the EKVN user interface. The files
 that determine most of how the EKVN looks to the player are stored i the "UI Files" folder,
 and include the Property List files for the main menu ("main_menu.plist") and for the "main" UI
-that appears for everything else (stored in "vnlayer view settings.plist"). The latter allows
+that appears for everything else (stored in "VNScene view settings.plist"). The latter allows
 you to change things like fonts, margins/offsets, text sizes, etc. (If a particular value seems
 mysterious, try changing it around and seeing what happens... you may get interesting results!)
 
@@ -485,7 +377,7 @@ and sizes for the "talkbox.png" are:
 
 If you overwrite them with images that use differents sizes (say you replace talkbox.png with
 an image that's 480x200, or 320x100), you MIGHT need to change the values in the file
-"vnlayer view settings.plist" so that the text displays properly. Normally, EKVN tries to 
+"VNScene view settings.plist" so that the text displays properly. Normally, EKVN tries to 
 calculate where and how text should be laid out, though there's no guarantee that the 
 auto-generated values will look good. In that case, tweaking the view settings' values
 should be enough to get it looking good. In the most extreme scenario, you may need to
@@ -529,6 +421,7 @@ you can just do something like this:
   
 If EKVN has any saved data, then it will reload a previously-saved game, along with whatever
 text / sprites / audio / etc. it had when the game was saved.
+
 
 Getting Started, Part 6: The App Store
 --------------------------------------
