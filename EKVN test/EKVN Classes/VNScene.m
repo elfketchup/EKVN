@@ -53,7 +53,13 @@ VNScene* theCurrentScene = nil;
         sprites         = [[NSMutableDictionary alloc] init];
         record          = [[NSMutableDictionary alloc] initWithDictionary:settings]; // Copy data to local dictionary
         flags           = [[NSMutableDictionary alloc] initWithDictionary:[[[EKRecord sharedRecord] flags] copy]]; // Create independent copy of flag data
-        noSkippingUntilTextIsShown = NO; // By default is set to NO, so it IS possible to skip text before it's shown
+        noSkippingUntilTextIsShown  = NO; // By default is set to NO, so it IS possible to skip text before it's shown
+        
+        // Set default values for cinematic text
+        cinematicTextSpeed          = 0.0;
+        cinematicTextInputAllowed   = YES;
+        cinematicTextCounter        = 0;
+        cinematicTextSpeedInFrames  = 0;
         
         // Set default UI values
         fontSizeForSpeaker  = 0.0;
@@ -130,6 +136,8 @@ VNScene* theCurrentScene = nil;
     NSNumber* musicShouldLoop   = [record objectForKey:VNSceneMusicShouldLoopKey];
     NSNumber* savedBackgroundX  = [record objectForKey:VNSceneBackgroundXKey];
     NSNumber* savedBackgroundY  = [record objectForKey:VNSceneBackgroundYKey];
+    NSNumber* CTextSpeed        = [record objectForKey:VNSceneCinematicTextSpeedKey];
+    NSNumber* CTextInputAllowed = [record objectForKey:VNSceneCinematicTextInputAllowedKey];
     CGSize screenSize           = [[CCDirector sharedDirector] viewSize]; // Screensize is loaded to help position UI elements
     
     // This determines whether or not the speechbox will be shown. By default, the speechbox is hidden
@@ -212,6 +220,16 @@ VNScene* theCurrentScene = nil;
             [sprites setValue:sprite forKey:spriteFilename];
 		}
 	}
+    
+    // Cinematic text
+    if( CTextSpeed != nil ) {
+        cinematicTextSpeed = [CTextSpeed doubleValue];
+    }
+    if( CTextInputAllowed != nil ) {
+        cinematicTextInputAllowed = [CTextInputAllowed boolValue];
+    }
+    
+    [self updateCinematicTextValues];
 }
 
 // Loads the default, hard-coded values for the view / UI settings dictionary.
@@ -503,6 +521,62 @@ VNScene* theCurrentScene = nil;
 #pragma mark -
 #pragma mark Misc and Utility
 
+- (void)updateCinematicTextValues
+{
+    // Check if cinematic text is (or should be) disabled
+    if( cinematicTextSpeed <= 0.0 ) {
+        cinematicTextCounter = 0;
+        cinematicTextInputAllowed = YES;
+        cinematicTextSpeedInFrames = 0;
+    } else {
+        // Figure out the number of frames per second (cocos2d sets this to 60 by default, but some people like to use custom values)
+        double animationInterval = [[CCDirector sharedDirector] animationInterval];
+        double currentInterval = 0.0;
+        int framesCounted = 0;
+        int numberOfFramesPerSecond = 60; // Default value
+        
+        // See how long it takes to get from 0.0 to 1.0; the actual frame count is determined by the number of loops
+        while( currentInterval < 1.0 ) {
+            currentInterval = currentInterval + animationInterval; // If 60fps, this becomes: currentInterval + 0.016667
+            framesCounted++;
+        }
+        numberOfFramesPerSecond = framesCounted;
+        
+        // Calculate cinematic text speed in frames
+        double fpsCount = (double) numberOfFramesPerSecond;
+        double result = fpsCount * cinematicTextSpeed;
+        cinematicTextSpeedInFrames = (int)result;
+        cinematicTextCounter = 0; // This gets reset
+    }
+    
+    // Update record with cinematic text values
+    [record setValue:@(cinematicTextSpeed) forKey:VNSceneCinematicTextSpeedKey];
+    [record setValue:@(cinematicTextInputAllowed) forKey:VNSceneCinematicTextInputAllowedKey];
+    
+    // Diagnostics
+    NSLog(@"[VNScene] Cinematic text speed: %f (in frames: %d). Input allowed: %d",
+          cinematicTextSpeed, cinematicTextSpeedInFrames, cinematicTextInputAllowed);
+}
+
+- (BOOL)cinematicTextAllowsUpdate
+{
+    // First, check if cinematic text is disabled, or if it allows input anyway
+    if( cinematicTextSpeed <= 0.0 || cinematicTextSpeedInFrames <= 0 ){
+        return YES;
+    }
+    if( cinematicTextInputAllowed == YES ) {
+        return YES;
+    }
+    
+    // Check if the "right time" has been reached
+    if( cinematicTextCounter >= cinematicTextSpeedInFrames ) {
+        cinematicTextCounter = 0; // Reset
+        return YES;
+    }
+    
+    return NO; // Otherwise, it's not allowed
+}
+
 // The set/clear effect-running-flag functions exist so that Cocos2D can call them after certain actions
 // (or sequences of actions) have been run. The "effect is running" flag is important, since it lets VNScene
 // know when it's safe (or unsafe) to do certain things (which might interrupt the effect that's being run).
@@ -707,12 +781,16 @@ VNScene* theCurrentScene = nil;
         }
         
         if( noSkippingUntilTextIsShown == NO ){
-            [script advanceIndex]; // Move the script forward
+            if( [self cinematicTextAllowsUpdate] == YES ) {
+                [script advanceIndex]; // Move the script forward
+            }
         } else {
             
             // Only allow advancing/skipping if there's no text or if the opacity/alpha has reached 1.0
             if( speech == nil || speech.string.length < 1 || speech.opacity >= 1.0 ) {
-                [script advanceIndex];
+                if( [self cinematicTextAllowsUpdate] == YES ) {
+                    [script advanceIndex];
+                }
             }
         }
         
@@ -787,6 +865,16 @@ VNScene* theCurrentScene = nil;
             
             // Take care of normal operations
             [self runScript]; // Process script data
+            
+            if( cinematicTextSpeed > 0.0 ) {
+                cinematicTextCounter++;
+                
+                if( cinematicTextCounter >= cinematicTextSpeedInFrames ) {
+                    [script advanceIndex];
+                    cinematicTextCounter = 0;
+                }
+            }
+            
             break;
             
         // Is an effect currently running? (this is normally when the "safe save" data comes into play)
@@ -1962,6 +2050,14 @@ VNScene* theCurrentScene = nil;
             
             // Store override data
             [record setObject:@(fontSizeForSpeaker) forKey:VNSceneOverrideSpeakerSizeKey];
+            
+        }break;
+            
+        case VNScriptCommandSetCinematicText:
+        {
+            cinematicTextSpeed = [parameter1 doubleValue];
+            cinematicTextInputAllowed = [[command objectAtIndex:2] boolValue];
+            [self updateCinematicTextValues];
             
         }break;
     

@@ -1317,6 +1317,41 @@
         
         type = @VNScriptCommandSetSpeechFontSize;
         analyzedArray = @[type, parameter1];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetCinematicText] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETCINEMATICTEXT
+        //
+        //  Sets (or disables) "cinematic text," in which text or dialogue proceeds without any input
+        //  from the player.
+        //
+        //  Parameters:
+        //
+        //      #1: The time it takes (in seconds) to get to the next line of text/dialogue. (double)
+        //          (Setting this to zero (or less) DISABLES cinematic text mode.)
+        //
+        //      #2: Whether the user can still skip ahead by tapping the screen (BOOL) (OPTIONAL)
+        //          (default value is NO)
+        //
+        //  Example: .SETCINEMATICTEXT:5.0:YES
+        //
+        
+        NSString* defaultSkipString = @"NO";
+        
+        float speed = parameter1.floatValue;
+        NSNumber* speedNumber = [NSNumber numberWithDouble:speed];
+        
+        BOOL canSkip = [defaultSkipString boolValue]; // Use default value first
+        if( command.count > 2 ) {
+            canSkip = [[command objectAtIndex:2] boolValue]; // Use custom value if it exists
+        }
+        
+        NSNumber* skipNumber = [NSNumber numberWithBool:canSkip];
+        
+        type = @VNScriptCommandSetCinematicText;
+        analyzedArray = @[type, speedNumber, skipNumber];
     }
 
     

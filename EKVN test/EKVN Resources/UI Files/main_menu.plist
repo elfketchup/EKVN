@@ -49,7 +49,7 @@
 	<key>background image</key>
 	<string>pond.png</string>
 	<key>script to load</key>
-	<string>demo script</string>
+	<string>test script</string>
 	<key>menu music</key>
 	<string>music01.mp3</string>
 </dict>

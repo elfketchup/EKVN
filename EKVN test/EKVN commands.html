@@ -5,528 +5,547 @@
   <meta http-equiv="Content-Style-Type" content="text/css">
   <title></title>
   <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1265.19">
+  <meta name="CocoaVersion" content="1344.72">
   <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #000000; -webkit-text-stroke: #000000; min-height: 16.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
     span.Apple-tab-span {white-space:pre}
   </style>
 </head>
 <body>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ADDSPRITE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D to add a sprite to the screen. By default, the sprite usually appears right</p>
-<p class="p2"><span class="Apple-converted-space">  </span>at the center of the screen.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Sprite name (string) (example: "girl.png")</p>
-<p class="p2"><span class="Apple-converted-space">          </span>Quite simply, the name of a file where the sprite is. Currently, the VN system doesn't</p>
-<p class="p2"><span class="Apple-converted-space">          </span>support sprite sheets, so it needs to be a single image in a single file.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Sprite appears at once? (Boolean value) (example: "NO") (default is NO)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>If set to YES, the sprite appears immediately (no fade-in). If set to NO, then the</p>
-<p class="p2"><span class="Apple-converted-space">          </span>sprite "gradually" fades in (though the fade-in usually takes a second or less).</p>
-<p class="p1"><br></p>
-<p class="p2">Example: .addsprite:girl.png:NO</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ALIGNSPRITE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Aligns a particular sprite in either the center, left, or right ends of the screen. This is done</p>
-<p class="p2"><span class="Apple-converted-space">  </span>by finding the center of the sprite and setting the X coordinate to either 25% of the screen's</p>
-<p class="p2"><span class="Apple-converted-space">  </span>width (on the iPhone 4S, this is 480*0.25 or 120), 50% (the middle), or 75% (the right).</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>There's also the Far Left (the left border of the screen), Far Right (the right border of the screen),</p>
-<p class="p2"><span class="Apple-converted-space">  </span>and Extreme Left and Extremem Right, which are so far that the sprite is drawn offscreen.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of sprite (string) (example: "girl.png")</p>
-<p class="p2"><span class="Apple-converted-space">          </span>This is the name of the sprite to manipulate/align. All sprites currently displayed by the</p>
-<p class="p2"><span class="Apple-converted-space">          </span>VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Alignment name (string) (example: "left") (default is "center")</p>
-<p class="p2"><span class="Apple-converted-space">          </span>(Other, more unusual values also include FAR LEFT, FAR RIGHT, EXTREME LEFT, EXTREME RIGHT)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>Determines whether to move the sprite to the LEFT, CENTER, or RIGHT of the screen.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">          </span>It has to be one of those values; partial/percentage values aren't supported.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Alignment duration in SECONDS (double value) (example: "0.5") (Default is 0.5)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>Determines how long it takes for the sprite to move from its current position to the</p>
-<p class="p2"><span class="Apple-converted-space">          </span>new position. Setting it to zero makes the transition instant. Time is measured in seconds.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .alignsprite:girl.png:center</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .REMOVESPRITE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Removes a sprite from the screen, assuming that it's part of the VN system's dictionary of</p>
-<p class="p2"><span class="Apple-converted-space">  </span>existing sprite objects.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of sprite (string) (example: "girl.png")</p>
-<p class="p2"><span class="Apple-converted-space">          </span>This is the name of the sprite to manipulate/align. All sprites currently displayed by the</p>
-<p class="p2"><span class="Apple-converted-space">          </span>VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Sprite appears at once (Boolean value) (example: "NO") (Default is NO)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>Determines whether the sprite disappears from the screen instantly or fades out gradually.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .removesprite:girl.png:NO</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .MOVESPRITE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move a sprite by a certain number of points.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">   </span>(note that all parameters after the first are TECHNICALLY optional, but if you use one,</p>
-<p class="p2"><span class="Apple-converted-space">    </span>you had better call the ones that come before it!)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the sprite to move (string) (example: "girl.png")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#4: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .movesprite:girl.png:128:-128:1.0</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPRITEPOSITION</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>NOTE that unlike .MOVESPRITE, this call is instantaneous. I don't remember why I made it that</p>
-<p class="p2"><span class="Apple-converted-space">  </span>way (probably since sprites usually don't move instantly in most visual novels), but it's probably</p>
-<p class="p2"><span class="Apple-converted-space">  </span>best to keep things simple like that anyways.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the sprite (string) (example: "girl.png")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The sprite's X coordinate, in points (float) (example: 10)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: The sprite's Y coordinate, in points (float) (example: 10)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .setspriteposition:girl.png:100:100</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETBACKGROUND</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Changes whatever image (if any) is used as the background. You can set this to 'nil' which removes</p>
-<p class="p2"><span class="Apple-converted-space">  </span>the background entirely, and shows whatever is behind. This is useful if you're overlaying the VN</p>
-<p class="p2"><span class="Apple-converted-space">  </span>scene over an existing Cocos2D layer/scene node.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Unlike some of the other image-switching commands, this one is supposed to do the change instantly.</p>
-<p class="p2"><span class="Apple-converted-space">  </span>It might be helpful to fade-out and then fade-in the scene during transistions so that the background</p>
-<p class="p2"><span class="Apple-converted-space">  </span>change isn't too jarring for the person playing the game.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the background image (string) (example: "beach.png")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .setbackground:beach.png</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .MOVEBACKGROUND</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move the background by a certain number of points. This is normally used to</p>
-<p class="p2"><span class="Apple-converted-space">  </span>pan the background (along the X-axis), but you can move the background up and down as well. Character</p>
-<p class="p2"><span class="Apple-converted-space">  </span>sprites can also be moved along with the background, though usually at a slightly different rate;</p>
-<p class="p2"><span class="Apple-converted-space">  </span>the rate is referred to as the "parallax factor." A parallax factor of 1.0 means that the character</p>
-<p class="p2"><span class="Apple-converted-space">  </span>sprites move just as quickly as the background does, while a factor 0.0 means that the character</p>
-<p class="p2"><span class="Apple-converted-space">  </span>sprites do not move at all.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Amount to move the sprite by Y points (float) (OPTIONAL) (example: 256) (default is ZERO)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Duration in seconds (float) (OPTIONAL) (example: 0.5) (default is 0.5 seconds)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#4: Parallax factor (float) (OPTIONAL) (example: 0.5) (default is 0.95)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>The rate at which sprites move compared to the background. 1.00 means that the</p>
-<p class="p2"><span class="Apple-converted-space">          </span>sprites move at exactly the same rate as the background, while 0.00 means that</p>
-<p class="p2"><span class="Apple-converted-space">          </span>the sprites do not move at all. You'll probably want to set it something in between.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .MOVEBACKGROUND:100:0:1.0:0.99</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEAKER</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>The "speaker name" is the title of the person speaking. If you set this to "nil" then it</p>
-<p class="p2"><span class="Apple-converted-space">  </span>removes whatever the previous speaker name was.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the character speaking (string) (example: "Harry Potter")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .setspeaker:John Smith</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETCONVERSATION</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>This jumps to a new conversation. The beginning conversation name is "start" and the other</p>
-<p class="p2"><span class="Apple-converted-space">  </span>arrays in the script's Property List represent other conversations.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the conversation/array to switch to (string) (example: "flirt sequence")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .setconversation:flirt sequence</p>
-<p class="p1"><span class="Apple-converted-space"> </span></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .JUMPONCHOICE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>This presents the player with multiple choices. Each choice causes the scene to jump to a different</p>
-<p class="p2"><span class="Apple-converted-space">  </span>"conversation" (or rather, an array in the script dictionary). The function can have multipe parameters,</p>
-<p class="p2"><span class="Apple-converted-space">  </span>but the number should always be even-numbered.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The name of the conversation to jump to (string) (example: "fleeing sequence")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>...these variables can be repeated multiple times.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .JUMPONCHOICE:"Hug someone":hug sequence:"Glomp someone":glomp sequence</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SHOWSPEECH</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Determines whether or not to show the speech (and accompanying speech-box or speech-area). You</p>
-<p class="p2"><span class="Apple-converted-space">  </span>can set it to NO if you don't want any text to show up.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Whether or not to show the speech box (BOOL value)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SHOWSPEECH:NO</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .FADEIN</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI</p>
-<p class="p2"><span class="Apple-converted-space">  </span>elements like speech text are unaffected).</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Duration of fade-in sequence, in seconds (double)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .FADEIN:0.5</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .FADEOUT</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI</p>
-<p class="p2"><span class="Apple-converted-space">  </span>elements like speech text are unaffected).</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Duration of fade-out sequence, in seconds (double)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .FADEOUT:1.0</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .PLAYSOUND</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Plays a sound (any type of sound file supported by Cocos2D/SimpleAudioEngine)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: name of sound file (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .PLAYSOUND:effect1.caf</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .PLAYMUSIC</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Plays background music. May or may not loop. You can also stop any background music</p>
-<p class="p2"><span class="Apple-converted-space">  </span>by calling this with the parameter set to "nil"</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: name of music filename (string)</p>
-<p class="p2"><span class="Apple-converted-space">          </span>(you can write "nil" to stop all the music)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (Optional) Should this loop forever? (BOOL value) (default is YES)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .PLAYMUSIC:LevelUpper.mp3:NO</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETFLAG</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Used to manually set a "flag" value in the VN system.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The value to set the flag to (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SETFLAG:number of friends:12</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .MODIFYFLAG</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Modifies a flag (which stores a numeric, integer value) by another integer. The catch is,</p>
-<p class="p2"><span class="Apple-converted-space">  </span>the modifying value has to be a "literal" number value, and not another flag/variable.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of the flag/variable to modify (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The number to modify the flag by (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .MODIFYFLAG:number of friends:1</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ISFLAG</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Checks if a flag matches a certain value. If it does, then it immediately runs another command.</p>
-<p class="p2"><span class="Apple-converted-space">  </span>In theory, you could probably even nest .ISFLAG commands inside each other, but I've never tried</p>
-<p class="p2"><span class="Apple-converted-space">  </span>this before.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Expected value (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Another command</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .ISFLAG:number of friends:1:.SETSPEAKER:That One Friend You Have</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ISFLAGMORETHAN</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Checks if a flag's value is GREATER than a given value. If it is, then a secondary command is run.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Certain number (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Another command</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .ISFLAGMORETHAN:power level:9000:.PLAYSOUND:over nine thousand.mp3</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ISFLAGLESSTHAN</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Checks if a flag's value is LESS than a certain number. If it is, then a secondary command is run.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: Certain number (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Another command</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .ISFLAGLESSTHAN:time remaining:0:.PLAYMUSIC:time's up.mp3</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .ISFLAGBETWEEN</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Checks if a flag's value is between two numbers, and if it is, this will run another command.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: First number (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: Second number (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#4: Another command</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .ISFLAGBETWEEN:number of cookies:1:3:YOU HAVE EXACTLY TWO COOKIES!</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .MODIFYFLAGBYCHOICE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>This presents a choice menu. Each choice causes a particular flag/variable to be changed</p>
-<p class="p2"><span class="Apple-converted-space">  </span>by a particular integer value.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The text that will appear on the choice (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The name of the flag/variable to be modified (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: The amount to modify the flag/variable by (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>...these variables can be repeated multiple times.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .MODIFYFLAGBYCHOICE:"Be nice":niceness:1:"Be rude":niceness:-1</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .JUMPONFLAG</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>If a particular flag has a particular value, then this command will jump to a different</p>
-<p class="p2"><span class="Apple-converted-space">  </span>conversation/dialogue-sequence in the script.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the flag to be checked (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The expected value of the flag (integer)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#3: The scene to jump to, if the flag's vaue matches the expected value in parameter #2 (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .JUMPONFLAG:should jump to beach scene:1:BeachScene</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SYSTEMCALL</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Used to do a "system call," which is usually game-specific. This command will try to contact the</p>
-<p class="p2"><span class="Apple-converted-space">  </span>VNSystemCall class, and use it to perform some kind of particular task. Some examples of this would</p>
-<p class="p2"><span class="Apple-converted-space">  </span>be starting a mini-game or some other activity that's specific to a particular app.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The "call string" or a string that described what the activity/system-call type will be (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) The first parameter to pass in to the system call (string?)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>...more parameters can be passed in as necessary</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SYSTEMCALL:start-bullet-hell-minigame:BulletHellLevel01</p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .CALLCODE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>This action can be used to call functions (usually from static objects). Careful when using it to</p>
-<p class="p2"><span class="Apple-converted-space">  </span>call classes or functions that the VN system doesn't have access to! You may need to include header</p>
-<p class="p2"><span class="Apple-converted-space">  </span>files from certain places if you really want to use certain classes.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the class to call (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: The name of a static function to call (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>#3: (OPTIONAL) The name of another function, PRESUMABLY a function that belongs to the class</p>
-<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>instance that was returned by the function called in #2 (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>#4: (OPTIONAL) A parameter to pass into the function called in #3 (string?)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .CALLCODE:EKRecord:sharedRecord:flagNamed:times played</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SWITCHSCRIPT</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Replaces a scene's script with a script loaded from another .PLIST file. This is useful if your script is</p>
-<p class="p2"><span class="Apple-converted-space">  </span>split up between multiple .PLIST files.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the .PLIST file to load (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) The name of the "conversation"/array to start at to (string) (default is "start")</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SWITCHSCRIPT:my other script:Some Random Event</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEAKERFONT</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Replaces the current font used by the "speaker name" label with another font.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the font to use (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SETSPEAKERFONT:Helvetica</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEAKERFONTSIZE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Changes the font size used by the "speaker name" label.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Font size (float)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SETSPEAKERFONTSIZE:17.0</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEECHFONT</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Replaces the current font used by the speech/dialogue label with another font.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: The name of the font to use (string)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SETSPEECHFONT:Courier New</p>
-<p class="p1"><br></p>
-<p class="p2">================</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Name: .SETSPEECHFONTSIZE</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Changes the speech/dialogue font size.</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Parameters:</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">      </span>#1: Font size (float)</p>
-<p class="p1"><br></p>
-<p class="p2"><span class="Apple-converted-space">  </span>Example: .SETSPEECHFONTSIZE:18.0</p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ADDSPRITE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Uses Cocos2D to add a sprite to the screen. By default, the sprite usually appears right</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>at the center of the screen.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Sprite name (string) (example: "girl.png")</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>Quite simply, the name of a file where the sprite is. Currently, the VN system doesn't</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>support sprite sheets, so it needs to be a single image in a single file.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Sprite appears at once? (Boolean value) (example: "NO") (default is NO)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>If set to YES, the sprite appears immediately (no fade-in). If set to NO, then the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>sprite "gradually" fades in (though the fade-in usually takes a second or less).</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">Example: .addsprite:girl.png:NO</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ALIGNSPRITE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Aligns a particular sprite in either the center, left, or right ends of the screen. This is done</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>by finding the center of the sprite and setting the X coordinate to either 25% of the screen's</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>width (on the iPhone 4S, this is 480*0.25 or 120), 50% (the middle), or 75% (the right).</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>There's also the Far Left (the left border of the screen), Far Right (the right border of the screen),</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>and Extreme Left and Extremem Right, which are so far that the sprite is drawn offscreen.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of sprite (string) (example: "girl.png")</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>This is the name of the sprite to manipulate/align. All sprites currently displayed by the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Alignment name (string) (example: "left") (default is "center")</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>(Other, more unusual values also include FAR LEFT, FAR RIGHT, EXTREME LEFT, EXTREME RIGHT)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>Determines whether to move the sprite to the LEFT, CENTER, or RIGHT of the screen.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>It has to be one of those values; partial/percentage values aren't supported.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Alignment duration in SECONDS (double value) (example: "0.5") (Default is 0.5)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>Determines how long it takes for the sprite to move from its current position to the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>new position. Setting it to zero makes the transition instant. Time is measured in seconds.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .alignsprite:girl.png:center</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .REMOVESPRITE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Removes a sprite from the screen, assuming that it's part of the VN system's dictionary of</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>existing sprite objects.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of sprite (string) (example: "girl.png")</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>This is the name of the sprite to manipulate/align. All sprites currently displayed by the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>VN system are kept track of in the scene, so if the sprite exists onscreen, it'll be found.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) Sprite appears at once (Boolean value) (example: "NO") (Default is NO)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>Determines whether the sprite disappears from the screen instantly or fades out gradually.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .removesprite:girl.png:NO</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .MOVESPRITE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move a sprite by a certain number of points.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">   </span>(note that all parameters after the first are TECHNICALLY optional, but if you use one,</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>you had better call the ones that come before it!)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the sprite to move (string) (example: "girl.png")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Amount to move the sprite by Y points (float) (example: 256) (default is ZERO)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#4: Duration in seconds (float) (example: 0.5) (default is 0.5 seconds)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .movesprite:girl.png:128:-128:1.0</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPRITEPOSITION</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>NOTE that unlike .MOVESPRITE, this call is instantaneous. I don't remember why I made it that</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>way (probably since sprites usually don't move instantly in most visual novels), but it's probably</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>best to keep things simple like that anyways.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the sprite (string) (example: "girl.png")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The sprite's X coordinate, in points (float) (example: 10)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: The sprite's Y coordinate, in points (float) (example: 10)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .setspriteposition:girl.png:100:100</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETBACKGROUND</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Changes whatever image (if any) is used as the background. You can set this to 'nil' which removes</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>the background entirely, and shows whatever is behind. This is useful if you're overlaying the VN</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>scene over an existing Cocos2D layer/scene node.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Unlike some of the other image-switching commands, this one is supposed to do the change instantly.</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>It might be helpful to fade-out and then fade-in the scene during transistions so that the background</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>change isn't too jarring for the person playing the game.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the background image (string) (example: "beach.png")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .setbackground:beach.png</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .MOVEBACKGROUND</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Uses Cocos2D actions to move the background by a certain number of points. This is normally used to</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>pan the background (along the X-axis), but you can move the background up and down as well. Character</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>sprites can also be moved along with the background, though usually at a slightly different rate;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>the rate is referred to as the "parallax factor." A parallax factor of 1.0 means that the character</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>sprites move just as quickly as the background does, while a factor 0.0 means that the character</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>sprites do not move at all.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Amount to move sprite by X points (float) (example: 128) (default is ZERO)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Amount to move the sprite by Y points (float) (OPTIONAL) (example: 256) (default is ZERO)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Duration in seconds (float) (OPTIONAL) (example: 0.5) (default is 0.5 seconds)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>This measures how long it takes to move the sprite, in seconds.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#4: Parallax factor (float) (OPTIONAL) (example: 0.5) (default is 0.95)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>The rate at which sprites move compared to the background. 1.00 means that the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>sprites move at exactly the same rate as the background, while 0.00 means that</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>the sprites do not move at all. You'll probably want to set it something in between.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .MOVEBACKGROUND:100:0:1.0:0.99</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPEAKER</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>The "speaker name" is the title of the person speaking. If you set this to "nil" then it</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>removes whatever the previous speaker name was.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the character speaking (string) (example: "Harry Potter")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .setspeaker:John Smith</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETCONVERSATION</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>This jumps to a new conversation. The beginning conversation name is "start" and the other</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>arrays in the script's Property List represent other conversations.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the conversation/array to switch to (string) (example: "flirt sequence")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .setconversation:flirt sequence</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .JUMPONCHOICE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>This presents the player with multiple choices. Each choice causes the scene to jump to a different</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>"conversation" (or rather, an array in the script dictionary). The function can have multipe parameters,</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>but the number should always be even-numbered.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the first action (shows up on button when player decides) (string) (example: "Run away")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The name of the conversation to jump to (string) (example: "fleeing sequence")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>...these variables can be repeated multiple times.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .JUMPONCHOICE:"Hug someone":hug sequence:"Glomp someone":glomp sequence</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SHOWSPEECH</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Determines whether or not to show the speech (and accompanying speech-box or speech-area). You</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>can set it to NO if you don't want any text to show up.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Whether or not to show the speech box (BOOL value)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SHOWSPEECH:NO</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .FADEIN</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>elements like speech text are unaffected).</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Duration of fade-in sequence, in seconds (double)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .FADEIN:0.5</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .FADEOUT</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Uses Cocos2D to fade-out the VN scene's backgrounds and sprites... and nothing else (UI</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>elements like speech text are unaffected).</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Duration of fade-out sequence, in seconds (double)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .FADEOUT:1.0</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .PLAYSOUND</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Plays a sound (any type of sound file supported by Cocos2D/SimpleAudioEngine)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: name of sound file (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .PLAYSOUND:effect1.caf</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .PLAYMUSIC</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Plays background music. May or may not loop. You can also stop any background music</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>by calling this with the parameter set to "nil"</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: name of music filename (string)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>(you can write "nil" to stop all the music)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (Optional) Should this loop forever? (BOOL value) (default is YES)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .PLAYMUSIC:LevelUpper.mp3:NO</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETFLAG</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Used to manually set a "flag" value in the VN system.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The value to set the flag to (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETFLAG:number of friends:12</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .MODIFYFLAG</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Modifies a flag (which stores a numeric, integer value) by another integer. The catch is,</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>the modifying value has to be a "literal" number value, and not another flag/variable.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of the flag/variable to modify (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The number to modify the flag by (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .MODIFYFLAG:number of friends:1</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ISFLAG</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Checks if a flag matches a certain value. If it does, then it immediately runs another command.</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>In theory, you could probably even nest .ISFLAG commands inside each other, but I've never tried</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>this before.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Expected value (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Another command</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .ISFLAG:number of friends:1:.SETSPEAKER:That One Friend You Have</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ISFLAGMORETHAN</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Checks if a flag's value is GREATER than a given value. If it is, then a secondary command is run.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Certain number (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Another command</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .ISFLAGMORETHAN:power level:9000:.PLAYSOUND:over nine thousand.mp3</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ISFLAGLESSTHAN</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Checks if a flag's value is LESS than a certain number. If it is, then a secondary command is run.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Certain number (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Another command</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .ISFLAGLESSTHAN:time remaining:0:.PLAYMUSIC:time's up.mp3</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .ISFLAGBETWEEN</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Checks if a flag's value is between two numbers, and if it is, this will run another command.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Name of flag (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: First number (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: Second number (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#4: Another command</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .ISFLAGBETWEEN:number of cookies:1:3:YOU HAVE EXACTLY TWO COOKIES!</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .MODIFYFLAGBYCHOICE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>This presents a choice menu. Each choice causes a particular flag/variable to be changed</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>by a particular integer value.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The text that will appear on the choice (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The name of the flag/variable to be modified (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: The amount to modify the flag/variable by (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>...these variables can be repeated multiple times.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .MODIFYFLAGBYCHOICE:"Be nice":niceness:1:"Be rude":niceness:-1</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .JUMPONFLAG</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>If a particular flag has a particular value, then this command will jump to a different</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>conversation/dialogue-sequence in the script.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the flag to be checked (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The expected value of the flag (integer)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#3: The scene to jump to, if the flag's vaue matches the expected value in parameter #2 (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .JUMPONFLAG:should jump to beach scene:1:BeachScene</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SYSTEMCALL</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Used to do a "system call," which is usually game-specific. This command will try to contact the</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>VNSystemCall class, and use it to perform some kind of particular task. Some examples of this would</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>be starting a mini-game or some other activity that's specific to a particular app.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The "call string" or a string that described what the activity/system-call type will be (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) The first parameter to pass in to the system call (string?)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>...more parameters can be passed in as necessary</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SYSTEMCALL:start-bullet-hell-minigame:BulletHellLevel01</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .CALLCODE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>This action can be used to call functions (usually from static objects). Careful when using it to</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>call classes or functions that the VN system doesn't have access to! You may need to include header</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>files from certain places if you really want to use certain classes.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the class to call (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: The name of a static function to call (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>#3: (OPTIONAL) The name of another function, PRESUMABLY a function that belongs to the class</span></p>
+<p class="p2"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>instance that was returned by the function called in #2 (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>#4: (OPTIONAL) A parameter to pass into the function called in #3 (string?)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .CALLCODE:EKRecord:sharedRecord:flagNamed:times played</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SWITCHSCRIPT</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Replaces a scene's script with a script loaded from another .PLIST file. This is useful if your script is</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>split up between multiple .PLIST files.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the .PLIST file to load (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: (OPTIONAL) The name of the "conversation"/array to start at to (string) (default is "start")</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SWITCHSCRIPT:my other script:Some Random Event</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPEAKERFONT</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Replaces the current font used by the "speaker name" label with another font.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the font to use (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETSPEAKERFONT:Helvetica</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPEAKERFONTSIZE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Changes the font size used by the "speaker name" label.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Font size (float)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETSPEAKERFONTSIZE:17.0</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPEECHFONT</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Replaces the current font used by the speech/dialogue label with another font.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The name of the font to use (string)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETSPEECHFONT:Courier New</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETSPEECHFONTSIZE</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Changes the speech/dialogue font size.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: Font size (float)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETSPEECHFONTSIZE:18.0</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">================</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Name: .SETCINEMATICTEXT</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Sets (or disables) "cinematic text," in which text or dialogue proceeds without any input</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>from the player.</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Parameters:</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#1: The time it takes (in seconds) to get to the next line of text/dialogue. (double)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>(Setting this to zero (or less) DISABLES cinematic text mode.)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>#2: Whether the user can still skip ahead by tapping the screen (BOOL) (OPTIONAL)</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span>(default value is NO)</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>Example: .SETCINEMATICTEXT:5.0:YES</span></p>
+<p class="p1"><span class="s1"></span><br></p>
 </body>
 </html>

@@ -1,3 +1,6 @@
+version 1.1.6 Feb-03-2015
+. [NEW] Added a "cinematic text" mode (activated/deactivated in script using the .SETCINEMATICTEXT command). This causes the text/dialogue to advance without user input after a certain period of time.
+
 version 1.1.5 Nov-01-2014
 . [NEW] Added “no skipping until text is shown” Boolean flag to “vnscene view settings.plist” (and VNScene), which prevents skipping dialogue until the text has completely appeared on screen (default value for flag is “NO”)
 
