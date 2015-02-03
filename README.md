@@ -215,9 +215,9 @@ characters would appear onscreen, and there wouldn't be much interaction going o
 
 This is where the scripting language's commands come in. Each command starts with a dot (".")
 and the command and its parameters are separated by the colon (":") character. The template is
-
+````
 .(COMMAND NAME):(parameter #1):(possibly more parameters...?)
-
+````
 (For reference, the commands given in the guide are all in UPPERCASE, so that it's easier to
 tell which is a command, and which is not. However, commands in EKVN are not case-sensitive. You
 could use ".setbackground" just as easily as ".SETBACKGROUND"
@@ -227,18 +227,18 @@ from using ".SETBACKGROUND:pond.png" at least as far as EKVN is concerned. It mi
 running in the Simulator, but it will have very different results on an actual iOS device!)
 
 Now, back to the script you're writing. Try entering:
-
+````
 .SETBACKGROUND:pond.png
-
+````
 Run it, and then... nothing really happens? Actually, something DID happen, except that
 the scene immediately ended afterwards, so it wasn't noticeable. Add the following line:
-
+````
 Hey, a background!
-
+````
 Now, your new scene will point out the obvious before returning to the main menu. Still,
 there's not much going on, and a visual novel about changing backgrounds is probably not
 going to be overwhelmingly popular. So, here are a few more lines you can add (in this order):
-
+````
 .ADDSPRITE:matsuri_close.png
 
 Suddenly, an anime girl appears!
@@ -268,7 +268,7 @@ Is she... dancing?
 The music stops, and the girl disappears.
 
 That wasn't strange at all.
-
+````
 Now, after you've entered those lines, try building and running the game. You should experience
 a strange (but working!) scene, especially if you've imported all of the files from EKVN test.
 (if you didn't, the app would have crashed since it would be missing some of the art / audio
@@ -279,26 +279,26 @@ can hold multiple sections (or "Arrays," if you prefer), which represent the bra
 of a story (or script, in this case). Click on the "Root" object in the script, and then hit
 Enter. A String object titled "New item" appears, change it to an Array object named "color", and
 then click the triangle and add the following lines:
-
+````
 .ADDSPRITE:matsuri_close.png
 
 Matsuri reappears, in color again!
-
+````
 Now click on the Root, but this time create an Array titled "sketch" with the following lines:
-
+````
 .ADDSPRITE:sketchmatsuri_close.png
 
 Matsuri reappears, but now she just looks like a sketch of an anime girl.
-
+````
 Go back to the "start" section, and at the end (after the line "That wasn't strange at all."),
 add the following lines:
-
+````
 .SYSTEMCALL:autosave
 
 Would you prefer Matsuri to have color, or not?
 
 .JUMPONCHOICE:"She should have color":color:No color is better:sketch
-
+````
 Now, when you run the app, you'll be presented with a choice, and can choose which version
 of Matsuri to see. If you press on the button "She should have color" then EKVN will switch
 over to the "color" section. On the other hand, if you choose "No color is better," then
@@ -313,7 +313,7 @@ command before making important choices can be a good practice for your own game
 Finally (in case this guide isn't long enough!), EKVN also comes with a "Flags" feature,
 which can also be used for diverging story branches. Delete the last line (with .JUMPONCHOICE)
 and replace it with the following
-
+````
 .SETFLAG:matsuri_color:0
 
 .MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
@@ -327,7 +327,7 @@ Well, you've made your choice.
 .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
 
 .SETCONVERSATION:sketch
-
+````
 Run your scene again, and you'll what happens: MOSTLY the same thing as last time! Now, you might
 be thinking "this latest version is actually more work! Why would I want to do it this way? The earlier
 version was easier!"
@@ -340,13 +340,13 @@ then with a few extra lines, the game would respond differently, without constan
 to different sections and dealing with the hassle of keeping track of all the branching paths.
 
 Oh, and one more thing. You can change the last .ISFLAG command from
-
+````
 .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
 
 into:
 
 .JUMPONFLAG:matsuri_color:1:color
-
+````
 This is a simpler way to change sections/conversations based on the values of certain flags.
 Also, another thing to keep in mind: All flags, when created, start with a value of ZERO, and 
 can be manually SET to a specific value by .SETFLAG, or MODIFIED by a particular value by 
@@ -373,12 +373,12 @@ by overwriting the "choicebox" and "talkbox" image files stored in the UI Files 
 let's say you want to change the look of the speech-boxes where dialogue pops up. The simplest
 way is to just overwrite "talkbox.png" (and its higher-resolution counterparts). The names
 and sizes for the "talkbox.png" are:
-
+````
 talkbox.png <- iPhone 3GS version, 480x120
 talkbox-hd.png <- iPhone 4 and newer, 1136x240
 talkbox-ipad.png <- iPad 1 & 2 and iPad Mini (first generation), 1024x170
 talkbox-ipadhd.png <- iPad 3 and newer, iPad Mini 2 and newer, 2048x340
-
+````
 (NOTE: Because the iPad has a much wider screen, the UI files for them are wider, but also shorter in height)
 
 If you overwrite them with images that use differents sizes (say you replace talkbox.png with
@@ -402,11 +402,11 @@ want to integrate some of EKVN's features into existing code. This section expla
 
 If you want to run EKVN (or at least, its "central" class, VNScene) on its own, the simplest way is
 to do something like this:
-
+````
 NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
 NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
 [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
-
+````
 This creates an entirely new VNScene object, and has it runs as the top-level Cocos2D scene,
 with a particular script.
 
@@ -417,14 +417,14 @@ already at least somewhat experienced with Cocos2D).
 Of course, this is only for starting new games. EKVN stores its own saved game data using a
 class called EKRecord, which in turn stores its data in NSUserDefaults. To load a saved EKVN game,
 you can just do something like this:
-
+````
 if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
 
 NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
 NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
 [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:savedData]];
 }
-
+````
 If EKVN has any saved data, then it will reload a previously-saved game, along with whatever
 text / sprites / audio / etc. it had when the game was saved.
 
