@@ -54,28 +54,28 @@ that you'll need to get started, AND that you've installed the cocos2d-iphone pr
 
 6. Open AppDelegate.m and replace the lines:
 
-#import "IntroScene.h"
-#import "HelloWorldScene.h"
+    #import "IntroScene.h"
+    #import "HelloWorldScene.h"
 
 with:
 
-#import "VNTestScene.h"
+    #import "VNTestScene.h"
 
 7. Scroll down to (or search for) the line that says
 
-return [IntroScene scene];
+    return [IntroScene scene];
 
 and replace it with:
 
-return [VNTestScene scene];
+    return [VNTestScene scene];
 
 8. (Optional) Change the line that says:
 
-CCSetupShowDebugStats: @(YES),
+    CCSetupShowDebugStats: @(YES),
 
 to:
 
-CCSetupShowDebugStats: @(NO),
+    CCSetupShowDebugStats: @(NO),
 
 Unless, of course, you want to see how many frames-per-second the app is running at.
 
