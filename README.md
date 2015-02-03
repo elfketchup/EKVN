@@ -8,10 +8,17 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
+<<<<<<< HEAD
 1. A Mac, running OS X 10.6 or newer
 2. Xcode - http://developer.apple.com/xcode
 3. cocos2d-iphone - http://www.cocos2d-iphone.org/
 
+=======
+   1. A Mac, running OS X 10.6 or newer
+   2. Xcode - http://developer.apple.com/xcode
+   3. cocos2d-iphone - http://www.cocos2d-iphone.org/
+   
+>>>>>>> FETCH_HEAD
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
 
@@ -54,6 +61,7 @@ that you'll need to get started, AND that you've installed the cocos2d-iphone pr
 
 6. Open AppDelegate.m and replace the lines:
 
+<<<<<<< HEAD
 #import "IntroScene.h"
 #import "HelloWorldScene.h"
 
@@ -64,9 +72,22 @@ with:
 7. Scroll down to (or search for) the line that says
 
 return [IntroScene scene];
+=======
+        #import "IntroScene.h"
+        #import "HelloWorldScene.h"
+
+    with:
+ 
+        #import "VNTestScene.h"
+
+7. Scroll down to (or search for) the line that says
+
+        return [IntroScene scene];
+>>>>>>> FETCH_HEAD
 
 and replace it with:
 
+<<<<<<< HEAD
 return [VNTestScene scene];
 
 8. (Optional) Change the line that says:
@@ -74,6 +95,17 @@ return [VNTestScene scene];
 CCSetupShowDebugStats: @(YES),
 
 to:
+=======
+        return [VNTestScene scene];
+
+8. (Optional) Change the line that says:
+
+        CCSetupShowDebugStats: @(YES),
+
+    to:
+
+        CCSetupShowDebugStats: @(NO),
+>>>>>>> FETCH_HEAD
 
 CCSetupShowDebugStats: @(NO),
 
@@ -81,6 +113,7 @@ Unless, of course, you want to see how many frames-per-second the app is running
 
 9. (Optional) Delete the following files from within Xcode:
 
+<<<<<<< HEAD
 HelloWorldScene.h
 HelloWorldScene.m
 IntroScene.h
@@ -103,6 +136,30 @@ newton-ipad.plist
 newton-ipad.png
 newton.plist
 newton.png
+=======
+        HelloWorldScene.h
+        HelloWorldScene.m
+        IntroScene.h
+        IntroScene.m
+        NewtonConstants.h
+        NewtonScene.h
+        NewtonScene.m
+        NewtonSphere.h
+        NewtonSphere.m
+        LightBulb.h
+        LightBulb.m
+        Rope.h
+        Rope.m
+
+        fire.plist
+        fire.png
+        newton-ipadhd.plist
+        newton-ipadhd.png
+        newton-ipad.plist
+        newton-ipad.png
+        newton.plist
+        newton.png
+>>>>>>> FETCH_HEAD
 
 10. (Optional) If you want to get rid of all the warnings that can pop up when you try to build/run
 the app, you can go to "Project Settings > Build Phases > Compile Sources" and then select the following 
@@ -397,16 +454,28 @@ want to integrate some of EKVN's features into existing code. This section expla
 If you want to run EKVN (or at least, its "central" class, VNScene) on its own, the simplest way is
 to do something like this:
 
+<<<<<<< HEAD
 NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
 NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
 [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
 
+=======
+    NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
+    NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
+    [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
+  
+>>>>>>> FETCH_HEAD
 This creates an entirely new VNScene object, and has it runs as the top-level Cocos2D scene,
 with a particular script.
 
 (NOTE: It's also possible to just add VNScene as a child node to an existing CCScene, but this
+<<<<<<< HEAD
 is something that could potentially get messy, so I don't recommend it unless you're
 already at least somewhat experienced with Cocos2D).
+=======
+       is something that could potentially get messy, so I don't recommend it unless you're
+       already at least somewhat experienced with Cocos2D).
+>>>>>>> FETCH_HEAD
 
 Of course, this is only for starting new games. EKVN stores its own saved game data using a
 class called EKRecord, which in turn stores its data in NSUserDefaults. To load a saved EKVN game,
@@ -458,4 +527,8 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+<<<<<<< HEAD
 THE SOFTWARE.
+=======
+THE SOFTWARE.
+>>>>>>> FETCH_HEAD
