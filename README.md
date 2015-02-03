@@ -8,14 +8,10 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
-<<<<<<< HEAD
-   1. A Mac, running OS X 10.6 or newer
-=======
-   1. A Mac, running OS X 10.6 or newer
->>>>>>> FETCH_HEAD
-   2. Xcode - http://developer.apple.com/xcode
-   3. cocos2d-iphone - http://www.cocos2d-iphone.org/
-   
+1. A Mac, running OS X 10.6 or newer
+2. Xcode - http://developer.apple.com/xcode
+3. cocos2d-iphone - http://www.cocos2d-iphone.org/
+
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
 
@@ -58,61 +54,61 @@ that you'll need to get started, AND that you've installed the cocos2d-iphone pr
 
 6. Open AppDelegate.m and replace the lines:
 
-        #import "IntroScene.h"
-        #import "HelloWorldScene.h"
+#import "IntroScene.h"
+#import "HelloWorldScene.h"
 
-    with:
- 
-        #import "VNTestScene.h"
+with:
+
+#import "VNTestScene.h"
 
 7. Scroll down to (or search for) the line that says
 
-        return [IntroScene scene];
+return [IntroScene scene];
 
-    and replace it with:
+and replace it with:
 
-        return [VNTestScene scene];
+return [VNTestScene scene];
 
 8. (Optional) Change the line that says:
 
-        CCSetupShowDebugStats: @(YES),
+CCSetupShowDebugStats: @(YES),
 
-    to:
+to:
 
-        CCSetupShowDebugStats: @(NO),
+CCSetupShowDebugStats: @(NO),
 
-    Unless, of course, you want to see how many frames-per-second the app is running at.
+Unless, of course, you want to see how many frames-per-second the app is running at.
 
 9. (Optional) Delete the following files from within Xcode:
 
-        HelloWorldScene.h
-        HelloWorldScene.m
-        IntroScene.h
-        IntroScene.m
-        NewtonConstants.h
-        NewtonScene.h
-        NewtonScene.m
-        NewtonSphere.h
-        NewtonSphere.m
-        LightBulb.h
-        LightBulb.m
-        Rope.h
-        Rope.m
+HelloWorldScene.h
+HelloWorldScene.m
+IntroScene.h
+IntroScene.m
+NewtonConstants.h
+NewtonScene.h
+NewtonScene.m
+NewtonSphere.h
+NewtonSphere.m
+LightBulb.h
+LightBulb.m
+Rope.h
+Rope.m
 
-        fire.plist
-        fire.png
-        newton-ipadhd.plist
-        newton-ipadhd.png
-        newton-ipad.plist
-        newton-ipad.png
-        newton.plist
-        newton.png
+fire.plist
+fire.png
+newton-ipadhd.plist
+newton-ipadhd.png
+newton-ipad.plist
+newton-ipad.png
+newton.plist
+newton.png
 
 10. (Optional) If you want to get rid of all the warnings that can pop up when you try to build/run
 the app, you can go to "Project Settings > Build Phases > Compile Sources" and then select the following 
 files:
 
-        VNScene.m
+VNScene.m
 
 Select VNScene.m, hit Enter and type: -w
 
@@ -147,25 +143,25 @@ the object will wind up pretty far offscreen!)
 The three most important values in the Main Menu settings (and by "most important," I really mean
 "the ones you're most likely to change!") are these:
 
-  1. background image
-  2. title image
-  3. script to load
-  
+1. background image
+2. title image
+3. script to load
+
 The first one is pretty self-explanatory. If you want to create your own game, you should
 supply your own background art. If you're not all that familiar with Cocos2D, you'll need
 about two or four files for the background art, depending on whether or not you want to
 support the iPad. For example, let's say you named your background image "backyard.png"
 In that case, the files you'll need are:
 
-    backyard.png <- A 480x320 image, for the old iPhone
-    backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
-    backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
-    backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer, and iPad mini 2 and newer
-  
+backyard.png <- A 480x320 image, for the old iPhone
+backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
+backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
+backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer, and iPad mini 2 and newer
+
 (NOTE: You'll need similar background images if you use the .SETBACKGROUND script command in EKVN,
-       though you can ignore the last two if your app doesn't support the iPad. Also, background can
-       really be of any sizes you like; EKVN doesn't enforce mandatory sizes. And if you plan to pan/move
-       the background, you should probably use larger images than the ones mentioned here.)
+though you can ignore the last two if your app doesn't support the iPad. Also, background can
+really be of any sizes you like; EKVN doesn't enforce mandatory sizes. And if you plan to pan/move
+the background, you should probably use larger images than the ones mentioned here.)
 
 The SECOND value ("title image") is just a title or logo image. Similar to the background
 images, you'll need two (or four, for the iPad), but there are no specific sizes required.
@@ -214,7 +210,7 @@ characters would appear onscreen, and there wouldn't be much interaction going o
 This is where the scripting language's commands come in. Each command starts with a dot (".")
 and the command and its parameters are separated by the colon (":") character. The template is
 
-    .(COMMAND NAME):(parameter #1):(possibly more parameters...?)
+.(COMMAND NAME):(parameter #1):(possibly more parameters...?)
 
 (For reference, the commands given in the guide are all in UPPERCASE, so that it's easier to
 tell which is a command, and which is not. However, commands in EKVN are not case-sensitive. You
@@ -226,47 +222,47 @@ running in the Simulator, but it will have very different results on an actual i
 
 Now, back to the script you're writing. Try entering:
 
-    .SETBACKGROUND:pond.png
-  
+.SETBACKGROUND:pond.png
+
 Run it, and then... nothing really happens? Actually, something DID happen, except that
 the scene immediately ended afterwards, so it wasn't noticeable. Add the following line:
 
-    Hey, a background!
+Hey, a background!
 
 Now, your new scene will point out the obvious before returning to the main menu. Still,
 there's not much going on, and a visual novel about changing backgrounds is probably not
 going to be overwhelmingly popular. So, here are a few more lines you can add (in this order):
 
-    .ADDSPRITE:matsuri_close.png
-  
-    Suddenly, an anime girl appears!
-  
-    .SETSPEAKER:Matsuri
-  
-    Hi, my name is Matsuri.
-  
-    .SETSPEAKER:nil
-  
-    You've now met your first character.
-  
-    .PLAYMUSIC:music01.mp3
-  
-    .ALIGNSPRITE:matsuri_close.png:left
-  
-    .ALIGNSPRITE:matsuri_close.png:right
-  
-    .ALIGNSPRITE:matsuri_close.png:center
-  
-    Is she... dancing?
-  
-    .PLAYMUSIC:nil
-  
-    .REMOVESPRITE:matsuri_close.png
-  
-    The music stops, and the girl disappears.
-  
-    That wasn't strange at all.
-  
+.ADDSPRITE:matsuri_close.png
+
+Suddenly, an anime girl appears!
+
+.SETSPEAKER:Matsuri
+
+Hi, my name is Matsuri.
+
+.SETSPEAKER:nil
+
+You've now met your first character.
+
+.PLAYMUSIC:music01.mp3
+
+.ALIGNSPRITE:matsuri_close.png:left
+
+.ALIGNSPRITE:matsuri_close.png:right
+
+.ALIGNSPRITE:matsuri_close.png:center
+
+Is she... dancing?
+
+.PLAYMUSIC:nil
+
+.REMOVESPRITE:matsuri_close.png
+
+The music stops, and the girl disappears.
+
+That wasn't strange at all.
+
 Now, after you've entered those lines, try building and running the game. You should experience
 a strange (but working!) scene, especially if you've imported all of the files from EKVN test.
 (if you didn't, the app would have crashed since it would be missing some of the art / audio
@@ -278,24 +274,24 @@ of a story (or script, in this case). Click on the "Root" object in the script, 
 Enter. A String object titled "New item" appears, change it to an Array object named "color", and
 then click the triangle and add the following lines:
 
-    .ADDSPRITE:matsuri_close.png
-  
-    Matsuri reappears, in color again!
-  
+.ADDSPRITE:matsuri_close.png
+
+Matsuri reappears, in color again!
+
 Now click on the Root, but this time create an Array titled "sketch" with the following lines:
 
-    .ADDSPRITE:sketchmatsuri_close.png
-  
-    Matsuri reappears, but now she just looks like a sketch of an anime girl.
-  
+.ADDSPRITE:sketchmatsuri_close.png
+
+Matsuri reappears, but now she just looks like a sketch of an anime girl.
+
 Go back to the "start" section, and at the end (after the line "That wasn't strange at all."),
 add the following lines:
 
-    .SYSTEMCALL:autosave
+.SYSTEMCALL:autosave
 
-    Would you prefer Matsuri to have color, or not?
-  
-    .JUMPONCHOICE:"She should have color":color:No color is better:sketch
+Would you prefer Matsuri to have color, or not?
+
+.JUMPONCHOICE:"She should have color":color:No color is better:sketch
 
 Now, when you run the app, you'll be presented with a choice, and can choose which version
 of Matsuri to see. If you press on the button "She should have color" then EKVN will switch
@@ -312,20 +308,20 @@ Finally (in case this guide isn't long enough!), EKVN also comes with a "Flags" 
 which can also be used for diverging story branches. Delete the last line (with .JUMPONCHOICE)
 and replace it with the following
 
-    .SETFLAG:matsuri_color:0
-  
-    .MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
-  
-    Well, you've made your choice.
-  
-    .ISFLAG:matsuri_color:1:You like the full-color version better, huh?
-  
-    .ISFLAG:matsuri_color:0:You like the non-colored version better?
-  
-    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
-  
-    .SETCONVERSATION:sketch
-  
+.SETFLAG:matsuri_color:0
+
+.MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
+
+Well, you've made your choice.
+
+.ISFLAG:matsuri_color:1:You like the full-color version better, huh?
+
+.ISFLAG:matsuri_color:0:You like the non-colored version better?
+
+.ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+
+.SETCONVERSATION:sketch
+
 Run your scene again, and you'll what happens: MOSTLY the same thing as last time! Now, you might
 be thinking "this latest version is actually more work! Why would I want to do it this way? The earlier
 version was easier!"
@@ -339,12 +335,12 @@ to different sections and dealing with the hassle of keeping track of all the br
 
 Oh, and one more thing. You can change the last .ISFLAG command from
 
-    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
-  
+.ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+
 into:
 
-    .JUMPONFLAG:matsuri_color:1:color
-  
+.JUMPONFLAG:matsuri_color:1:color
+
 This is a simpler way to change sections/conversations based on the values of certain flags.
 Also, another thing to keep in mind: All flags, when created, start with a value of ZERO, and 
 can be manually SET to a specific value by .SETFLAG, or MODIFIED by a particular value by 
@@ -372,11 +368,11 @@ let's say you want to change the look of the speech-boxes where dialogue pops up
 way is to just overwrite "talkbox.png" (and its higher-resolution counterparts). The names
 and sizes for the "talkbox.png" are:
 
-    talkbox.png <- iPhone 3GS version, 480x120
-    talkbox-hd.png <- iPhone 4 and newer, 1136x240
-    talkbox-ipad.png <- iPad 1 & 2 and iPad Mini (first generation), 1024x170
-    talkbox-ipadhd.png <- iPad 3 and newer, iPad Mini 2 and newer, 2048x340
-    
+talkbox.png <- iPhone 3GS version, 480x120
+talkbox-hd.png <- iPhone 4 and newer, 1136x240
+talkbox-ipad.png <- iPad 1 & 2 and iPad Mini (first generation), 1024x170
+talkbox-ipadhd.png <- iPad 3 and newer, iPad Mini 2 and newer, 2048x340
+
 (NOTE: Because the iPad has a much wider screen, the UI files for them are wider, but also shorter in height)
 
 If you overwrite them with images that use differents sizes (say you replace talkbox.png with
@@ -401,28 +397,28 @@ want to integrate some of EKVN's features into existing code. This section expla
 If you want to run EKVN (or at least, its "central" class, VNScene) on its own, the simplest way is
 to do something like this:
 
-    NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
-    NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
-    [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
-  
+NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
+NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
+[[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:settingsForScene]];
+
 This creates an entirely new VNScene object, and has it runs as the top-level Cocos2D scene,
 with a particular script.
 
 (NOTE: It's also possible to just add VNScene as a child node to an existing CCScene, but this
-       is something that could potentially get messy, so I don't recommend it unless you're
-       already at least somewhat experienced with Cocos2D).
+is something that could potentially get messy, so I don't recommend it unless you're
+already at least somewhat experienced with Cocos2D).
 
 Of course, this is only for starting new games. EKVN stores its own saved game data using a
 class called EKRecord, which in turn stores its data in NSUserDefaults. To load a saved EKVN game,
 you can just do something like this:
 
-    if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
+if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
 
-        NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
-        NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
-        [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:savedData]];
-    }
-  
+NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
+NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
+[[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:savedData]];
+}
+
 If EKVN has any saved data, then it will reload a previously-saved game, along with whatever
 text / sprites / audio / etc. it had when the game was saved.
 
