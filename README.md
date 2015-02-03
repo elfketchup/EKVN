@@ -53,34 +53,36 @@ that you'll need to get started, AND that you've installed the cocos2d-iphone pr
 "Copy items into destination group's folder" option checked)
 
 6. Open AppDelegate.m and replace the lines:
-
+````
     #import "IntroScene.h"
     #import "HelloWorldScene.h"
+````
 
 with:
-
+````
     #import "VNTestScene.h"
+````
 
 7. Scroll down to (or search for) the line that says
-
+````
     return [IntroScene scene];
-
+````
 and replace it with:
-
+````
     return [VNTestScene scene];
-
+````
 8. (Optional) Change the line that says:
-
+````
     CCSetupShowDebugStats: @(YES),
-
+````
 to:
-
+````
     CCSetupShowDebugStats: @(NO),
-
+````
 Unless, of course, you want to see how many frames-per-second the app is running at.
 
 9. (Optional) Delete the following files from within Xcode:
-
+````
 HelloWorldScene.h
 HelloWorldScene.m
 IntroScene.h
@@ -103,12 +105,14 @@ newton-ipad.plist
 newton-ipad.png
 newton.plist
 newton.png
+````
 
 10. (Optional) If you want to get rid of all the warnings that can pop up when you try to build/run
 the app, you can go to "Project Settings > Build Phases > Compile Sources" and then select the following 
 files:
-
+````
 VNScene.m
+````
 
 Select VNScene.m, hit Enter and type: -w
 
@@ -153,10 +157,12 @@ about two or four files for the background art, depending on whether or not you 
 support the iPad. For example, let's say you named your background image "backyard.png"
 In that case, the files you'll need are:
 
+````
 backyard.png <- A 480x320 image, for the old iPhone
 backyard-hd.png <- An 1136x640 image, for iPhone 4 and newer (1136px supports iPhone 5 also!)
 backyard-ipad.png <- 1024x768 image for iPad 1 & 2, and iPad mini (first-gen)
 backyard-ipadhd.png <- 2048x1536 image for iPad 3 and newer, and iPad mini 2 and newer
+````
 
 (NOTE: You'll need similar background images if you use the .SETBACKGROUND script command in EKVN,
 though you can ignore the last two if your app doesn't support the iPad. Also, background can
