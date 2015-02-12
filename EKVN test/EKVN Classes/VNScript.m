@@ -1352,6 +1352,40 @@
         
         type = @VNScriptCommandSetCinematicText;
         analyzedArray = @[type, speedNumber, skipNumber];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetTypewriterText] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETTYPEWRITERTEXT
+        //
+        //  Sets or disables "typewriter text" mode, in which each character of text/dialogue appears
+        //  one at a time (though usually still very quickly).
+        //
+        //  Parameters:
+        //
+        //      #1: How many characters it should print per second (Integer)
+        //          (setting this to zero disables typewriter text mode)
+        //
+        //      #2: Whether the user can still skip ahead by tapping the screen (BOOL) (default value is NO)
+        //
+        //  Example: .SETTYPEWRITERTEXT:30:NO
+        //
+        
+        NSString* defaultSkipString = @"NO";
+        
+        int textSpeed = parameter1.intValue;
+        NSNumber* timeNumber = [NSNumber numberWithInt:textSpeed];
+        
+        BOOL canSkip = [defaultSkipString boolValue]; // Use default value first
+        if( command.count > 2 ) {
+            canSkip = [[command objectAtIndex:2] boolValue]; // Use custom value if it exists
+        }
+        
+        NSNumber* skipNumber = [NSNumber numberWithBool:canSkip];
+        
+        type = @VNScriptCommandSetTypewriterText;
+        analyzedArray = @[type, timeNumber, skipNumber];
     }
 
     

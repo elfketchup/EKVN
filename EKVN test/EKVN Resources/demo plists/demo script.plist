@@ -59,6 +59,7 @@
 	</array>
 	<key>start</key>
 	<array>
+		<string>.SETTYPEWRITERTEXT:60:NO</string>
 		<string>Hey there.</string>
 		<string>.SETBACKGROUND:skyspace.png</string>
 		<string>First up, it&apos;s probably a good idea to have the dialogue box up.</string>

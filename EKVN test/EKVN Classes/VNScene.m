@@ -61,6 +61,19 @@ VNScene* theCurrentScene = nil;
         cinematicTextCounter        = 0;
         cinematicTextSpeedInFrames  = 0;
         
+        // Set default values for typewriter text mode
+        TWModeEnabled                   = NO; // Off by default (standard EKVN text mode)
+        TWSpeedInFrames                 = 0;
+        TWSpeedInSeconds                = 0.0;
+        TWNumberOfCurrentCharacters     = 0;
+        TWPreviousNumberOfCurrentChars  = 0;
+        TWNumberOfTotalCharacters       = 0;
+        TWCurrentText                   = @"";
+        TWFullText                      = @"";
+        TWTimer                         = 0;
+        TWSpeedInCharacters             = 60;
+        TWCanSkip                       = YES;
+        
         // Set default UI values
         fontSizeForSpeaker  = 0.0;
         fontSizeForSpeech   = 0.0;
@@ -139,6 +152,11 @@ VNScene* theCurrentScene = nil;
     NSNumber* CTextSpeed        = [record objectForKey:VNSceneCinematicTextSpeedKey];
     NSNumber* CTextInputAllowed = [record objectForKey:VNSceneCinematicTextInputAllowedKey];
     CGSize screenSize           = [[CCDirector sharedDirector] viewSize]; // Screensize is loaded to help position UI elements
+    
+    // Load typewriter values
+    NSNumber* TWEnabledValue        = [record objectForKey:VNSceneTypewriterTextModeEnabledKey];
+    NSNumber* TWSpeedInCharsValue   = [record objectForKey:VNSceneTypewriterSpeedInCharactersKey];
+    NSNumber* TWCanSkipValue        = [record objectForKey:VNSceneTypewriterCanSkipTextKey];
     
     // This determines whether or not the speechbox will be shown. By default, the speechbox is hidden
     // until a point in the script manually tells it to be shown, but when loading from a saved game,
@@ -230,6 +248,19 @@ VNScene* theCurrentScene = nil;
     }
     
     [self updateCinematicTextValues];
+    
+    // Handle loading typewriter data
+    if( TWEnabledValue != nil ) {
+        TWModeEnabled = [TWEnabledValue boolValue];
+    }
+    if( TWSpeedInCharsValue != nil) {
+        TWSpeedInCharacters = [TWSpeedInCharsValue intValue];
+    }
+    if( TWCanSkipValue != nil ) {
+        TWCanSkip = [TWCanSkipValue boolValue];
+    }
+    
+    [self updateTypewriterTextValues];
 }
 
 // Loads the default, hard-coded values for the view / UI settings dictionary.
@@ -433,6 +464,21 @@ VNScene* theCurrentScene = nil;
     if( blockSkippingUntilTextIsDone ) {
         noSkippingUntilTextIsShown = [blockSkippingUntilTextIsDone boolValue];
     }
+    
+    // Load typewriter text mode (if there's any data for it)
+    NSNumber* TWIsEnabledValue = [viewSettings objectForKey:VNSceneTypewriterTextModeEnabledKey];
+    NSNumber* TWSpeedInCharsValue = [viewSettings objectForKey:VNSceneTypewriterSpeedInCharactersKey];
+    NSNumber* TWCanSkipValue = [viewSettings objectForKey:VNSceneTypewriterCanSkipTextKey];
+    if (TWIsEnabledValue != nil) {
+        TWModeEnabled = [TWIsEnabledValue boolValue];
+    }
+    if( TWSpeedInCharsValue != nil) {
+        TWSpeedInCharacters = [TWSpeedInCharsValue doubleValue];
+    }
+    if( TWCanSkipValue != nil ) {
+        TWCanSkip = [TWCanSkipValue boolValue];
+    }
+    [self updateTypewriterTextValues];
 }
 
 // Removes unused character sprites (CCSprite objects) from memory.
@@ -521,6 +567,117 @@ VNScene* theCurrentScene = nil;
 #pragma mark -
 #pragma mark Misc and Utility
 
+// What the FPS count SHOULD be (not what it actually is, as that changes due to performance issues)
+- (int)theoreticalFramesPerSecond
+{
+    double animationInterval = [[CCDirector sharedDirector] animationInterval];
+    double currentInterval = 0.0;
+    int framesCounted = 0;
+    int numberOfFramesPerSecond = 60; // Default value
+    
+    // See how long it takes to get from 0.0 to 1.0; the actual frame count is determined by the number of loops
+    while( currentInterval < 1.0 ) {
+        currentInterval = currentInterval + animationInterval; // If 60fps, this becomes: currentInterval + 0.016667
+        framesCounted++;
+    }
+    numberOfFramesPerSecond = framesCounted;
+    
+    double fpsCount = (double) numberOfFramesPerSecond;
+    int result = (int)fpsCount;
+    
+    return result;
+}
+
+// Updates data regarding speed (and whether or not typewriter mode should be enabled). This should only get called occasionally,
+// such as when this speed values are changed.
+- (void)updateTypewriterTextValues
+{
+    // Check if the speed is too small (0 or less)
+    if( TWSpeedInCharacters <= 0 ) {
+        TWModeEnabled = NO;
+        TWTimer = 0;
+    } else {
+        
+        TWModeEnabled = YES;
+        
+        //TWNumberOfCurrentCharacters = 0;
+        //TWNumberOfTotalCharacters = 0;
+        //TWCurrentText = @" ";
+        //TWFullText = @" ";
+        
+        // Determine frame speed
+        int fpsCount = [self theoreticalFramesPerSecond];
+        double fpsAsDouble = (double)fpsCount;
+        
+        // Calculate speed in seconds based on characters per second
+        double charsPerSecond = (double)TWSpeedInCharacters;
+        TWSpeedInSeconds = fpsAsDouble / charsPerSecond; // at 60fps this is 60/characters-per-second
+        
+        double speedInFrames = fpsAsDouble * TWSpeedInSeconds;
+        TWSpeedInFrames = (int) speedInFrames;
+        TWTimer = 0; // This gets reset
+        
+        
+        
+        NSLog(@"Typewriter Text - speed in seconds: %f | speed in frames: %d", TWSpeedInSeconds, TWSpeedInFrames);
+    }
+    
+    [record setObject:@(TWSpeedInCharacters) forKey:VNSceneTypewriterSpeedInCharactersKey];
+    [record setObject:@(TWModeEnabled) forKey:VNSceneTypewriterTextModeEnabledKey];
+    [record setObject:@(TWCanSkip) forKey:VNSceneTypewriterCanSkipTextKey];
+}
+
+// This gets called every frame to determine how to display labels when typewriter text is enabled.
+- (void)updateTypewriterTextLabels
+{
+    // Check if typewriter more is disabled
+    if (TWSpeedInCharacters <= 0 || TWSpeedInSeconds < 0.0 || TWModeEnabled == NO) {
+        return;
+    }
+    
+    // Check if the displayed text should fully match up to the "full" text
+    if( TWTimer >= TWSpeedInFrames ) {
+        TWNumberOfCurrentCharacters = TWNumberOfTotalCharacters;
+    } else {
+        
+        // Calculate how many characters to show
+        double currentInFrames = (double)TWTimer;
+        double totalInFrames = (double)TWSpeedInFrames;
+        double normalizedPercentage = currentInFrames / totalInFrames;
+
+        // Clamp min-max values
+        if( normalizedPercentage > 1.0 ) {
+            normalizedPercentage = 1.0;
+        }
+        if( normalizedPercentage < 0.0 ) {
+            normalizedPercentage = 0.0;
+        }
+        
+        double totalChars = (double)TWNumberOfTotalCharacters;
+        double showThisManyChars = totalChars * normalizedPercentage;
+        TWNumberOfCurrentCharacters = (int)showThisManyChars;
+        
+        // Clamp min-max values again, just in case
+        if( TWNumberOfCurrentCharacters < 0 ) {
+            TWNumberOfCurrentCharacters = 0;
+        } else if( TWNumberOfCurrentCharacters > TWNumberOfTotalCharacters) {
+            TWNumberOfCurrentCharacters =  TWNumberOfTotalCharacters;
+        }
+    }
+    
+    // The "previous number" counter is used to ensure that changes to the display are only made when it's necessary
+    // (in this case, when the value changes for good) instead of possibly every single frame.
+    if( TWNumberOfCurrentCharacters > TWPreviousNumberOfCurrentChars ) {
+        // Actually commit new values to display
+        NSUInteger numberOfCharsToUse = (NSUInteger)TWNumberOfCurrentCharacters;
+        TWCurrentText = [TWFullText substringToIndex:numberOfCharsToUse];
+        [speech setString:TWCurrentText];
+        
+        // Update "previous counter" with the new value
+        TWPreviousNumberOfCurrentChars = TWNumberOfCurrentCharacters;
+    }
+}
+
 - (void)updateCinematicTextValues
 {
     // Check if cinematic text is (or should be) disabled
@@ -529,21 +686,8 @@ VNScene* theCurrentScene = nil;
         cinematicTextInputAllowed = YES;
         cinematicTextSpeedInFrames = 0;
     } else {
-        // Figure out the number of frames per second (cocos2d sets this to 60 by default, but some people like to use custom values)
-        double animationInterval = [[CCDirector sharedDirector] animationInterval];
-        double currentInterval = 0.0;
-        int framesCounted = 0;
-        int numberOfFramesPerSecond = 60; // Default value
-        
-        // See how long it takes to get from 0.0 to 1.0; the actual frame count is determined by the number of loops
-        while( currentInterval < 1.0 ) {
-            currentInterval = currentInterval + animationInterval; // If 60fps, this becomes: currentInterval + 0.016667
-            framesCounted++;
-        }
-        numberOfFramesPerSecond = framesCounted;
-        
-        // Calculate cinematic text speed in frames
-        double fpsCount = (double) numberOfFramesPerSecond;
+        int fpsCount = [self theoreticalFramesPerSecond];
+        double fpsAsDouble = (double)fpsCount;
         double result = fpsCount * cinematicTextSpeed;
         cinematicTextSpeedInFrames = (int)result;
         cinematicTextCounter = 0; // This gets reset
@@ -782,14 +926,42 @@ VNScene* theCurrentScene = nil;
         
         if( noSkippingUntilTextIsShown == NO ){
             if( [self cinematicTextAllowsUpdate] == YES ) {
-                [script advanceIndex]; // Move the script forward
+                
+                BOOL canSkip = YES;
+                
+                // Determine if typewriter text should block skipping
+                if( TWModeEnabled == YES ) { // 1. Is TW mode on?
+                    if( TWCanSkip == NO ) { // 2. Is skipping disabled?
+                        if( TWCurrentText.length < TWFullText.length ) { // 3. Is is just NOT time yet?
+                            canSkip = NO; // Skipping is disabled!
+                        }
+                    }
+                }
+                
+                if( canSkip == YES ) {
+                    [script advanceIndex]; // Move the script forward
+                }
             }
         } else {
             
             // Only allow advancing/skipping if there's no text or if the opacity/alpha has reached 1.0
             if( speech == nil || speech.string.length < 1 || speech.opacity >= 1.0 ) {
                 if( [self cinematicTextAllowsUpdate] == YES ) {
-                    [script advanceIndex];
+                    
+                    BOOL canSkip = YES;
+                    
+                    // Determine if typewriter text should block skipping
+                    if( TWModeEnabled == YES ) { // 1. Is TW mode on?
+                        if( TWCanSkip == NO ) { // 2. Is skipping disabled?
+                            if( TWCurrentText.length < TWFullText.length ) { // 3. Is is just NOT time yet?
+                                canSkip = NO; // Skipping is disabled!
+                            }
+                        }
+                    }
+                    
+                    if( canSkip == YES ) {
+                        [script advanceIndex];
+                    }
                 }
             }
         }
@@ -873,6 +1045,14 @@ VNScene* theCurrentScene = nil;
                     [script advanceIndex];
                     cinematicTextCounter = 0;
                 }
+            }
+            
+            // Update typewriter text
+            if( TWTimer <= TWSpeedInFrames ) {
+                
+                TWTimer++;
+                
+                [self updateTypewriterTextLabels];
             }
             
             break;
@@ -1062,21 +1242,42 @@ VNScene* theCurrentScene = nil;
     // Check if the command is really just "display a regular line of text"
     if( type == VNScriptCommandSayLine ) {
         
-        // Speech opacity is set to zero, making it invisible. Remember, speech is supposed to "fade in"
-        // instead of instantly appearing, since an instant appearance can be visually jarring to players.
-        speech.opacity = 0.0;
-        [speech setString:parameter1]; // Copy over the text (while the text label is "invisble")
-        [record setValue:parameter1 forKey:VNSceneSpeechToDisplayKey]; // Copy text to save-game record
-        
-        // Now have the text fade into full visibility.
-        CCActionFadeIn* fadeIn = [CCActionFadeIn actionWithDuration:speechTransitionSpeed];
-        [speech runAction:fadeIn];
-        
-        // If the speech-box isn't visible (or at least not fully visible), then it should fade-in as well
-        if( speechBox.opacity < 0.9 ) {
+        if (TWModeEnabled == NO) { // "Normal" EKVN text type is in use
             
-            CCActionFadeIn* fadeInSpeechBox = [CCActionFadeIn actionWithDuration:speechTransitionSpeed];
-            [speechBox runAction:fadeInSpeechBox];
+            // Speech opacity is set to zero, making it invisible. Remember, speech is supposed to "fade in"
+            // instead of instantly appearing, since an instant appearance can be visually jarring to players.
+            speech.opacity = 0.0;
+            [speech setString:parameter1]; // Copy over the text (while the text label is "invisble")
+            [record setValue:parameter1 forKey:VNSceneSpeechToDisplayKey]; // Copy text to save-game record
+            
+            // Now have the text fade into full visibility.
+            CCActionFadeIn* fadeIn = [CCActionFadeIn actionWithDuration:speechTransitionSpeed];
+            [speech runAction:fadeIn];
+            
+            // If the speech-box isn't visible (or at least not fully visible), then it should fade-in as well
+            if( speechBox.opacity < 0.9 ) {
+                
+                CCActionFadeIn* fadeInSpeechBox = [CCActionFadeIn actionWithDuration:speechTransitionSpeed];
+                [speechBox runAction:fadeInSpeechBox];
+            }
+        } else { // Use typewriter mode
+            
+            NSString* parameter1AsString = [command objectAtIndex:1];
+            
+            // Reset counter
+            TWTimer                     = 0;
+            TWFullText                  = parameter1AsString;
+            TWCurrentText               = @"";
+            TWNumberOfCurrentCharacters = 0;
+            TWNumberOfTotalCharacters   = (int)[parameter1AsString length];
+            TWPreviousNumberOfCurrentChars = 0;
+            
+            [record setValue:parameter1 forKey:VNSceneSpeechToDisplayKey];
+            
+            if( speechBox.opacity < 0.9 ) {
+                CCActionFadeIn* fadeInSpeechBox = [CCActionFadeIn actionWithDuration:0.1];
+                [speechBox runAction:fadeInSpeechBox];
+            }
         }
         
         return;
@@ -2059,6 +2260,14 @@ VNScene* theCurrentScene = nil;
             cinematicTextInputAllowed = [[command objectAtIndex:2] boolValue];
             [self updateCinematicTextValues];
             
+        }break;
+            
+        case VNScriptCommandSetTypewriterText:
+        {
+            TWSpeedInCharacters = [parameter1 intValue];
+            TWCanSkip = [[command objectAtIndex:2] boolValue];
+            
+            [self updateTypewriterTextValues];
         }break;
     
             

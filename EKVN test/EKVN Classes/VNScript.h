@@ -84,6 +84,7 @@
 #define VNScriptCommandSetSpeakerFont           129
 #define VNScriptCommandSetSpeakerFontSize       130
 #define VNScriptCommandSetCinematicText         131
+#define VNScriptCommandSetTypewriterText        132
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -118,6 +119,7 @@
 #define VNScriptStringSetSpeakerFont            @".setspeakerfont"      // Changes the font used by the speaker name
 #define VNScriptStringSetSpeakerFontSize        @".setspeakerfontsize"  // Changes font size for speaker
 #define VNScriptStringSetCinematicText          @".setcinematictext"    // "Cinematic text," where text/dialogue progresses without player input
+#define VNScriptStringSetTypewriterText         @".SETTYPEWRITERTEXT"   // "Typewriter text," where text appears one character at a time (quickly)
 
 // Script syntax
 #define VNScriptSeparationString               @":"

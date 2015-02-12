@@ -1,3 +1,6 @@
+version 1.1.7 Feb-11-2015
+. [NEW] Added a "Typewriter Text" mode (activated/deactivated in script using the .SETTYPEWRITERTEXT command). When active, this causes text to appear one character at a time, instead of the previous way where the text faded into view. (Warning: this is a semi-experimental quick-and-dirty hack! It'll probably work without incident… probably.)
+
 version 1.1.6 Feb-03-2015
 . [NEW] Added a "cinematic text" mode (activated/deactivated in script using the .SETCINEMATICTEXT command). This causes the text/dialogue to advance without user input after a certain period of time.
 
