@@ -635,35 +635,24 @@ VNScene* theCurrentScene = nil;
         return;
     }
     
-    // Check if the displayed text should fully match up to the "full" text
-    if( TWTimer >= TWSpeedInFrames ) {
-        TWNumberOfCurrentCharacters = TWNumberOfTotalCharacters;
-    } else {
-        
-        // Calculate how many characters to show
-        double currentInFrames = (double)TWTimer;
-        double totalInFrames = (double)TWSpeedInFrames;
-        double normalizedPercentage = currentInFrames / totalInFrames;
-
-        // Clamp min-max values
-        if( normalizedPercentage > 1.0 ) {
-            normalizedPercentage = 1.0;
-        }
-        if( normalizedPercentage < 0.0 ) {
-            normalizedPercentage = 0.0;
-        }
-        
-        double totalChars = (double)TWNumberOfTotalCharacters;
-        double showThisManyChars = totalChars * normalizedPercentage;
-        TWNumberOfCurrentCharacters = (int)showThisManyChars;
-        
-        // Clamp min-max values again, just in case
-        if( TWNumberOfCurrentCharacters < 0 ) {
-            TWNumberOfCurrentCharacters = 0;
-        } else if( TWNumberOfCurrentCharacters > TWNumberOfTotalCharacters) {
-            TWNumberOfCurrentCharacters =  TWNumberOfTotalCharacters;
-        }
+    // Used to calculate how many characters to display (in each frame)
+    double fps = (double) [self theoreticalFramesPerSecond];
+    double currentChars = (double)TWNumberOfCurrentCharacters;
+    double charsPerSecond = (double)(TWSpeedInCharacters);
+    double charsPerFrame = (charsPerSecond / fps);
+    double c = currentChars + charsPerFrame;
+    
+    // Convert back to integer (from the more precise Double)
+    TWNumberOfCurrentCharacters = (int)(c);
+    
+    // Clamp excessive min-max values
+    if( TWNumberOfCurrentCharacters < 0 ) {
+        TWNumberOfCurrentCharacters = 0;
     }
+    if( TWNumberOfCurrentCharacters > TWNumberOfTotalCharacters ) {
+        TWNumberOfCurrentCharacters = TWNumberOfTotalCharacters;
+    }
+
     
     // The "previous number" counter is used to ensure that changes to the display are only made when it's necessary
     // (in this case, when the value changes for good) instead of possibly every single frame.
@@ -1048,11 +1037,12 @@ VNScene* theCurrentScene = nil;
             }
             
             // Update typewriter text
-            if( TWTimer <= TWSpeedInFrames ) {
-                
-                TWTimer++;
-                
-                [self updateTypewriterTextLabels];
+            if( TWModeEnabled == YES ) {
+                //if( TWTimer <= TWSpeedInFrames ) {
+                if( TWNumberOfCurrentCharacters < TWNumberOfTotalCharacters) {
+                    TWTimer++;
+                    [self updateTypewriterTextLabels];
+                }
             }
             
             break;
