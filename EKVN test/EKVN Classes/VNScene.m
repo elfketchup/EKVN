@@ -126,6 +126,8 @@ VNScene* theCurrentScene = nil;
      
         CCLOG(@"[VNScene] This instance of VNScene will now become the primary VNScene instance.");
         theCurrentScene = self;
+        
+        //NSLog(@"canSkip = %d", TWCanSkip);
     }
     
     return self;
@@ -249,15 +251,20 @@ VNScene* theCurrentScene = nil;
     
     [self updateCinematicTextValues];
     
+        NSLog(@"What does the saved value of CAN SKIP say: %@", TWCanSkipValue);
+    
     // Handle loading typewriter data
     if( TWEnabledValue != nil ) {
         TWModeEnabled = [TWEnabledValue boolValue];
+printf("> twmodeeneabled = %d\n", TWModeEnabled);
     }
     if( TWSpeedInCharsValue != nil) {
         TWSpeedInCharacters = [TWSpeedInCharsValue intValue];
+printf("> twSpeedInCharacters = %d\n", TWSpeedInCharacters);
     }
     if( TWCanSkipValue != nil ) {
         TWCanSkip = [TWCanSkipValue boolValue];
+printf("> twCanSkip = %d\n", TWCanSkip);
     }
     
     [self updateTypewriterTextValues];
@@ -588,6 +595,13 @@ VNScene* theCurrentScene = nil;
     return result;
 }
 
+- (void)saveTypewriterSettingsToRecord
+{
+    [record setObject:@(TWSpeedInCharacters) forKey:VNSceneTypewriterSpeedInCharactersKey];
+    [record setObject:@(TWModeEnabled) forKey:VNSceneTypewriterTextModeEnabledKey];
+    [record setObject:[NSNumber numberWithBool:TWCanSkip] forKey:VNSceneTypewriterCanSkipTextKey];
+}
+
 // Updates data regarding speed (and whether or not typewriter mode should be enabled). This should only get called occasionally,
 // such as when this speed values are changed.
 - (void)updateTypewriterTextValues
@@ -622,9 +636,7 @@ VNScene* theCurrentScene = nil;
         NSLog(@"Typewriter Text - speed in seconds: %f | speed in frames: %d", TWSpeedInSeconds, TWSpeedInFrames);
     }
     
-    [record setObject:@(TWSpeedInCharacters) forKey:VNSceneTypewriterSpeedInCharactersKey];
-    [record setObject:@(TWModeEnabled) forKey:VNSceneTypewriterTextModeEnabledKey];
-    [record setObject:@(TWCanSkip) forKey:VNSceneTypewriterCanSkipTextKey];
+    //printf("> saved TWCanSkip as: %d\n", TWCanSkip);
 }
 
 // This gets called every frame to determine how to display labels when typewriter text is enabled.
@@ -2258,6 +2270,7 @@ VNScene* theCurrentScene = nil;
             TWCanSkip = [[command objectAtIndex:2] boolValue];
             
             [self updateTypewriterTextValues];
+            [self saveTypewriterSettingsToRecord];
         }break;
     
             

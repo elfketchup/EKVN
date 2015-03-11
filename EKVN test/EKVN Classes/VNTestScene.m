@@ -114,6 +114,16 @@
         isPlayingMusic = YES;
         [[OALSimpleAudio sharedInstance] playBg:musicFilename loop:true];
     }
+    
+    // Load fade-out data
+    NSNumber* fadeOutTimeNumber = [standardSettings objectForKey:VNTestSceneFadeOutTimeInSeconds];
+    if( fadeOutTimeNumber != nil ) {
+        
+        double multiplier = (double) VNTestSceneAssumedFPS;
+        double fadeOutTimeInSeconds = [fadeOutTimeNumber doubleValue] * multiplier;
+        
+        totalFadeTime = (int)fadeOutTimeInSeconds;
+    }
 }
 
 // This creates a dictionary that's got the default UI values loaded onto them. If you want to change how it looks,
@@ -226,8 +236,13 @@
     
     // Check if the user tapped on the "play" label
     if( CGRectContainsPoint([playLabel boundingBox], touchPos) ) {
-        [self stopMenuMusic];
-        [self startNewGame];
+        if( totalFadeTime < 1 ) {
+            [self stopMenuMusic];
+            [self startNewGame];
+        } else {
+            actionToTakeAfterFade = VNTestSceneActionWillStartNewGame;
+            [self beginFading];
+        }
     }
     
     // Check if the user tapped on the "contine" / "load saved game" label
@@ -236,8 +251,13 @@
         // Loading the game is only possible if the label is fully opaque. And it will only be fully
         // opaque if previous save game data has been found.
         if( loadLabel.opacity > 0.98 ) {
-            [self stopMenuMusic];
-            [self loadSavedGame];
+            if (totalFadeTime < 1 ) {
+                [self stopMenuMusic];
+                [self loadSavedGame];
+            } else {
+                actionToTakeAfterFade = VNTestSceneActionWillLoadSavedGame;
+                [self beginFading];
+            }
         }
     }
 }
@@ -248,6 +268,13 @@
         
         BOOL previousSaveData = [[EKRecord sharedRecord] hasAnySavedData];
         isPlayingMusic = NO;
+        
+        // set default data
+        fadingProcessBegan = NO;
+        totalFadeTime = 0;
+        fadeTimer = 0;
+        actionToTakeAfterFade = 0;
+        originalVolumeOfMusic = [[OALSimpleAudio sharedInstance] bgVolume];
         
         [self loadUI];
         
@@ -261,6 +288,83 @@
     }
     
     return self;
+}
+
+// MARK: Updates
+
+// does whatever was supposed to happen after the fade-out activity was finished
+- (void)performPostFadeActivity
+{
+    // stop menu music entirely
+    [self stopMenuMusic];
+    
+    if( actionToTakeAfterFade == VNTestSceneActionWillStartNewGame ) {
+        [self startNewGame];
+    } else if( actionToTakeAfterFade == VNTestSceneActionWillLoadSavedGame ) {
+        [self loadSavedGame];
+    } else {
+        NSLog(@"ERROR: There is no valid action to perform.");
+    }
+}
+
+- (void)beginFading
+{
+    NSLog(@"Will now begin the fading-out process...");
+    fadingProcessBegan = YES;
+    originalOpacityOfLoadLabel = loadLabel.opacity;
+    
+    // visually fade out the scene (this involves fading out all the screen elements)
+    CCTime fadingOutDuration = (CCTime)(totalFadeTime / VNTestSceneAssumedFPS);
+    
+    CCActionFadeOut* fadeOutStartLabel = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    CCActionFadeOut* fadeOutLoadLabel = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    CCActionFadeOut* fadeOutBackground = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    CCActionFadeOut* fadeOutLogo = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    
+    [backgroundImage runAction:fadeOutBackground];
+    [loadLabel runAction:fadeOutLoadLabel];
+    [playLabel runAction:fadeOutStartLabel];
+    [title runAction:fadeOutLogo];
+    
+    //CCActionFadeOut* fadeOutAction = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    //[self runAction:fadeOutAction];
+}
+
+- (void)handleFading
+{
+    if( fadeTimer >= totalFadeTime ) {
+        // reset volume, timing, etc. (for when/if VNTestScene is reloaded or transitioned back to)
+        fadeTimer = 0;
+        fadingProcessBegan = NO;
+        [[OALSimpleAudio sharedInstance] setBgVolume:originalVolumeOfMusic]; // reset to normal volume
+        // reset visuals so everything looks normal again
+        [loadLabel setOpacity:originalOpacityOfLoadLabel];
+        [playLabel setOpacity:1.0];
+        [title setOpacity:1.0];
+        [backgroundImage setOpacity:1.0];
+        // perform final activity before transitioning
+        [self performPostFadeActivity];
+    } else {
+        fadeTimer++;
+        
+        if( isPlayingMusic == YES ) {
+            // Calculate the sound volume. The idea is that the volume should be 1.0 before the fade-out process begins,
+            // and then it slowly fades to down to 0 when the fading process ends.
+            float timeSoFar = (float)fadeTimer;
+            float theTotalTime = (float)totalFadeTime;
+            float theValueOfASingleFrame = 1.0 / theTotalTime;
+            float volumeAtThisTime = 1.0 - (theValueOfASingleFrame * timeSoFar);
+            
+            [[OALSimpleAudio sharedInstance] setBgVolume:volumeAtThisTime];
+        }
+    }
+}
+
+- (void)update:(CCTime)delta
+{
+    if( totalFadeTime > 0 && fadingProcessBegan == YES ) {
+        [self handleFading];
+    }
 }
 
 

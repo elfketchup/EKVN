@@ -8,6 +8,8 @@
 #import "cocos2d.h"
 #import "VNScene.h"
 
+#define VNTestSceneAssumedFPS   60 // assumes that the game is meant to run at 60fps, used mostly for timing fade-out sequence
+
 /*
  
  Some important notes:
@@ -25,6 +27,10 @@
  Also, (0.0, 0.0) would be the bottom-left corner of the screen, while (1.0, 1.0) should be the upper-right corner.
  
  */
+
+// Actions to take after "fade out to scene"
+#define VNTestSceneActionWillLoadSavedGame  100
+#define VNTestSceneActionWillStartNewGame   101
 
 // Dictionary keys for the UI elements
 #define VNTestSceneStartNewGameLabelX       @"startnewgame label x"
@@ -45,6 +51,7 @@
 #define VNTestSceneBackgroundImage          @"background image"
 #define VNTestSceneScriptToLoad             @"script to load"
 #define VNTestSceneMenuMusic                @"menu music"
+#define VNTestSceneFadeOutTimeInSeconds     @"fade out time in seconds" // fade time in seconds (but the timer measures in frames)
 
 @interface VNTestScene : CCScene
 {
@@ -58,12 +65,28 @@
     VNScene* testScene;
     
     BOOL isPlayingMusic;
+    
+    /* "Fade Out To Scene"
+     *
+     * This is an optional feature: On the main menu, starting a new game (or loading an old game) will cause the scene
+     * to gradually fade to black and the music to fade out.
+     *
+     */
+    BOOL fadingProcessBegan;
+    int fadeTimer;
+    int totalFadeTime; // how long the fading sequence lasts (measured in frames)
+    int actionToTakeAfterFade; // whether to start a new game or load a previously saved game
+    float originalVolumeOfMusic; // what the volume was before this process began
+    float originalOpacityOfLoadLabel;
 }
 
 + (id)scene;
 
 - (void)startNewGame;
 - (void)loadSavedGame;
+
+- (void)beginFading;
+- (void)handleFading;
 
 - (void)loadUI;
 - (NSDictionary*)loadDefaultUI;

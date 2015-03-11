@@ -52,5 +52,7 @@
 	<string>demo script</string>
 	<key>menu music</key>
 	<string>music01.mp3</string>
+	<key>fade out time in seconds</key>
+	<integer>1</integer>
 </dict>
 </plist>
