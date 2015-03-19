@@ -12,6 +12,8 @@
 	<string>Helvetica</string>
 	<key>startnewgame size</key>
 	<string>24</string>
+	<key>startnewgame background image</key>
+	<string></string>
 	<key>startnewgame color</key>
 	<dict>
 		<key>r</key>
@@ -31,6 +33,8 @@
 	<string>Helvetica</string>
 	<key>continue size</key>
 	<string>24</string>
+	<key>continue background image</key>
+	<string></string>
 	<key>continue color</key>
 	<dict>
 		<key>r</key>

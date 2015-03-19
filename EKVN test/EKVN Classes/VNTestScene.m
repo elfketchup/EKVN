@@ -130,13 +130,13 @@
     NSString* valueForContinueBGImage = [standardSettings objectForKey:VNTestSceneContinueBGImage];
     NSString* valueForStartBGImage = [standardSettings objectForKey:VNTestSceneStartNewGameBGImage];
     
-    if( valueForContinueBGImage != nil ) {
+    if( valueForContinueBGImage != nil && valueForContinueBGImage.length > 1 ) {
         loadLabelBG = [CCSprite spriteWithImageNamed:valueForContinueBGImage];
         loadLabelBG.position = loadLabel.position;
         [self addChild:loadLabelBG z:(loadLabel.zOrder - 1)];
     }
     
-    if( valueForStartBGImage != nil ) {
+    if( valueForStartBGImage != nil && valueForStartBGImage.length > 1 ) {
         // "playLabel" is the name of the CCSpriteTTF object that stores text data for "New Game"
         playLabelBG = [CCSprite spriteWithImageNamed:valueForStartBGImage];
         playLabelBG.position = playLabel.position;
