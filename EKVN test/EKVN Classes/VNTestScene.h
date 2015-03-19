@@ -39,12 +39,14 @@
 #define VNTestSceneStartNewGameFont         @"startnewgame font"
 #define VNTestSceneStartNewGameSize         @"startnewgame size"
 #define VNTestSceneStartNewGameColorDict    @"startnewgame color"
+#define VNTestSceneStartNewGameBGImage      @"startnewgame background image"
 #define VNTestSceneContinueLabelX           @"continue label x"
 #define VNTestSceneContinueLabelY           @"continue label y"
 #define VNTestSceneContinueText             @"continue text"
 #define VNTestSceneContinueFont             @"continue font"
 #define VNTestSceneContinueSize             @"continue size"
 #define VNTestSceneContinueColor            @"continue color"
+#define VNTestSceneContinueBGImage          @"continue background image"
 #define VNTestSceneTitleX                   @"title x"
 #define VNTestSceneTitleY                   @"title y"
 #define VNTestSceneTitleImage               @"title image"
@@ -57,6 +59,10 @@
 {
     CCLabelTTF* playLabel;
     CCLabelTTF* loadLabel;
+    
+    // optional images positioned behind the labels
+    CCSprite* playLabelBG;
+    CCSprite* loadLabelBG;
     
     CCSprite* title; // Title image
     CCSprite* backgroundImage;

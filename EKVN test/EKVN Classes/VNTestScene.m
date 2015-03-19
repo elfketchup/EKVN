@@ -12,6 +12,7 @@
 // Some Z-values, so that Cocos2D knows where to position things on the Z-coordinate (and which nodes will
 // be drawn on top of which other nodes!)
 #define VNTestSceneZForBackgroundImage      10
+#define VNTestSceneZForLabelBG              19
 #define VNTestSceneZForLabels               20
 #define VNTestSceneZForTitle                30
 
@@ -123,6 +124,23 @@
         double fadeOutTimeInSeconds = [fadeOutTimeNumber doubleValue] * multiplier;
         
         totalFadeTime = (int)fadeOutTimeInSeconds;
+    }
+    
+    // Load optional background images for main menu labels
+    NSString* valueForContinueBGImage = [standardSettings objectForKey:VNTestSceneContinueBGImage];
+    NSString* valueForStartBGImage = [standardSettings objectForKey:VNTestSceneStartNewGameBGImage];
+    
+    if( valueForContinueBGImage != nil ) {
+        loadLabelBG = [CCSprite spriteWithImageNamed:valueForContinueBGImage];
+        loadLabelBG.position = loadLabel.position;
+        [self addChild:loadLabelBG z:(loadLabel.zOrder - 1)];
+    }
+    
+    if( valueForStartBGImage != nil ) {
+        // "playLabel" is the name of the CCSpriteTTF object that stores text data for "New Game"
+        playLabelBG = [CCSprite spriteWithImageNamed:valueForStartBGImage];
+        playLabelBG.position = playLabel.position;
+        [self addChild:playLabelBG z:(playLabel.zOrder - 1)];
     }
 }
 
@@ -262,6 +280,8 @@
     }
 }
 
+// MARK: Init
+
 - (id)init
 {
     if( self = [super init] ) {
@@ -270,6 +290,8 @@
         isPlayingMusic = NO;
         
         // set default data
+        playLabelBG = nil;
+        loadLabelBG = nil;
         fadingProcessBegan = NO;
         totalFadeTime = 0;
         fadeTimer = 0;
@@ -325,6 +347,16 @@
     [loadLabel runAction:fadeOutLoadLabel];
     [playLabel runAction:fadeOutStartLabel];
     [title runAction:fadeOutLogo];
+    
+    if( playLabelBG != nil ) {
+        CCActionFadeOut* fadeOutStartBG = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+        [playLabelBG runAction:fadeOutStartBG];
+    }
+    
+    if( loadLabelBG != nil ) {
+        CCActionFadeOut* fadeOutLoadBG = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+        [loadLabelBG runAction:fadeOutLoadBG];
+    }
     
     //CCActionFadeOut* fadeOutAction = [CCActionFadeOut actionWithDuration:fadingOutDuration];
     //[self runAction:fadeOutAction];
