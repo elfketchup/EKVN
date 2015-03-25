@@ -1,3 +1,6 @@
+version 1.1.9 Mar-25-2015
+. [FIX] Fixed how typewriter text handled display when the user taps the screen.
+
 version 1.1.8 Mar-10-2015
 . [NEW] Added a feature in the main menu where the screen fades to black and music fades out when starting a new game or loading a saved game. To enable this, just add "fade out time in seconds" to the file "main_menu.plist" and make sure the Type is set to "Number." Otherwise, if this key-value pairing doesn't exist in main_menu.plist, then EKVN will just use the previous method of NOT fading-out either the sound or the graphics and instead just instantly start/load the game.
 

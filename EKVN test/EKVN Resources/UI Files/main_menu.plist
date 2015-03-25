@@ -14,6 +14,8 @@
 	<string>24</string>
 	<key>startnewgame background image</key>
 	<string></string>
+	<key>startnewgame sound</key>
+	<string>drum1.caf</string>
 	<key>startnewgame color</key>
 	<dict>
 		<key>r</key>
@@ -35,6 +37,8 @@
 	<string>24</string>
 	<key>continue background image</key>
 	<string></string>
+	<key>continue sound</key>
+	<string>drum2.caf</string>
 	<key>continue color</key>
 	<dict>
 		<key>r</key>

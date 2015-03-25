@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2BCE8B1AC370CD0033A11A /* drum1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BCE891AC370CD0033A11A /* drum1.caf */; };
+		1A2BCE8C1AC370CD0033A11A /* drum2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1A2BCE8A1AC370CD0033A11A /* drum2.caf */; };
 		1AC62C66188F0EB900A5B851 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC62C65188F0EB900A5B851 /* QuartzCore.framework */; };
 		1AC62C68188F0EB900A5B851 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC62C67188F0EB900A5B851 /* OpenGLES.framework */; };
 		1AC62C6A188F0EB900A5B851 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC62C69188F0EB900A5B851 /* OpenAL.framework */; };
@@ -262,6 +264,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A2BCE891AC370CD0033A11A /* drum1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = drum1.caf; sourceTree = "<group>"; };
+		1A2BCE8A1AC370CD0033A11A /* drum2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = drum2.caf; sourceTree = "<group>"; };
 		1AC62C62188F0EB900A5B851 /* EKVN test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKVN test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AC62C65188F0EB900A5B851 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1AC62C67188F0EB900A5B851 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1652,6 +1656,8 @@
 		1AC62F91188F196D00A5B851 /* demo audio */ = {
 			isa = PBXGroup;
 			children = (
+				1A2BCE891AC370CD0033A11A /* drum1.caf */,
+				1A2BCE8A1AC370CD0033A11A /* drum2.caf */,
 				1AC62F92188F196D00A5B851 /* music01.mp3 */,
 				1AC62F93188F196D00A5B851 /* roar1.caf */,
 			);
@@ -1788,6 +1794,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A2BCE8B1AC370CD0033A11A /* drum1.caf in Resources */,
 				1AC62FB9188F196D00A5B851 /* matsuri_close-hd.png in Resources */,
 				1AC62C82188F0EB900A5B851 /* Default@2x.png in Resources */,
 				1AC62C95188F0EB900A5B851 /* Icon-120.png in Resources */,
@@ -1842,6 +1849,7 @@
 				1AC62FB7188F196D00A5B851 /* music01.mp3 in Resources */,
 				1AC62FB8188F196D00A5B851 /* roar1.caf in Resources */,
 				1AC62C91188F0EB900A5B851 /* Icon-76.png in Resources */,
+				1A2BCE8C1AC370CD0033A11A /* drum2.caf in Resources */,
 				1AC62E67188F0EBB00A5B851 /* ChangeLog in Resources */,
 				1AC62FBE188F196D00A5B851 /* sketchmatsuri_close-ipad.png in Resources */,
 				1AC62CA6188F0EB900A5B851 /* iTunesArtwork@2x in Resources */,

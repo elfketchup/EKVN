@@ -71,7 +71,7 @@ VNScene* theCurrentScene = nil;
         TWCurrentText                   = @"";
         TWFullText                      = @"";
         TWTimer                         = 0;
-        TWSpeedInCharacters             = 60;
+        TWSpeedInCharacters             = 0;
         TWCanSkip                       = YES;
         
         // Set default UI values
@@ -935,6 +935,11 @@ printf("> twCanSkip = %d\n", TWCanSkip);
                     if( TWCanSkip == NO ) { // 2. Is skipping disabled?
                         if( TWCurrentText.length < TWFullText.length ) { // 3. Is is just NOT time yet?
                             canSkip = NO; // Skipping is disabled!
+                            
+                            // Forcibly show the entire line... sort of.
+                            if( TWNumberOfTotalCharacters > 1 ) {
+                                TWNumberOfCurrentCharacters = TWNumberOfTotalCharacters - 1;
+                            }
                         }
                     }
                 }

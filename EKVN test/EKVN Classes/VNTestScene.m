@@ -8,6 +8,7 @@
 #import "VNTestScene.h"
 #import "VNScene.h"
 #import "EKRecord.h"
+#import "OALSimpleAudio.h"
 
 // Some Z-values, so that Cocos2D knows where to position things on the Z-coordinate (and which nodes will
 // be drawn on top of which other nodes!)
@@ -142,6 +143,18 @@
         playLabelBG.position = playLabel.position;
         [self addChild:playLabelBG z:(playLabel.zOrder - 1)];
     }
+    
+    // Load audio data
+    NSString* newGameSound = [standardSettings objectForKey:VNTestSceneStartNewGameSound];
+    NSString* loadGameSound = [standardSettings objectForKey:VNTestSceneContinueSound];
+    
+    if( newGameSound != nil && newGameSound.length > 1 ) {
+        filenameOfSoundForStartButton = newGameSound.copy;
+    }
+    
+    if( loadGameSound != nil && loadGameSound.length > 1 ) {
+        filenameOfSoundForContinueButton = loadGameSound.copy;
+    }
 }
 
 // This creates a dictionary that's got the default UI values loaded onto them. If you want to change how it looks,
@@ -254,6 +267,11 @@
     
     // Check if the user tapped on the "play" label
     if( CGRectContainsPoint([playLabel boundingBox], touchPos) ) {
+        
+        if( filenameOfSoundForStartButton != nil ) {
+            [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForStartButton];
+        }
+        
         if( totalFadeTime < 1 ) {
             [self stopMenuMusic];
             [self startNewGame];
@@ -265,6 +283,10 @@
     
     // Check if the user tapped on the "contine" / "load saved game" label
     if( CGRectContainsPoint([loadLabel boundingBox], touchPos) ) {
+        
+        if( filenameOfSoundForContinueButton != nil )  {
+            [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForContinueButton];
+        }
         
         // Loading the game is only possible if the label is fully opaque. And it will only be fully
         // opaque if previous save game data has been found.
@@ -297,6 +319,8 @@
         fadeTimer = 0;
         actionToTakeAfterFade = 0;
         originalVolumeOfMusic = [[OALSimpleAudio sharedInstance] bgVolume];
+        filenameOfSoundForContinueButton = nil;
+        filenameOfSoundForStartButton = nil;
         
         [self loadUI];
         

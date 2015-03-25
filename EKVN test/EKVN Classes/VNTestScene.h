@@ -40,6 +40,7 @@
 #define VNTestSceneStartNewGameSize         @"startnewgame size"
 #define VNTestSceneStartNewGameColorDict    @"startnewgame color"
 #define VNTestSceneStartNewGameBGImage      @"startnewgame background image"
+#define VNTestSceneStartNewGameSound        @"startnewgame sound"
 #define VNTestSceneContinueLabelX           @"continue label x"
 #define VNTestSceneContinueLabelY           @"continue label y"
 #define VNTestSceneContinueText             @"continue text"
@@ -47,6 +48,7 @@
 #define VNTestSceneContinueSize             @"continue size"
 #define VNTestSceneContinueColor            @"continue color"
 #define VNTestSceneContinueBGImage          @"continue background image"
+#define VNTestSceneContinueSound            @"continue sound"
 #define VNTestSceneTitleX                   @"title x"
 #define VNTestSceneTitleY                   @"title y"
 #define VNTestSceneTitleImage               @"title image"
@@ -71,6 +73,10 @@
     VNScene* testScene;
     
     BOOL isPlayingMusic;
+    
+    // Used to play sounds when tapping either the "New Game" button or the "Resume/Continue" button
+    NSString* filenameOfSoundForStartButton;
+    NSString* filenameOfSoundForContinueButton;
     
     /* "Fade Out To Scene"
      *
