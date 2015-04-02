@@ -138,6 +138,7 @@
 #define VNSceneTypewriterTextModeEnabledKey     @"typewriter text mode enabled"
 #define VNSceneTypewriterSpeedInCharactersKey   @"typewriter speed in characters"
 #define VNSceneTypewriterCanSkipTextKey         @"typewriter mode can skip text"
+#define VNSceneSavedOverriddenSpeechboxKey      @"overridden speechbox" // used to store speechbox sprites modified by .SETSPEECHBOX in saves
 
 // UI "override" keys (used when you change things like font size/font name in the middle of a scene).
 // By default, any changes will be restored when a saved game is loaded, though the "override X from save"

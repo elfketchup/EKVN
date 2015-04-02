@@ -1386,6 +1386,33 @@
         
         type = @VNScriptCommandSetTypewriterText;
         analyzedArray = @[type, timeNumber, skipNumber];
+    } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeechbox] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SETSPEECHBOX
+        //
+        //  Dynamically switches to a different speechbox sprite.
+        //
+        //  Parameters:
+        //
+        //      #1: Name of speechbox sprite to use (string)
+        //
+        //      #2: Duration of transition (in seconds) (default is 0, which is instant)
+        //
+        //  Example: .SETSPEECHBOX:alternate_box.png:1.0
+        //
+        
+        // Set default values
+        NSString* duration = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 3 )
+            duration = [command objectAtIndex:2]; // Optional, default value is 0
+        
+        type = @VNScriptCommandSetSpeechbox;
+        NSNumber* durationToUse = @([duration doubleValue]);
+        analyzedArray = @[type, parameter1, durationToUse];
     }
 
     

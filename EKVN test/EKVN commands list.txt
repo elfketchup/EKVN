@@ -546,3 +546,17 @@ Example: .addsprite:girl.png:NO
       #2: Whether the user can still skip ahead by tapping the screen (BOOL) (default value is NO)
 
   Example: .SETTYPEWRITERTEXT:30:NO
+
+================
+
+  Name: .SETSPEECHBOX
+
+  Dynamically switches to a different speechbox sprite.
+
+  Parameters:
+
+      #1: Name of speechbox sprite to use (string)
+
+      #2: Duration of transition (in seconds) (default is 0, which is instant)
+
+  Example: .SETSPEECHBOX:alternate_box.png:1.0

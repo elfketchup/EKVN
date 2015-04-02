@@ -147,6 +147,7 @@ VNScene* theCurrentScene = nil;
 	NSString* savedBackground   = [record objectForKey:VNSceneBackgroundToShowKey];
 	NSString* savedSpeakerName  = [record objectForKey:VNSceneSpeakerNameToShowKey];
 	NSString* savedSpeech       = [record objectForKey:VNSceneSpeechToDisplayKey];
+    NSString* savedSpeechbox    = [record objectForKey:VNSceneSavedOverriddenSpeechboxKey];
     NSNumber* showSpeechKey     = [record objectForKey:VNSceneShowSpeechKey];
     NSNumber* musicShouldLoop   = [record objectForKey:VNSceneMusicShouldLoopKey];
     NSNumber* savedBackgroundX  = [record objectForKey:VNSceneBackgroundXKey];
@@ -240,6 +241,31 @@ VNScene* theCurrentScene = nil;
             [sprites setValue:sprite forKey:spriteFilename];
 		}
 	}
+
+    if( savedSpeechbox ) {
+        float boxToBottomMargin = 0;
+        float widthOfScreen = [[CCDirector sharedDirector] viewSize].width;
+        NSArray* originalChildren = [speechBox children];
+        
+        if( viewSettings ) {
+            boxToBottomMargin = [[viewSettings objectForKey:VNSceneViewSpeechBoxOffsetFromBottomKey] floatValue];
+        }
+        
+        if( speechBox ) {
+            [speechBox removeFromParent];
+        }
+        
+        speechBox               = [CCSprite spriteWithImageNamed:savedSpeechbox];
+        speechBox.position      = ccp( widthOfScreen * 0.5, ([speechBox boundingBox].size.height * 0.5) + boxToBottomMargin );
+        [self addChild:speechBox z:VNSceneUILayer name:VNSceneTagSpeechBox];
+        
+        // add children from "old" speech box
+        if( originalChildren != nil && originalChildren.count > 0 ) {
+            for( CCNode* someChild in originalChildren ) {
+                [speechBox addChild:someChild];
+            }
+        }
+    }
     
     // Cinematic text
     if( CTextSpeed != nil ) {
@@ -251,20 +277,15 @@ VNScene* theCurrentScene = nil;
     
     [self updateCinematicTextValues];
     
-        NSLog(@"What does the saved value of CAN SKIP say: %@", TWCanSkipValue);
-    
     // Handle loading typewriter data
     if( TWEnabledValue != nil ) {
         TWModeEnabled = [TWEnabledValue boolValue];
-printf("> twmodeeneabled = %d\n", TWModeEnabled);
     }
     if( TWSpeedInCharsValue != nil) {
         TWSpeedInCharacters = [TWSpeedInCharsValue intValue];
-printf("> twSpeedInCharacters = %d\n", TWSpeedInCharacters);
     }
     if( TWCanSkipValue != nil ) {
         TWCanSkip = [TWCanSkipValue boolValue];
-printf("> twCanSkip = %d\n", TWCanSkip);
     }
     
     [self updateTypewriterTextValues];
@@ -1055,7 +1076,6 @@ printf("> twCanSkip = %d\n", TWCanSkip);
             
             // Update typewriter text
             if( TWModeEnabled == YES ) {
-                //if( TWTimer <= TWSpeedInFrames ) {
                 if( TWNumberOfCurrentCharacters < TWNumberOfTotalCharacters) {
                     TWTimer++;
                     [self updateTypewriterTextLabels];
@@ -2276,6 +2296,78 @@ printf("> twCanSkip = %d\n", TWCanSkip);
             
             [self updateTypewriterTextValues];
             [self saveTypewriterSettingsToRecord];
+        }break;
+            
+        case VNScriptCommandSetSpeechbox:
+        {
+            double duration = [[command objectAtIndex:2] doubleValue];
+            
+            // prepare positioning data
+            float boxToBottomMargin = 0;
+            float widthOfScreen = [[CCDirector sharedDirector] viewSize].width;
+            if( viewSettings ) {
+                boxToBottomMargin = [[viewSettings objectForKey:VNSceneViewSpeechBoxOffsetFromBottomKey] floatValue];
+            }
+            
+            if( duration <= 0.0 ) {
+                // switch instantly
+                NSArray* originalChildren = [speechBox children];
+                [speechBox removeFromParent];
+                speechBox = [CCSprite spriteWithImageNamed:parameter1];
+                speechBox.position = ccp( widthOfScreen * 0.5, ([speechBox boundingBox].size.height * 0.5) + boxToBottomMargin );
+                speechBox.opacity = 1.0;
+                [self addChild:speechBox z:VNSceneUILayer name:VNSceneTagSpeechBox];
+                
+                for( CCNode* aChild in originalChildren ) {
+                    [speechBox addChild:aChild];
+                }
+            
+            } else {
+
+                // switch gradually
+                [self createSafeSave];
+                [self setEffectRunningFlag];
+                
+                NSArray* speechBoxChildren = [speechBox children];
+                
+                // create fake placeholder speechbox that looks like the original
+                CCSprite* fakeSpeechbox = [CCSprite spriteWithTexture:speechBox.texture];
+                fakeSpeechbox.position = speechBox.position;
+                fakeSpeechbox.zOrder = speechBox.zOrder;
+                [self addChild:fakeSpeechbox];
+                
+                // get rid of the original speechbox and replace it with a new and invisible speechbox
+                [speechBox removeFromParent];
+                speechBox = [CCSprite spriteWithImageNamed:parameter1];
+                speechBox.position = ccp( widthOfScreen * 0.5, ([speechBox boundingBox].size.height * 0.5) + boxToBottomMargin );
+                speechBox.opacity = 0.0;
+                [self addChild:speechBox z:VNSceneUILayer name:VNSceneTagSpeechBox];
+                
+                for( CCNode* aChild in speechBoxChildren ) {
+                    [speechBox addChild:aChild];
+                    // cause each child node to gradually fade out and fade back in so it looks like it's doing it in time
+                    // with the speechboxes.
+                    CCActionFadeOut* fadeOutChild = [CCActionFadeOut actionWithDuration:(duration * 0.5)];
+                    CCActionFadeIn* fadeInChild = [CCActionFadeIn actionWithDuration:(duration * 0.5)];
+                    CCActionSequence* sequenceForChild = [CCActionSequence actions:fadeOutChild, fadeInChild, nil];
+                    [aChild runAction:sequenceForChild];
+                }
+                
+                // fade out the fake speechbox
+                CCActionFadeOut* fadeOut = [CCActionFadeOut actionWithDuration:(duration * 0.5)];
+                [fakeSpeechbox runAction:fadeOut];
+                
+                // fade in the new "real" speechbox
+                CCActionFadeIn* fadeIn = [CCActionFadeIn actionWithDuration:(duration * 0.5)];
+                CCActionDelay* delay = [CCActionDelay actionWithDuration:(duration * 0.5)];
+                CCActionCallFunc* callFunc = [CCActionCallFunc actionWithTarget:self selector:@selector(clearEffectRunningFlag)];
+                CCActionSequence* delayedFadeInSequence = [CCActionSequence actions:delay, fadeIn, callFunc, nil];
+                
+                [speechBox runAction:delayedFadeInSequence];
+            }
+            
+            [record setValue:parameter1 forKey:VNSceneSavedOverriddenSpeechboxKey];
+            
         }break;
     
             
