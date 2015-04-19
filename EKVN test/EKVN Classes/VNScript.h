@@ -86,6 +86,7 @@
 #define VNScriptCommandSetCinematicText         131
 #define VNScriptCommandSetTypewriterText        132
 #define VNScriptCommandSetSpeechbox             133
+#define VNScriptCommandFlipSprite               134
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -122,6 +123,8 @@
 #define VNScriptStringSetCinematicText          @".setcinematictext"    // "Cinematic text," where text/dialogue progresses without player input
 #define VNScriptStringSetTypewriterText         @".settypewritertext"   // "Typewriter text," where text appears one character at a time (quickly)
 #define VNScriptStringSetSpeechbox              @".setspeechbox"        // dynamically change speechbox sprite
+#define VNScriptStringFlipSprite                @".flipsprite"          // flips sprite around (left/right or upside-down)
+
 
 // Script syntax
 #define VNScriptSeparationString               @":"

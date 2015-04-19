@@ -233,8 +233,12 @@ VNScene* theCurrentScene = nil;
             // Load CCSprite object and set its coordinates
 			float spriteX = [[spriteData objectForKey:@"x"] floatValue]; // Load coordinates from dictionary
 			float spriteY = [[spriteData objectForKey:@"y"] floatValue];
+            float scaleX = [[spriteData objectForKey:@"scale x"] floatValue]; // load scale data (for inverted sprites)
+            float scaleY = [[spriteData objectForKey:@"scale y"] floatValue];
 			CCSprite* sprite = [CCSprite spriteWithImageNamed:spriteFilename]; // Load sprite from app bundle
 			sprite.position = ccp( spriteX, spriteY );
+            sprite.scaleX = scaleX;
+            sprite.scaleY = scaleY;
 			[self addChild:sprite z:VNSceneCharacterLayer]; // Add sprite to layer
             
             // Finally, add the sprite to the 'sprites' dictionary
@@ -859,11 +863,16 @@ VNScene* theCurrentScene = nil;
         CCSprite* actualSprite = [sprites objectForKey:spriteName]; // The actual CCSprite object is used as a reference (for getting coordinate data)
         NSNumber* spriteX = @(actualSprite.position.x); // Get coordinates; these will be saved to the dictionary.
         NSNumber* spriteY = @(actualSprite.position.y);
+        // include scaling data
+        NSNumber* scaleX = @(actualSprite.scaleX);
+        NSNumber* scaleY = @(actualSprite.scaleY);
         
         // Save relevant data (sprite name and coordinates) in a dictionary
-        NSDictionary* savedSpriteData = @{  @"name" : spriteName,
-                                            @"x"    : spriteX,
-                                            @"y"    : spriteY };
+        NSDictionary* savedSpriteData = @{  @"name"     : spriteName,
+                                            @"x"        : spriteX,
+                                            @"y"        : spriteY,
+                                            @"scale x"  : scaleX,
+                                            @"scale y"  : scaleY };
         
         // Save dictionary data into the array (which will later be saved to a file)
         [spritesArray addObject:savedSpriteData];
@@ -2368,6 +2377,58 @@ VNScene* theCurrentScene = nil;
             
             [record setValue:parameter1 forKey:VNSceneSavedOverriddenSpeechboxKey];
             
+        }break;
+            
+        case VNScriptCommandFlipSprite:
+        {
+            NSString* spriteName = parameter1;
+            NSNumber* duration = [command objectAtIndex:2];
+            NSNumber* flipBool = [command objectAtIndex:3];
+            double durationAsDouble = 0.0;
+            BOOL flipHorizontal = YES;
+            
+            CCSprite* sprite = [sprites objectForKey:spriteName];
+            if( sprite == nil ) {
+                return;
+            }
+            
+            [self createSafeSave];
+            
+            if( duration ) {
+                durationAsDouble = duration.doubleValue;
+            }
+            if( flipBool ) {
+                flipHorizontal = flipBool.boolValue;
+            }
+            
+            // If this has a duration of zero, the action will take place instantly and then the function will return
+            if( durationAsDouble <= 0.0 ) {
+                // determine flip style
+                if( flipHorizontal == YES) {
+                    sprite.scaleX = sprite.scaleX * (-1);
+                } else {
+                    sprite.scaleY = sprite.scaleY * (-1);
+                }
+                return;
+            }
+            
+            [self setEffectRunningFlag];
+            
+            float scaleToX = sprite.scaleX;
+            float scaleToY = sprite.scaleY;
+            
+            // determine what kind of action to take (this will determine scaling values)
+            if( flipHorizontal == YES ) {
+                scaleToX = scaleToX * (-1);
+            } else {
+                scaleToY = scaleToY * (-1);
+            }
+            
+            CCActionScaleTo* scalingAction = [CCActionScaleTo actionWithDuration:durationAsDouble scaleX:scaleToX scaleY:scaleToY];
+            CCActionCallFunc* clearEffectFlag = [CCActionCallFunc actionWithTarget:self selector:@selector(clearEffectRunningFlag)];
+            CCActionSequence* theSequence = [CCActionSequence actions:scalingAction, clearEffectFlag, nil];
+            [sprite runAction:theSequence];
+
         }break;
     
             

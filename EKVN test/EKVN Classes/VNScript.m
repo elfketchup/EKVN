@@ -1386,6 +1386,7 @@
         
         type = @VNScriptCommandSetTypewriterText;
         analyzedArray = @[type, timeNumber, skipNumber];
+        
     } else if( [action caseInsensitiveCompare:VNScriptStringSetSpeechbox] == NSOrderedSame ) {
         
         // Function definition
@@ -1413,6 +1414,40 @@
         type = @VNScriptCommandSetSpeechbox;
         NSNumber* durationToUse = @([duration doubleValue]);
         analyzedArray = @[type, parameter1, durationToUse];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringFlipSprite] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .FLIPSPRITE
+        //
+        //  Flips the sprite left/right or upside-down/right-side-up.
+        //
+        //  Parameters:
+        //
+        //      #1: Name of sprite
+        //
+        //      #2: Duration (in seconds). Duration of zero is instantaneous.
+        //
+        //      #3: Whether to flip horizontally or not (YES means horizontal flip, NO means vertical flip)
+        //
+        //  Example: .FLIPSPRITE:girl.png:0:YES
+        //
+        
+        // Set default values
+        NSString* duration = [NSString stringWithFormat:@"0"];
+        NSString* flipBool = [NSString stringWithFormat:@"YES"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 3 )
+            duration = [command objectAtIndex:2];
+        if( command.count >= 4 )
+            flipBool = [command objectAtIndex:3]; // Optional, default value is 0
+        
+        type = @VNScriptCommandFlipSprite;
+        NSNumber* durationToUse = @([duration doubleValue]);
+        NSNumber* numberForFlip = @(flipBool.boolValue);
+        analyzedArray = @[type, parameter1, durationToUse, numberForFlip];
     }
 
     

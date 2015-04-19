@@ -36,6 +36,10 @@
 		<string>OK, that might be too tiny. But whatever, let&apos;s get on with it!</string>
 		<string>.ADDSPRITE:matsuri_close.png</string>
 		<string>Suddenly, an anime girl appears!</string>
+		<string>.FLIPSPRITE:matsuri_close.png</string>
+		<string>Now she&apos;s turned around.</string>
+		<string>.FLIPSPRITE:matsuri_close.png</string>
+		<string>It happened again?</string>
 		<string>.systemcall:autosave</string>
 		<string>.SETSPEAKER:Matsuri</string>
 		<string>Hi, my name is Matsuri.</string>

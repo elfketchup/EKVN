@@ -1,3 +1,6 @@
+version 1.1.9.2 Apr-20-2015
+. [NEW] Added .FLIPSPRITE script command to flip sprite horizontally (or vertically).
+
 version 1.1.9.1 Apr-01-2015
 . [NEW] Added .SETSPEECHBOX script command to dynamically change the speechbox sprite on the fly.
 

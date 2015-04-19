@@ -560,3 +560,19 @@ Example: .addsprite:girl.png:NO
       #2: Duration of transition (in seconds) (default is 0, which is instant)
 
   Example: .SETSPEECHBOX:alternate_box.png:1.0
+
+================
+
+  Name: .FLIPSPRITE
+
+  Flips the sprite left/right or upside-down/right-side-up.
+
+  Parameters:
+
+      #1: Name of sprite
+
+      #2: Duration (in seconds). Duration of zero is instantaneous.
+
+      #3: Whether to flip horizontally or not (YES means horizontal flip, NO means vertical flip)
+
+  Example: .FLIPSPRITE:girl.png:0:YES

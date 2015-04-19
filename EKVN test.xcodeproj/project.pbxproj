@@ -59,9 +59,9 @@
 		1AC62CE9188F0EBA00A5B851 /* CCGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CE8188F0EBA00A5B851 /* CCGLProgram.m */; };
 		1AC62CEC188F0EBA00A5B851 /* ccGLStateCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CEB188F0EBA00A5B851 /* ccGLStateCache.m */; };
 		1AC62CF0188F0EBA00A5B851 /* CCLabelAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CEF188F0EBA00A5B851 /* CCLabelAtlas.m */; };
-		1AC62CF4188F0EBA00A5B851 /* CCLabelBMFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CF3188F0EBA00A5B851 /* CCLabelBMFont.m */; };
+		1AC62CF4188F0EBA00A5B851 /* CCLabelBMFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CF3188F0EBA00A5B851 /* CCLabelBMFont.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1AC62CF7188F0EBA00A5B851 /* CCLabelTTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CF6188F0EBA00A5B851 /* CCLabelTTF.m */; };
-		1AC62CFA188F0EBA00A5B851 /* CCNodeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CF9188F0EBA00A5B851 /* CCNodeColor.m */; };
+		1AC62CFA188F0EBA00A5B851 /* CCNodeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CF9188F0EBA00A5B851 /* CCNodeColor.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1AC62CFE188F0EBA00A5B851 /* CCLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62CFD188F0EBA00A5B851 /* CCLayout.m */; };
 		1AC62D01188F0EBA00A5B851 /* CCLayoutBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62D00188F0EBA00A5B851 /* CCLayoutBox.m */; };
 		1AC62D05188F0EBA00A5B851 /* CCMotionStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62D04188F0EBA00A5B851 /* CCMotionStreak.m */; };
@@ -159,7 +159,7 @@
 		1AC62E6A188F0EBB00A5B851 /* mat4stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E69188F0EBB00A5B851 /* mat4stack.c */; };
 		1AC62E6C188F0EBB00A5B851 /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E6B188F0EBB00A5B851 /* matrix.c */; };
 		1AC62E6E188F0EBB00A5B851 /* mat3.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E6D188F0EBB00A5B851 /* mat3.c */; };
-		1AC62E70188F0EBB00A5B851 /* mat4.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E6F188F0EBB00A5B851 /* mat4.c */; };
+		1AC62E70188F0EBB00A5B851 /* mat4.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E6F188F0EBB00A5B851 /* mat4.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1AC62E72188F0EBC00A5B851 /* neon_matrix_impl.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E71188F0EBC00A5B851 /* neon_matrix_impl.c */; };
 		1AC62E74188F0EBC00A5B851 /* plane.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E73188F0EBC00A5B851 /* plane.c */; };
 		1AC62E76188F0EBC00A5B851 /* quaternion.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AC62E75188F0EBC00A5B851 /* quaternion.c */; };
@@ -1768,7 +1768,7 @@
 		1AC62C5A188F0EB900A5B851 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "James Briones";
 			};
 			buildConfigurationList = 1AC62C5D188F0EB900A5B851 /* Build configuration list for PBXProject "EKVN test" */;
@@ -2073,6 +2073,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					DEBUG,
@@ -2107,6 +2108,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
 					"NS_BLOCK_ASSERTIONS=1",
