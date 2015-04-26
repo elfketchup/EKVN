@@ -96,6 +96,8 @@
 #define VNSceneViewMultiplyFontSizeForiPadKey   @"multiply font size for iPad"
 #define VNSceneViewButtonUntouchedColorsKey     @"button untouched colors"
 #define VNSceneViewButtonsTouchedColorsKey      @"button touched colors"
+#define VNSceneViewChoiceButtonOffsetX          @"choicebox offset x"
+#define VNSceneViewChoiceButtonOffsetY          @"choicebox offset y"
 
 // Resource dictionary keys
 #define VNSceneViewSpeechTextKey                @"speech text"
@@ -227,6 +229,7 @@
     
     float spriteTransitionSpeed, speechTransitionSpeed, speakerTransitionSpeed;
     ccColor3B buttonTouchedColors, buttonUntouchedColors;
+    CGFloat choiceButtonOffsetX, choiceButtonOffsetY; // offsets buttons (in choice menus) by a certain number of points (default is zero)
     
     // Cinematic text
     double cinematicTextSpeed; // The speed at which text progresses without user input

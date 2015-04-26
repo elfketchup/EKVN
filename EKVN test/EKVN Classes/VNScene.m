@@ -54,6 +54,8 @@ VNScene* theCurrentScene = nil;
         record          = [[NSMutableDictionary alloc] initWithDictionary:settings]; // Copy data to local dictionary
         flags           = [[NSMutableDictionary alloc] initWithDictionary:[[[EKRecord sharedRecord] flags] copy]]; // Create independent copy of flag data
         noSkippingUntilTextIsShown  = NO; // By default is set to NO, so it IS possible to skip text before it's shown
+        choiceButtonOffsetX = 0;
+        choiceButtonOffsetY = 0;
         
         // Set default values for cinematic text
         cinematicTextSpeed          = 0.0;
@@ -293,6 +295,17 @@ VNScene* theCurrentScene = nil;
     }
     
     [self updateTypewriterTextValues];
+    
+    // Choicebox offsets
+    NSNumber* valueForChoiceboxOffsetX = [record objectForKey:VNSceneViewChoiceButtonOffsetX];
+    NSNumber* valueForChoiceboxOffsetY = [record objectForKey:VNSceneViewChoiceButtonOffsetY];
+    
+    if( valueForChoiceboxOffsetX ) {
+        choiceButtonOffsetX = (CGFloat) valueForChoiceboxOffsetX.doubleValue;
+    }
+    if( valueForChoiceboxOffsetY ) {
+        choiceButtonOffsetY = (CGFloat) valueForChoiceboxOffsetY.doubleValue;
+    }
 }
 
 // Loads the default, hard-coded values for the view / UI settings dictionary.
@@ -491,7 +504,17 @@ VNScene* theCurrentScene = nil;
     if( shouldOverrideSpeechSize && overrideSpeechSize )
         speech.fontSize = [overrideSpeechSize floatValue];
     
-    // Part 7: Load extra features
+    // Load choicebox/choice-button offsets
+    NSNumber* valueForChoiceboxOffsetX = [viewSettings objectForKey:VNSceneViewChoiceButtonOffsetX];
+    NSNumber* valueForChoiceboxOffsetY = [viewSettings objectForKey:VNSceneViewChoiceButtonOffsetY];
+    if( valueForChoiceboxOffsetX ) {
+        choiceButtonOffsetX = (CGFloat) valueForChoiceboxOffsetX.doubleValue;
+    }
+    if( valueForChoiceboxOffsetY ) {
+        choiceButtonOffsetY = (CGFloat) valueForChoiceboxOffsetY.doubleValue;
+    }
+    
+    // Finally: Load extra features
     NSNumber* blockSkippingUntilTextIsDone = [viewSettings objectForKey:VNSceneViewNoSkipUntilTextShownKey];
     if( blockSkippingUntilTextIsDone ) {
         noSkippingUntilTextIsShown = [blockSkippingUntilTextIsDone boolValue];
@@ -1705,11 +1728,11 @@ VNScene* theCurrentScene = nil;
                 float spaceBetweenButtons   = button.boundingBox.size.height * 0.2;
                 float buttonHeight          = button.boundingBox.size.height;
                 float totalButtonSpace      = buttonHeight + spaceBetweenButtons;
-                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices / 2 ) * totalButtonSpace );
+                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices / 2 ) * totalButtonSpace ) + choiceButtonOffsetY;
                 float buttonY               = startingPosition + ( i * totalButtonSpace );
                 
                 // Set button position
-                button.position = ccp( screenWidth * 0.5, buttonY );
+                button.position = ccp( (screenWidth * 0.5) + choiceButtonOffsetX, buttonY );
                 [self addChild:button z:VNSceneButtonsLayer name:[NSString stringWithFormat:@"%d", i]];
                 button.color = [[CCColor alloc] initWithCcColor3b:buttonUntouchedColors]; // Black by default
 				[buttons addObject:button]; // Add button to array
@@ -2093,11 +2116,11 @@ VNScene* theCurrentScene = nil;
                 float spaceBetweenButtons   = button.boundingBox.size.height * 0.2; // 20% of button sprite height
                 float buttonHeight          = button.boundingBox.size.height;
                 float totalButtonSpace      = buttonHeight + spaceBetweenButtons; // total used-up space = 120% of button height
-                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices * 0.5 ) * totalButtonSpace );
+                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices * 0.5 ) * totalButtonSpace ) + choiceButtonOffsetY;
                 float buttonY               = startingPosition + ( i * totalButtonSpace ); // This button's position
                 
                 // Set button position and other attributes
-                button.position     = ccp( screenWidth * 0.5, buttonY );
+                button.position     = ccp( (screenWidth * 0.5) + choiceButtonOffsetX, buttonY );
                 button.color        = [[CCColor alloc] initWithCcColor3b:buttonUntouchedColors];
                 
                 // Add the button to the layer (and also to the 'buttons' array)
@@ -2429,6 +2452,20 @@ VNScene* theCurrentScene = nil;
             CCActionSequence* theSequence = [CCActionSequence actions:scalingAction, clearEffectFlag, nil];
             [sprite runAction:theSequence];
 
+        }break;
+            
+        case VNScriptCommandModifyChoiceboxOffset:
+        {
+            NSNumber* xOffset = [command objectAtIndex:1];
+            NSNumber* yOffset = [command objectAtIndex:2];
+            
+            choiceButtonOffsetX = (CGFloat) xOffset.doubleValue;
+            choiceButtonOffsetY = (CGFloat) yOffset.doubleValue;
+            
+            // save offset data to record
+            [record setValue:@(choiceButtonOffsetX) forKey:VNSceneViewChoiceButtonOffsetX];
+            [record setValue:@(choiceButtonOffsetY) forKey:VNSceneViewChoiceButtonOffsetY];
+            
         }break;
     
             

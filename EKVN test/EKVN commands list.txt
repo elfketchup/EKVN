@@ -576,3 +576,19 @@ Example: .addsprite:girl.png:NO
       #3: Whether to flip horizontally or not (YES means horizontal flip, NO means vertical flip)
 
   Example: .FLIPSPRITE:girl.png:0:YES
+
+================
+
+  Name: .MODIFYCHOICEBOXOFFSET
+
+  Modifies button offsets during choices, in case you don't want them to show up in the middle of the screen.
+
+  Parameters:
+
+      #1: X coordinate (in points)
+
+      #2: Y coordinate (in points)
+
+  Example: .MODIFYCHOICEBOXOFFSET:10:10
+
+================

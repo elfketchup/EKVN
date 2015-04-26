@@ -1448,6 +1448,38 @@
         NSNumber* durationToUse = @([duration doubleValue]);
         NSNumber* numberForFlip = @(flipBool.boolValue);
         analyzedArray = @[type, parameter1, durationToUse, numberForFlip];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringModifyChoiceboxOffset] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .MODIFYCHOICEBOXOFFSET
+        //
+        //  Modifies button offsets during choices, in case you don't want them to show up in the middle of the screen.
+        //
+        //  Parameters:
+        //
+        //      #1: X coordinate (in points)
+        //
+        //      #2: Y coordinate (in points)
+        //
+        //  Example: .MODIFYCHOICEBOXOFFSET:10:10
+        //
+        
+        // Set default values
+        NSString* xOffset = [NSString stringWithFormat:@"0"];
+        NSString* yOffset = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 2 )
+            xOffset = [command objectAtIndex:1];
+        if( command.count >= 3 )
+            yOffset = [command objectAtIndex:2];
+        
+        type = @VNScriptCommandModifyChoiceboxOffset;
+        NSNumber* xAsNumber = @(xOffset.doubleValue);
+        NSNumber* yAsNumber = @(yOffset.doubleValue);
+        analyzedArray = @[type, xAsNumber, yAsNumber];
     }
 
     

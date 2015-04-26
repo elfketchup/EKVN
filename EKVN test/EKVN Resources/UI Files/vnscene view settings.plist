@@ -42,6 +42,10 @@
 	<true/>
 	<key>no skipping until text is shown</key>
 	<false/>
+	<key>choicebox offset x</key>
+	<integer>0</integer>
+	<key>choicebox offset y</key>
+	<integer>0</integer>
 	<key>button untouched colors</key>
 	<dict>
 		<key>r</key>
