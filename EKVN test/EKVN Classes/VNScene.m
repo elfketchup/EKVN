@@ -200,6 +200,12 @@ VNScene* theCurrentScene = nil;
 		CCSprite* background = [CCSprite spriteWithImageNamed:savedBackground];
 		background.position = ccp( backgroundX, backgroundY ); // Position the sprite / background image right in the middle of the screen
         [self addChild:background z:VNSceneBackgroundLayer name:VNSceneTagBackground];
+        
+        // load background scale
+        NSNumber* savedBackgroundScale = [record objectForKey:VNSceneBackgroundScaleKey];
+        if( savedBackgroundScale ) {
+            background.scale = savedBackgroundScale.floatValue;
+        }
 	}
 	
     // Load any music that was saved
@@ -1638,6 +1644,7 @@ VNScene* theCurrentScene = nil;
             [record removeObjectForKey:VNSceneBackgroundToShowKey];
             [record removeObjectForKey:VNSceneBackgroundXKey];
             [record removeObjectForKey:VNSceneBackgroundYKey];
+            [record removeObjectForKey:VNSceneBackgroundScaleKey];
             
             // Check the value of the string. If the string is "nil", then just get rid of any existing background
             // data. Otherwise, VNSceneView will try to use the string as a file name.
@@ -1653,6 +1660,7 @@ VNScene* theCurrentScene = nil;
                 [record setObject:backgroundName forKey:VNSceneBackgroundToShowKey]; // Update record with the background image's file name
                 [record setObject:@(updatedBackground.position.x) forKey:VNSceneBackgroundXKey];
                 [record setObject:@(updatedBackground.position.y) forKey:VNSceneBackgroundYKey];
+                [record setObject:@(updatedBackground.scale) forKey:VNSceneBackgroundScaleKey];
             }
             
         }break;
@@ -2467,6 +2475,69 @@ VNScene* theCurrentScene = nil;
             [record setValue:@(choiceButtonOffsetY) forKey:VNSceneViewChoiceButtonOffsetY];
             
         }break;
+            
+        case VNScriptCommandScaleBackground:
+        {
+            CCSprite* background = (CCSprite*) [self getChildByName:VNSceneTagBackground recursively:false];
+            if( background == nil ) {
+                return;
+            }
+            
+            NSNumber* scaleNumber = [command objectAtIndex:1];
+            NSNumber* durationNumber = [command objectAtIndex:2];
+            double theDuration = durationNumber.doubleValue;
+            
+            if( theDuration <= 0.0 ) {
+                background.scale = scaleNumber.floatValue;
+            } else {
+                [self createSafeSave];
+                [self setEffectRunningFlag];
+                CCActionScaleTo* scaleAction = [CCActionScaleTo actionWithDuration:theDuration scale:scaleNumber.floatValue];
+                CCActionCallFunc* callClearFlag = [CCActionCallFunc actionWithTarget:self selector:@selector(clearEffectRunningFlag)];
+                CCActionSequence* sequence = [CCActionSequence actions:scaleAction, callClearFlag, nil];
+                [background runAction:sequence];
+            }
+            
+            [record setValue:@(scaleNumber.floatValue) forKey:VNSceneBackgroundScaleKey];
+            
+        }break;
+            
+        case VNScriptCommandScaleSprite:
+        {
+            NSString* spriteName = [command objectAtIndex:1];
+            NSNumber* scaleNumber = [command objectAtIndex:2];
+            NSNumber* durationNumber = [command objectAtIndex:3];
+            
+            CCSprite* sprite = [sprites objectForKey:spriteName];
+            if( sprite == nil )
+                return;
+            
+            float theScale = scaleNumber.floatValue;
+            float theDuration = durationNumber.floatValue;
+            
+            float xScale = theScale;
+            float yScale = theScale;
+            
+            // Invert x/y-scale values when dealing with flipped sprites
+            if( sprite.scaleX < 0.0 ) {
+                xScale = xScale * (-1);
+            }
+            if( sprite.scaleY < 0.0 ) {
+                yScale = yScale * (-1);
+            }
+            
+            if( theDuration <= 0.0 ) {
+                sprite.scaleX = xScale;
+                sprite.scaleY = yScale;
+            } else {
+                [self createSafeSave];
+                [self setEffectRunningFlag];
+                CCActionScaleTo* scaleAction = [CCActionScaleTo actionWithDuration:theDuration scaleX:xScale scaleY:yScale];
+                CCActionCallFunc* callFunc = [CCActionCallFunc actionWithTarget:self selector:@selector(clearEffectRunningFlag)];
+                CCActionSequence* sequence = [CCActionSequence actions:scaleAction, callFunc, nil];
+                [sprite runAction:sequence];
+            }
+        }
     
             
         default:

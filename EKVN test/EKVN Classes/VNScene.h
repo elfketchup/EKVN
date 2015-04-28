@@ -135,6 +135,7 @@
 #define VNSceneShowSpeechKey                    @"show speech"
 #define VNSceneBackgroundXKey                   @"background x"
 #define VNSceneBackgroundYKey                   @"background y"
+#define VNSceneBackgroundScaleKey               @"background scale"
 #define VNSceneCinematicTextSpeedKey            @"cinematic text speed"
 #define VNSceneCinematicTextInputAllowedKey     @"cinematic text input allowed"
 #define VNSceneTypewriterTextModeEnabledKey     @"typewriter text mode enabled"

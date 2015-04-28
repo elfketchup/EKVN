@@ -1480,9 +1480,74 @@
         NSNumber* xAsNumber = @(xOffset.doubleValue);
         NSNumber* yAsNumber = @(yOffset.doubleValue);
         analyzedArray = @[type, xAsNumber, yAsNumber];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringScaleBackground] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SCALEBACKGROUND
+        //
+        //  Changes background scale (1.0 being the "normal" scale)
+        //
+        //  Parameters:
+        //
+        //      #1: Scale
+        //
+        //      #2: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+        //
+        //  Example: .SCALEBACKGROUND:2.5:1
+        //
+        
+        // Set default values
+        NSString* scaleValue    = [NSString stringWithFormat:@"1"];
+        NSString* durationValue = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 2 )
+            scaleValue = [command objectAtIndex:1];
+        if( command.count >= 3 )
+            durationValue = [command objectAtIndex:2];
+        
+        type = @VNScriptCommandScaleBackground;
+        NSNumber* scaleNumber = @(scaleValue.doubleValue);
+        NSNumber* durationNumber = @(durationValue.doubleValue);
+        analyzedArray = @[type, scaleNumber, durationNumber];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringScaleSprite] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SCALESPRITE
+        //
+        //  Changes sprite scale (1.0 being the "normal" scale)
+        //
+        //  Parameters:
+        //
+        //      #1: Name of sprite (string)
+        //
+        //      #2: Scale (default is 1.0)
+        //
+        //      #3: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+        //
+        //  Example: .SCALESPRITE:girl.png:2:1.5
+        //
+        
+        // Set default values
+        NSString* inputScale    = [NSString stringWithFormat:@"1"];
+        NSString* inputDuration = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 3 )
+            inputScale = [command objectAtIndex:2];
+        if( command.count >= 4 )
+            inputDuration = [command objectAtIndex:3];
+        
+        type = @VNScriptCommandScaleSprite;
+        NSNumber* scaleNumber = @(inputScale.doubleValue);
+        NSNumber* durationNumber = @(inputDuration.doubleValue);
+        analyzedArray = @[type, parameter1, scaleNumber, durationNumber];
     }
 
-    
     return analyzedArray;
 }
 

@@ -27,6 +27,8 @@
 		<string>Also, I&apos;m going to change the font name.</string>
 		<string>.SETSPEECHFONT:Courier New</string>
 		<string>How does this look?</string>
+		<string>Now I&apos;m going to try to set the background scale.</string>
+		<string>.SCALEBACKGROUND:1.5</string>
 		<string>Now let&apos;s change the speaker font.</string>
 		<string>.SETSPEAKERFONT:Times New Roman</string>
 		<string>Now how does that look?</string>
@@ -38,8 +40,8 @@
 		<string>Suddenly, an anime girl appears!</string>
 		<string>.FLIPSPRITE:matsuri_close.png</string>
 		<string>Now she&apos;s turned around.</string>
-		<string>.FLIPSPRITE:matsuri_close.png</string>
-		<string>It happened again?</string>
+		<string>.SCALESPRITE:matsuri_close.png:0.5:1.0</string>
+		<string>...and now she&apos;s tiny.</string>
 		<string>.systemcall:autosave</string>
 		<string>.SETSPEAKER:Matsuri</string>
 		<string>Hi, my name is Matsuri.</string>
@@ -53,6 +55,8 @@
 		<string>.PLAYMUSIC:nil</string>
 		<string>.REMOVESPRITE:matsuri_close.png</string>
 		<string>The music stops, and the girl disappears.</string>
+		<string>Let&apos;s rescale the background to normal now.</string>
+		<string>.SCALEBACKGROUND:1.0:1.0</string>
 		<string>That wasn&apos;t strange at all.</string>
 		<string>.SETFLAG:betweenFlag:2</string>
 		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Hey, the betweenFlag is between 1 and 3!</string>

@@ -592,3 +592,33 @@ Example: .addsprite:girl.png:NO
   Example: .MODIFYCHOICEBOXOFFSET:10:10
 
 ================
+
+  Name: .SCALEBACKGROUND
+
+  Changes background scale (1.0 being the "normal" scale)
+
+  Parameters:
+
+      #1: Scale (1.0 is normal)
+
+      #2: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+
+  Example: .SCALEBACKGROUND:2.5:1
+
+================
+
+  Name: .SCALESPRITE
+
+  Changes sprite scale (1.0 being the "normal" scale)
+
+  Parameters:
+
+      #1: Name of sprite (string)
+
+      #2: Scale (default is 1.0)
+
+      #3: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+
+  Example: .SCALESPRITE:girl.png:2:1.5
+
+================

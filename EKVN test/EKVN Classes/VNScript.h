@@ -88,6 +88,8 @@
 #define VNScriptCommandSetSpeechbox             133
 #define VNScriptCommandFlipSprite               134
 #define VNScriptCommandModifyChoiceboxOffset    135
+#define VNScriptCommandScaleBackground          136
+#define VNScriptCommandScaleSprite              137
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -126,6 +128,8 @@
 #define VNScriptStringSetSpeechbox              @".setspeechbox"        // dynamically change speechbox sprite
 #define VNScriptStringFlipSprite                @".flipsprite"          // flips sprite around (left/right or upside-down)
 #define VNScriptStringModifyChoiceboxOffset     @".modifychoiceboxoffset" // adds X/Y offset to button coordinates during choices (default = 0,0)
+#define VNScriptStringScaleBackground           @".scalebackground"     // changes background scale
+#define VNScriptStringScaleSprite               @".scalesprite"         // changes sprite scale
 
 
 // Script syntax

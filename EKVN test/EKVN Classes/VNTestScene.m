@@ -100,6 +100,16 @@
     title.position = CGPointMake( screenSize.width * titleX, screenSize.height * titleY );
     [self addChild:title z:VNTestSceneZForTitle];
     
+    /*
+     // testing scaling issues
+    NSLog(@"title size: w=%f | h=%f", title.boundingBox.size.width, title.boundingBox.size.height);
+    title.scaleX = 1.5;
+    title.scaleY = 1.8;
+    CCSprite* spriteFromTexture = [CCSprite spriteWithTexture:title.texture];
+    NSLog(@"title size: w=%f | h=%f", title.boundingBox.size.width, title.boundingBox.size.height);
+    NSLog(@"spriteFromTexture size: w=%f | h=%f", spriteFromTexture.boundingBox.size.width, spriteFromTexture.boundingBox.size.height);
+     */
+    
     // Set up background data
     backgroundImage = [CCSprite spriteWithImageNamed:standardSettings[VNTestSceneBackgroundImage]];
     backgroundImage.position = CGPointMake( screenSize.width * 0.5, screenSize.height * 0.5 );
