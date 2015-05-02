@@ -747,21 +747,27 @@
         //
         //      #2: (Optional) Should this loop forever? (BOOL value) (default is YES)
         //
-        //  Example: .PLAYMUSIC:LevelUpper.mp3:NO
+        //      #3: Fade-in/fade-out duration (in seconds)
+        //
+        //  Example: .PLAYMUSIC:LevelUpper.mp3:NO:1.0
         //
         
         NSString* parameter2 = @"YES"; // Loops forever by default
+        NSString* fadeDuration = @"1";
         
         // Check if there's already a user-specified value, in which case that would override the default value
         if( command.count > 2 )
             parameter2 = [command objectAtIndex:2];
+        if( command.count > 3 )
+            fadeDuration = [command objectAtIndex:3];
         
         // Convert the second parameter to a Boolean NSNumber, since it was originally stored as a string
         BOOL musicLoopsForever = [parameter2 boolValue];
         NSNumber* loopParameter = @(musicLoopsForever);
+        NSNumber* fadeParameter = @(fadeDuration.doubleValue);
         
         type = @VNScriptCommandPlayMusic;
-        analyzedArray = @[type, parameter1, loopParameter];
+        analyzedArray = @[type, parameter1, loopParameter, fadeParameter];
         
     } else if ( [action caseInsensitiveCompare:VNScriptStringSetFlag] == NSOrderedSame ) {
         

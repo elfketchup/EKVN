@@ -179,6 +179,11 @@
 #define VNSceneModeChoiceWithJump       203
 #define VNSceneModeEnded                300 // There isn't any more script data to process
 
+// BGM fade types
+#define VNSceneBGMFadeTypeIncrease      10
+#define VNSceneBGMFadeTypeDecrease      11
+#define VNSceneBGMFadeTypeNone          12
+
 #pragma mark - VNScene Declaration
 
 @interface VNScene : CCScene {
@@ -215,6 +220,10 @@
     NSMutableArray* choices; // Holds values that will be used when making choices
     NSMutableArray* choiceExtras; // Holds extra data that's used when making choices (usually, flag data)
     int buttonPicked; // Keeps track of the most recently touched button in the menu
+    
+    // Background music fade. The background volume can fade from 0% to 100% or from 100% to 0%
+    float BGMValueOfASingleFrame; // how much to increase/decrease volume in a single frame
+    char BGMFadeType; // determines what to do regarding background music fade
     
     NSMutableDictionary* sprites;
     NSMutableArray* spritesToRemove;

@@ -24,9 +24,13 @@
 		<string>Hello.</string>
 		<string>.SETBACKGROUND:pond.png</string>
 		<string>Hey, a background!</string>
+		<string>Some music would be good too.</string>
+		<string>.PLAYMUSIC:music01.mp3</string>
 		<string>Also, I&apos;m going to change the font name.</string>
 		<string>.SETSPEECHFONT:Courier New</string>
 		<string>How does this look?</string>
+		<string>Let&apos;s stop the music.</string>
+		<string>.PLAYMUSIC:nil</string>
 		<string>Now I&apos;m going to try to set the background scale.</string>
 		<string>.SCALEBACKGROUND:1.5</string>
 		<string>Now let&apos;s change the speaker font.</string>

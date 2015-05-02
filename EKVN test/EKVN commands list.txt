@@ -266,8 +266,9 @@ Example: .addsprite:girl.png:NO
 
       #2: (Optional) Should this loop forever? (BOOL value) (default is YES)
 
-  Example: .PLAYMUSIC:LevelUpper.mp3:NO
+      #3: Fade-in/fade-out duration (in seconds) (optional)
 
+  Example: .PLAYMUSIC:LevelUpper.mp3:NO:1.0
 
 ================
 
