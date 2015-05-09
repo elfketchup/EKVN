@@ -67,6 +67,10 @@
     NSString* startFont = standardSettings[VNTestSceneStartNewGameFont];
     NSDictionary* startColors = standardSettings[VNTestSceneStartNewGameColorDict];
     
+    // fill in missing data
+    if( startText == nil )
+        startText = @" ";
+    
     // Now create the actual label
     playLabel = [CCLabelTTF labelWithString:startText fontName:startFont fontSize:startFontSize];
     playLabel.position = CGPointMake( screenSize.width * startLabelX, screenSize.height * startLabelY );
@@ -83,6 +87,9 @@
     NSString* continueText = standardSettings[VNTestSceneContinueText];
     NSString* continueFont = standardSettings[VNTestSceneContinueFont];
     NSDictionary* continueColors = standardSettings[VNTestSceneContinueColor];
+    
+    if( continueText == nil )
+        continueText = @" ";
     
     // Load the "Continue" label
     loadLabel = [CCLabelTTF labelWithString:continueText fontName:continueFont fontSize:continueFontSize];
@@ -276,7 +283,7 @@
     CGPoint touchPos = [touch locationInNode:self];
     
     // Check if the user tapped on the "play" label
-    if( CGRectContainsPoint([playLabel boundingBox], touchPos) ) {
+    if( CGRectContainsPoint([playLabel boundingBox], touchPos) || CGRectContainsPoint(playLabelBG.boundingBox, touchPos) ) {
         
         if( filenameOfSoundForStartButton != nil ) {
             [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForStartButton];
@@ -292,7 +299,7 @@
     }
     
     // Check if the user tapped on the "contine" / "load saved game" label
-    if( CGRectContainsPoint([loadLabel boundingBox], touchPos) ) {
+    if( CGRectContainsPoint([loadLabel boundingBox], touchPos) || CGRectContainsPoint([loadLabelBG boundingBox], touchPos) ) {
         
         if( filenameOfSoundForContinueButton != nil )  {
             [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForContinueButton];
