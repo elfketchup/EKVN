@@ -17,6 +17,8 @@
 #define VNTestSceneZForLabels               20
 #define VNTestSceneZForTitle                30
 
+#define VNTestSceneDefaultSupportLinkString @"http://www.google.com"
+
 @implementation VNTestScene
 
 + (id)scene
@@ -100,6 +102,26 @@
     loadLabel.color = [[CCColor alloc] initWithCcColor3b:loadLabelColor];
     [self addChild:loadLabel z:VNTestSceneZForLabels];
     
+    // Now grab the values for the Support button
+    float supportLabelX = [standardSettings[VNTestSceneSupportLabelX] floatValue];
+    float supportLabelY = [standardSettings[VNTestSceneSupportLabelY] floatValue];
+    float supportFontSize = [standardSettings[VNTestSceneSupportSize] floatValue];
+    NSString* supportText = standardSettings[VNTestSceneSupportText];
+    NSString* supportFont = standardSettings[VNTestSceneSupportFont];
+    NSDictionary* supportColors = standardSettings[VNTestSceneSupportColor];
+    
+    if( supportText == nil )
+        supportText = @" ";
+    
+    // Load the "Support" label
+    supportLabel = [CCLabelTTF labelWithString:supportText fontName:supportFont fontSize:supportFontSize];
+    supportLabel.position = CGPointMake( screenSize.width * supportLabelX, screenSize.height * supportLabelY );
+    ccColor3B supportLabelColor  = ccc3( [supportColors[@"r"] unsignedCharValue],
+                                        [supportColors[@"g"] unsignedCharValue],
+                                        [supportColors[@"b"] unsignedCharValue] );
+    supportLabel.color = [[CCColor alloc] initWithCcColor3b:supportLabelColor];
+    [self addChild:supportLabel z:VNTestSceneZForLabels];
+    
     // Load the title info
     float titleX = [standardSettings[VNTestSceneTitleX] floatValue];
     float titleY = [standardSettings[VNTestSceneTitleY] floatValue];
@@ -172,6 +194,12 @@
     if( loadGameSound != nil && loadGameSound.length > 1 ) {
         filenameOfSoundForContinueButton = loadGameSound.copy;
     }
+    
+    // Load link data for support label
+    supportLabelLink = [standardSettings objectForKey:VNTestSceneSupportLinkString];
+    if( supportLabelLink == nil ) {
+        supportLabelLink = @"http://www.google.com"; // default
+    }
 }
 
 // This creates a dictionary that's got the default UI values loaded onto them. If you want to change how it looks,
@@ -196,6 +224,14 @@
     [resourcesDict setObject:@"Helvetica" forKey:VNTestSceneContinueFont];
     [resourcesDict setObject:@(18) forKey:VNTestSceneContinueSize];
     [resourcesDict setObject:[whiteColorDict copy] forKey:VNTestSceneContinueColor];
+    
+    // set up support label
+    [resourcesDict setObject:@(0.5) forKey:VNTestSceneSupportLabelX];
+    [resourcesDict setObject:@(0.15) forKey:VNTestSceneSupportLabelY];
+    [resourcesDict setObject:@"Helvetica" forKey:VNTestSceneSupportFont];
+    [resourcesDict setObject:@(18) forKey:VNTestSceneSupportSize];
+    [resourcesDict setObject:[whiteColorDict copy] forKey:VNTestSceneSupportColor];
+    [resourcesDict setObject:VNTestSceneDefaultSupportLinkString forKey:VNTestSceneSupportLinkString];
     
     // Set up title data
     [resourcesDict setObject:@(0.5) forKey:VNTestSceneTitleX];
@@ -259,6 +295,12 @@
     [[CCDirector sharedDirector] pushScene:[VNScene sceneWithSettings:savedData]];
 }
 
+- (void)openSupportLink
+{
+    NSURL* supportURL = [NSURL URLWithString:supportLabelLink];
+    [[UIApplication sharedApplication] openURL:supportURL];
+}
+
 #pragma mark - Touch controls
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -282,8 +324,39 @@
 {
     CGPoint touchPos = [touch locationInNode:self];
     
+    bool didTouchSupport = false;
+    bool didTouchLoad = false;
+    bool didTouchStart = false;
+    
+    // Check if the user tapped on the labels
+    if( playLabel != nil ) {
+        didTouchStart = CGRectContainsPoint(playLabel.boundingBox, touchPos);
+    }
+    if( loadLabel != nil ) {
+        didTouchLoad = CGRectContainsPoint(loadLabel.boundingBox, touchPos);
+    }
+    if( supportLabel ) {
+        didTouchSupport = CGRectContainsPoint(supportLabel.boundingBox, touchPos);
+    }
+    
+    // Check if the user tapped on the background images behind the labels (but only if the matching flags remain "false")
+    if( playLabelBG != nil && didTouchStart == false ) {
+        didTouchStart = CGRectContainsPoint(playLabelBG.boundingBox, touchPos);
+    }
+    if( loadLabelBG != nil && didTouchLoad == false ) {
+        didTouchLoad = CGRectContainsPoint(loadLabelBG.boundingBox, touchPos);
+    }
+    if( supportLabelBG != nil && didTouchSupport == false ) {
+        didTouchSupport = CGRectContainsPoint(supportLabelBG.boundingBox, touchPos);
+    }
+    
+    
+    if( didTouchSupport == true ) {
+        [self openSupportLink];
+    }
+    
     // Check if the user tapped on the "play" label
-    if( CGRectContainsPoint([playLabel boundingBox], touchPos) || CGRectContainsPoint(playLabelBG.boundingBox, touchPos) ) {
+    if( didTouchStart == true ) {
         
         if( filenameOfSoundForStartButton != nil ) {
             [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForStartButton];
@@ -299,7 +372,7 @@
     }
     
     // Check if the user tapped on the "contine" / "load saved game" label
-    if( CGRectContainsPoint([loadLabel boundingBox], touchPos) || CGRectContainsPoint([loadLabelBG boundingBox], touchPos) ) {
+    if( didTouchLoad == true ) {
         
         if( filenameOfSoundForContinueButton != nil )  {
             [[OALSimpleAudio sharedInstance] playEffect:filenameOfSoundForContinueButton];
@@ -382,11 +455,13 @@
     CCActionFadeOut* fadeOutStartLabel = [CCActionFadeOut actionWithDuration:fadingOutDuration];
     CCActionFadeOut* fadeOutLoadLabel = [CCActionFadeOut actionWithDuration:fadingOutDuration];
     CCActionFadeOut* fadeOutBackground = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+    CCActionFadeOut* fadeOutSupport = [CCActionFadeOut actionWithDuration:fadingOutDuration];
     CCActionFadeOut* fadeOutLogo = [CCActionFadeOut actionWithDuration:fadingOutDuration];
     
     [backgroundImage runAction:fadeOutBackground];
     [loadLabel runAction:fadeOutLoadLabel];
     [playLabel runAction:fadeOutStartLabel];
+    [supportLabel runAction:fadeOutSupport];
     [title runAction:fadeOutLogo];
     
     if( playLabelBG != nil ) {
@@ -397,6 +472,11 @@
     if( loadLabelBG != nil ) {
         CCActionFadeOut* fadeOutLoadBG = [CCActionFadeOut actionWithDuration:fadingOutDuration];
         [loadLabelBG runAction:fadeOutLoadBG];
+    }
+    
+    if( supportLabelBG != nil ) {
+        CCActionFadeOut* fadeOutSupportBG = [CCActionFadeOut actionWithDuration:fadingOutDuration];
+        [supportLabelBG runAction:fadeOutSupportBG];
     }
     
     //CCActionFadeOut* fadeOutAction = [CCActionFadeOut actionWithDuration:fadingOutDuration];
@@ -413,10 +493,17 @@
         // reset visuals so everything looks normal again
         [loadLabel setOpacity:originalOpacityOfLoadLabel];
         [playLabel setOpacity:1.0];
+        [supportLabel setOpacity:1.0];
         [title setOpacity:1.0];
         [backgroundImage setOpacity:1.0];
         // perform final activity before transitioning
         [self performPostFadeActivity];
+        
+        // restore background images
+        if( playLabelBG ) playLabelBG.opacity = 1.0;
+        if( loadLabelBG ) loadLabelBG.opacity = 1.0;
+        if( supportLabelBG ) supportLabelBG.opacity = 1.0;
+        
     } else {
         fadeTimer++;
         

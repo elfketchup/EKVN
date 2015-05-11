@@ -5,7 +5,7 @@
 	<key>startnewgame label x</key>
 	<real>0.5</real>
 	<key>startnewgame label y</key>
-	<string>0.35</string>
+	<string>0.45</string>
 	<key>startnewgame text</key>
 	<string>New Game</string>
 	<key>startnewgame font</key>
@@ -28,7 +28,7 @@
 	<key>continue label x</key>
 	<string>0.5</string>
 	<key>continue label y</key>
-	<string>0.2</string>
+	<string>0.3</string>
 	<key>continue text</key>
 	<string>Continue</string>
 	<key>continue font</key>
@@ -62,5 +62,28 @@
 	<string>music01.mp3</string>
 	<key>fade out time in seconds</key>
 	<integer>1</integer>
+	<key>support label x</key>
+	<string>0.5</string>
+	<key>support label y</key>
+	<string>0.15</string>
+	<key>support text</key>
+	<string>Support</string>
+	<key>support font</key>
+	<string>Helvetica</string>
+	<key>support size</key>
+	<string>24</string>
+	<key>support background image</key>
+	<string></string>
+	<key>support link</key>
+	<string>https://github.com/elfketchup/EKVN</string>
+	<key>support color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
 </dict>
 </plist>

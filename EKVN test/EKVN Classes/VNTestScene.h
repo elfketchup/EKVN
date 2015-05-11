@@ -49,6 +49,15 @@
 #define VNTestSceneContinueColor            @"continue color"
 #define VNTestSceneContinueBGImage          @"continue background image"
 #define VNTestSceneContinueSound            @"continue sound"
+#define VNTestSceneSupportLabelX            @"support label x"
+#define VNTestSceneSupportLabelY            @"support label y"
+#define VNTestSceneSupportText              @"support text"
+#define VNTestSceneSupportFont              @"support font"
+#define VNTestSceneSupportSize              @"support size"
+#define VNTestSceneSupportColor             @"support color"
+#define VNTestSceneSupportBGImage           @"support background image"
+#define VNTestSceneSupportLinkString        @"support link"
+#define VNTestSceneSupportSound             @"support sound"
 #define VNTestSceneTitleX                   @"title x"
 #define VNTestSceneTitleY                   @"title y"
 #define VNTestSceneTitleImage               @"title image"
@@ -61,13 +70,16 @@
 {
     CCLabelTTF* playLabel;
     CCLabelTTF* loadLabel;
+    CCLabelTTF* supportLabel;
     
     // optional images positioned behind the labels
     CCSprite* playLabelBG;
     CCSprite* loadLabelBG;
+    CCSprite* supportLabelBG;
     
     CCSprite* title; // Title image
     CCSprite* backgroundImage;
+    NSString* supportLabelLink;
     
     NSString* nameOfScript; // The name of the property list that has all the script data
     VNScene* testScene;
@@ -96,6 +108,7 @@
 
 - (void)startNewGame;
 - (void)loadSavedGame;
+- (void)openSupportLink;
 
 - (void)beginFading;
 - (void)handleFading;
