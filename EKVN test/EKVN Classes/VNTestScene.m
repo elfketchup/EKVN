@@ -169,6 +169,7 @@
     // Load optional background images for main menu labels
     NSString* valueForContinueBGImage = [standardSettings objectForKey:VNTestSceneContinueBGImage];
     NSString* valueForStartBGImage = [standardSettings objectForKey:VNTestSceneStartNewGameBGImage];
+    NSString* valueForSupportBGImage = [standardSettings objectForKey:VNTestSceneSupportBGImage];
     
     if( valueForContinueBGImage != nil && valueForContinueBGImage.length > 1 ) {
         loadLabelBG = [CCSprite spriteWithImageNamed:valueForContinueBGImage];
@@ -181,6 +182,12 @@
         playLabelBG = [CCSprite spriteWithImageNamed:valueForStartBGImage];
         playLabelBG.position = playLabel.position;
         [self addChild:playLabelBG z:(playLabel.zOrder - 1)];
+    }
+    
+    if( valueForSupportBGImage != nil && valueForSupportBGImage.length > 1 ) {
+        supportLabelBG = [CCSprite spriteWithImageNamed:valueForSupportBGImage];
+        supportLabelBG.position = supportLabel.position;
+        [self addChild:supportLabelBG z:(supportLabel.zOrder - 1)];
     }
     
     // Load audio data
