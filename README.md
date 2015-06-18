@@ -1,7 +1,7 @@
 Important notice
 ================
 
-June 18 2015 - Have you ever looked at an open-source project and wondered to yourself "hey, is this abandoned or not? I wish the developer would say something so I could know for sure" only to be met with silence? Well, at the moment, EKVN is now more or less abandoned. This is due to two main reasons:
+June 18 2015 - Have you ever looked at an open-source project and wondered to yourself "hey, is this abandoned or not? I wish the developer would say something so I could know for sure" only to be met with silence? Well, no need to wonder anymore: at the moment, EKVN is now more or less abandoned. This is due to two main reasons:
 
 1) Lack of Cocos2D support. A year after the announcement of iOS 8, and nearly a year after the release of the iPhone 6 and iPhone 6 Plus, Cocos2D still doesn't have any real support for Retina HD displays. There was a rumored "version 4.0" of Cocos2D that would have fixed this, but that has apparently been delayed, especially since — at the time of this writing — what was originally Cocos2D-iphone has since split it into two different projects with different developers.
 
