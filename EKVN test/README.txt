@@ -1,3 +1,15 @@
+Important notice
+================
+
+June 18 2015 - Have you ever looked at an open-source project and wondered to yourself "hey, is this abandoned or not? I wish the developer would say something so I could know for sure" only to be met with silence? Well, at the moment, EKVN is now more or less abandoned. This is due to two main reasons:
+
+1) Lack of Cocos2D support. A year after the announcement of iOS 8, and nearly a year after the release of the iPhone 6 and iPhone 6 Plus, Cocos2D still doesn't have any real support for Retina HD displays. There was a rumored "version 4.0" of Cocos2D that would have fixed this, but that has apparently been delayed, especially since — at the time of this writing — what was originally Cocos2D-iphone has since split it into two different projects with different developers.
+
+2) There are now other (and arguably better) tools and frameworks for creating visual novels on iOS. When EKVN was first created, there weren't really any publicly-available visual novel creation tools for iOS devices. Now, there's Ren'Py (which is free and well-established) and TyranoBuilder (which is $14 on Steam), and both have more features and better support than EKVN probably ever will.
+
+However, I'm still leaving all the EKVN code here, in case anyone wants to fork it, or pick it apart to try to learn from it, or whatever else they might be inclined to do. While the other frameworks are better if you just want to make a visual novel for iOS, EKVN might be better if you plan to integrate visual-novel functionality into an already-existing and established iOS project.
+
+
 EKVN - ElfKetchup Visual Novel system
 =====================================
 
