@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sketch</key>
+	<array>
+		<string>.SETSPRITEALIAS:matsuri:sketchmatsuri_close.png</string>
+		<string>.ADDSPRITE:matsuri</string>
+		<string>Matsuri reappears, but now she just looks like a sketch of an anime girl.</string>
+		<string>.ISFLAGMORETHAN:matsuri_color:0:You shouldn&apos;t see this.</string>
+		<string>.ISFLAGLESSTHAN:matsuri_color:1:The sketch version is more &quot;pure,&quot; I suppose?</string>
+		<string>Well, that&apos;s it for now!</string>
+	</array>
+	<key>color</key>
+	<array>
+		<string>.SETSPRITEALIAS:matsuri:matsuri_close.png</string>
+		<string>.ADDSPRITE:matsuri</string>
+		<string>Matsuri reappears, in color again!</string>
+		<string>.ISFLAGMORETHAN:matsuri_color:0:The colorful version is better, I&apos;d say.</string>
+		<string>.ISFLAGLESSTHAN:matsuri_color:1:You shouldn&apos;t see this.</string>
+		<string>Well, that&apos;s that for now!</string>
+	</array>
+	<key>start</key>
+	<array>
+		<string>.setspeaker:Mysterious Narrator!</string>
+		<string>Hello.</string>
+		<string>.SETBACKGROUND:pond.png</string>
+		<string>Hey, a background!</string>
+		<string>OK gonna test showing ads</string>
+		<string>.SHOWADS:YES</string>
+		<string>Also, I&apos;m going to change the font name.</string>
+		<string>.SETSPEECHFONT:Courier New</string>
+		<string>How does this look?</string>
+		<string>Now let&apos;s hide these ads.</string>
+		<string>.SHOWADS:NO</string>
+		<string>Now let&apos;s change the speaker font.</string>
+		<string>.SETSPEAKERFONT:Times New Roman</string>
+		<string>Now how does that look?</string>
+		<string>Let&apos;s change some sizes too.</string>
+		<string>.SETSPEAKERFONTSIZE:15.0</string>
+		<string>.SETSPEECHFONTSIZE:13.0</string>
+		<string>OK, that might be too tiny. But whatever, let&apos;s get on with it!</string>
+		<string>.SETSPRITEALIAS:matsuri:matsuri_close.png</string>
+		<string>.ADDSPRITE:matsuri</string>
+		<string>Suddenly, an anime girl appears!</string>
+		<string>.systemcall:autosave</string>
+		<string>.SETSPEAKER:Matsuri</string>
+		<string>Hi, my name is Matsuri.</string>
+		<string>.SETSPEAKER:nil</string>
+		<string>You&apos;ve now met your first character.</string>
+		<string>.PLAYMUSIC:music01.mp3</string>
+		<string>.ALIGNSPRITE:matsuri:left</string>
+		<string>.ALIGNSPRITE:matsuri:right</string>
+		<string>.ALIGNSPRITE:matsuri:center</string>
+		<string>Is she... dancing?</string>
+		<string>.PLAYMUSIC:nil</string>
+		<string>.REMOVESPRITE:matsuri</string>
+		<string>The music stops, and the girl disappears.</string>
+		<string>That wasn&apos;t strange at all.</string>
+		<string>.SETFLAG:betweenFlag:2</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Hey, the betweenFlag is between 1 and 3!</string>
+		<string>.SETFLAG:betweenFlag:0</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Wait, betweenFlag is zero, so you shouldn&apos;t see this!</string>
+		<string>.SETFLAG:betweenFlag:4</string>
+		<string>.ISFLAGBETWEEN:betweenFlag:1:3:Woah, betweenFlag is FOUR so you shouldn&apos;t see this!</string>
+		<string>.SYSTEMCALL:AUTOSAVE</string>
+		<string>Would you prefer Matsuri to have color, or not?</string>
+		<string>.SETFLAG:matsuri_color:0</string>
+		<string>.MODIFYFLAGBYCHOICE:&quot;She should have color&quot;:matsuri_color:1:No color is better:matsuri_color:0</string>
+		<string>Well, you&apos;ve made your choice.</string>
+		<string>.ISFLAG:matsuri_color:1:You like the full-color version better, huh?</string>
+		<string>.ISFLAG:matsuri_color:0:You like the non-colored version better?</string>
+		<string>.JUMPONFLAG:matsuri_color:1:color</string>
+		<string>.SETCONVERSATION:sketch</string>
+	</array>
+</dict>
+</plist>

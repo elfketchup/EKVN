@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>next_series</key>
+	<array>
+		<string>You can also play sounds using the .PLAYSOUND command.</string>
+		<string>For example, the sound of a wild animal roaring...</string>
+		<string>.PLAYSOUND:roar1.caf</string>
+		<string>You can also play music, and choose whether it loops indefinitely or not.</string>
+		<string>.PLAYMUSIC:music01.mp3</string>
+		<string>And, of course, you can also stop it if you like…</string>
+		<string>Just use .PLAYMUSIC:nil command.</string>
+		<string>.PLAYMUSIC:nil</string>
+		<string>Another important feature are Flags. These are variables that store an integer (whole number) value.</string>
+		<string>.SETFLAG:show_sky:1</string>
+		<string>For example, the &quot;show_sky&quot; flag is set to 1.</string>
+		<string>You could set it to zero by using the .MODIFYFLAG or .SETFLAG commands.</string>
+		<string>But it could also be better to use player input for that.</string>
+		<string>There&apos;s a .MODIFYFLAGBYCHOICE command that directly modifies flags based on a player&apos;s choices.</string>
+		<string>For example...</string>
+		<string>.MODIFYFLAGBYCHOICE:Show the sky:show_sky:0:Don&apos;t show the sky:show_sky:-1</string>
+		<string>You can look at the code (in &quot;demo script.plist&quot;) to see how it works.</string>
+		<string>If you want certain things to happen based on the value of certain flags, there&apos;s the .ISFLAG command.</string>
+		<string>If a particular flag holds a certain value, then a secondary command will be triggered.</string>
+		<string>For example, let&apos;s say you chose the &quot;Don&apos;t show the sky&quot; command earlier.</string>
+		<string>Right now, the &quot;show_sky&quot; flag would have been set to zero.</string>
+		<string>.ISFLAG:show_sky:0:.SETBACKGROUND:pond.png</string>
+		<string>And you would see a different background.</string>
+		<string>Well, that&apos;s pretty much it for now. You know the important stuff.</string>
+		<string>There are some advanced features, but you should read the documentation for that.</string>
+		<string>Oh, one more thing.</string>
+		<string>When a visual novel&apos;s script &quot;ends,&quot; all its resources (graphics and audio) are removed.</string>
+		<string>Music stops playing (though sound effects can continue, for some reason!)</string>
+		<string>And any flags that were accessed or changed by the visual novel are forcibly saved.</string>
+		<string>Anyways, I suppose that&apos;s it for now.</string>
+		<string>Hopefully, you can use this to make some good games!</string>
+		<string>You can contact the author/programmer at: http://twitter.com/elfketchup</string>
+		<string>Alright, bye for real this time.</string>
+		<string>(The end?)</string>
+	</array>
+	<key>neither_choice</key>
+	<array>
+		<string>.REMOVESPRITE:matsuri_close.png</string>
+		<string>.REMOVESPRITE:sketchmatsuri_close.png</string>
+		<string>.setconversation:next_series</string>
+	</array>
+	<key>sketch_choice</key>
+	<array>
+		<string>.REMOVESPRITE:matsuri_close.png</string>
+		<string>.ALIGNSPRITE:sketchmatsuri_close.png:center</string>
+		<string>.setconversation:next_series</string>
+	</array>
+	<key>color_choice</key>
+	<array>
+		<string>.REMOVESPRITE:sketchmatsuri_close.png</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:center</string>
+		<string>.SETCONVERSATION:next_series</string>
+	</array>
+	<key>start</key>
+	<array>
+		<string>.SETTYPEWRITERTEXT:120:NO</string>
+		<string>Hey there.</string>
+		<string>.SETBACKGROUND:skyspace.png</string>
+		<string>First up, it&apos;s probably a good idea to have the dialogue box up.</string>
+		<string>Unless you&apos;d rather hide it.</string>
+		<string>.SHOWSPEECH:NO</string>
+		<string>.SETBACKGROUND:pond.png</string>
+		<string>.SHOWSPEECH:YES</string>
+		<string>A better way to do background transitions is to use .FADEOUT...</string>
+		<string>Then switch the background, and then use .FADEIN so it looks like a smooth transition.</string>
+		<string>.FADEOUT:0.5</string>
+		<string>.SETBACKGROUND:skyspace.png</string>
+		<string>.FADEIN:0.5</string>
+		<string>You can also look at the file named &quot;demo script.plist&quot; that&apos;s in the app bundle to see the code for this.</string>
+		<string>Changing some of the commands should give you first-hand experience in how things work.</string>
+		<string>.ADDSPRITE:matsuri_close.png</string>
+		<string>By default, character sprites appear in the middle of the screen.</string>
+		<string>The best way to move them around is to use the .ALIGNSPRITE command.</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:LEFT</string>
+		<string>If you want to remove them, one way is to just move them offscreen.</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:extreme left</string>
+		<string>But that&apos;s not really a good solution.</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:center</string>
+		<string>A better way is to just use the .REMOVESPRITE command.</string>
+		<string>.REMOVESPRITE:matsuri_close.png</string>
+		<string>Sometimes, there are situations where you have more than one character onscreen.</string>
+		<string>.ADDSPRITE:matsuri_close.png</string>
+		<string>.ALIGNSPRITE:matsuri_close.png:left</string>
+		<string>.ADDSPRITE:sketchmatsuri_close.png</string>
+		<string>.ALIGNSPRITE:sketchmatsuri_close.png:right</string>
+		<string>You can use .ALIGNSPRITE to position them around.</string>
+		<string>Then use the .SETSPEAKER command to help the player know who&apos;s speaking.</string>
+		<string>.SETSPEAKER:Sketched character</string>
+		<string>Like this.</string>
+		<string>.SETSPEAKER:Fully-colored character</string>
+		<string>Or like this.</string>
+		<string>.SETSPEAKER:nil</string>
+		<string>Use .SETSPEAKER:nil to remove any names.</string>
+		<string>Of course, you could just make one character move closer to the center of the screen.</string>
+		<string>.MOVESPRITE:matsuri_close.png:20:0:0.5</string>
+		<string>.SETSPEAKER:Fully-colored character</string>
+		<string>Having that character be more &quot;in focus&quot; can help players figure out who&apos;s speaking.</string>
+		<string>.MOVESPRITE:matsuri_close.png:-20:0:0.5</string>
+		<string>.setspeaker:nil</string>
+		<string>And you can also force the game to autosave at certain points.</string>
+		<string>Use the .SYSTEMCALL:AUTOSAVE command for this.</string>
+		<string>I&apos;ll try it now...</string>
+		<string>.SYSTEMCALL:AUTOSAVE</string>
+		<string>And now the game has been autosaved.</string>
+		<string>IF you were to quit the app now by pressing on the Home Button on your device...</string>
+		<string>And then double-tapping the Home Button to (x) out of this app~</string>
+		<string>If you &quot;Continue&quot; the game from the main screen, you&apos;d be back at the autosave point.</string>
+		<string>Anyways!</string>
+		<string>Many visual novels will ask the player to make choices.</string>
+		<string>The .JUMPONCHOICE command shows players a simple choice &quot;menu.&quot;</string>
+		<string>Then it sends them down different routes based on whatever they chose.</string>
+		<string>To demonstrate, which of these two characters would you rather have onscreen?</string>
+		<string>.JUMPONCHOICE:The fully-colored one:color_choice:The sketched one:sketch_choice:Neither:neither_choice</string>
+	</array>
+</dict>
+</plist>
