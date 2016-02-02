@@ -1,4 +1,4 @@
-EKVN SpriteKit - ElfKetchup Visual Novel system, SpriteKit Edition
+EKVN - ElfKetchup Visual Novel system
 ==================================================================
 
 EKVN is a framework, built on top of SpriteKit, that can be used to create either
