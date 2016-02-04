@@ -261,17 +261,6 @@
     isPlayingMusic = YES;
 }
 
-- (void)toggleAds
-{
-    if( shouldShowAds == YES ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showadsID" object:nil];
-        shouldShowAds = NO;
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"hideadsID" object:nil];
-        shouldShowAds = YES;
-    }
-}
-
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for( UITouch* touch in touches ) {
@@ -295,8 +284,6 @@
             }
         }
     }
-    
-    //[self toggleAds];
 }
 
 - (id)initWithSize:(CGSize)size

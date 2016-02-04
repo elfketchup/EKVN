@@ -74,7 +74,7 @@
 #define VNScriptCommandRemoveSprite             119
 #define VNScriptCommandJumpOnFlag               120 // Change conversation if a certain flag holds a particular value
 #define VNScriptCommandSystemCall               121
-#define VNScriptCommandCallCode                 122
+//#define VNScriptCommandCallCode                 122 // CALLCODE has been disabled because it was a bad idea
 #define VNScriptCommandIsFlagMoreThan           123
 #define VNScriptCommandIsFlagLessThan           124
 #define VNScriptCommandIsFlagBetween            125
@@ -88,9 +88,6 @@
 #define VNScriptCommandSetSpeechbox             133
 #define VNScriptCommandSetSpriteAlias           134
 #define VNScriptCommandFlipSprite               135
-// game-specific commands
-#define VNScriptCommandShowAds                  666
-#define VNScriptCommandStartDanmaku             1001
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -115,7 +112,7 @@
 #define VNScriptStringRemoveSprite              @".removesprite"        // Removes a sprite from the screen
 #define VNScriptStringJumpOnFlag                @".jumponflag"          // Changes script section based on flag value
 #define VNScriptStringSystemCall                @".systemcall"          // Calls a predefined function outside the VN system
-#define VNScriptStringCallCode                  @".callcode"            // Call any function (from a static object, usually)
+//#define VNScriptStringCallCode                  @".callcode"            // Call any function (from a static object, usually)
 #define VNScriptStringIsFlagMoreThan            @".isflagmorethan"      // Runs another command if flag is more than a certain value
 #define VNScriptStringIsFlagLessThan            @".isflaglessthan"      // Runs a command if a flag is LESS than a certain value
 #define VNScriptStringIsFlagBetween             @".isflagbetween"       // Runs a command if a flag is between two values
@@ -129,10 +126,6 @@
 #define VNScriptStringSetSpriteAlias            @".setspritealias"      // Assigns a filename to a sprite alias
 #define VNScriptStringSetSpeechbox              @".setspeechbox"        // dynamically change speechbox sprite
 #define VNScriptStringFlipSprite                @".flipsprite"          // flips sprite around (left/right or upside-down)
-// system commands
-#define VNScriptStringShowAds                   @".showads"             // shows ads... or hides ads.
-// game-specific commands
-#define VNScriptStringStartDanmaku              @".startdanmaku"        // starts danmaku scene
 
 // Script syntax
 #define VNScriptSeparationString               @":"

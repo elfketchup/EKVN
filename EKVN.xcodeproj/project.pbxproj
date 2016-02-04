@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A84D6C31C6323780003634D /* EKAdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A84D6C21C6323780003634D /* EKAdUtils.m */; };
 		1AD5A0D01C6063BA00926CDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5A0CF1C6063BA00926CDC /* main.m */; };
 		1AD5A0D31C6063BA00926CDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5A0D21C6063BA00926CDC /* AppDelegate.m */; };
 		1AD5A0D61C6063BA00926CDC /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5A0D51C6063BA00926CDC /* GameScene.m */; };
@@ -26,8 +25,6 @@
 		1AD5A1531C60652500926CDC /* roar1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1011C60652500926CDC /* roar1.caf */; };
 		1AD5A1541C60652500926CDC /* demo script.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1031C60652500926CDC /* demo script.plist */; };
 		1AD5A1551C60652500926CDC /* test script.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1041C60652500926CDC /* test script.plist */; };
-		1AD5A1561C60652500926CDC /* vn_danmaku1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1051C60652500926CDC /* vn_danmaku1.plist */; };
-		1AD5A1571C60652500926CDC /* vn_danmaku1b.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1061C60652500926CDC /* vn_danmaku1b.plist */; };
 		1AD5A1581C60652500926CDC /* main_menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1081C60652500926CDC /* main_menu.plist */; };
 		1AD5A1591C60652500926CDC /* vnscene view settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD5A1091C60652500926CDC /* vnscene view settings.plist */; };
 		1AD5A15A1C60652500926CDC /* DSMultilineLabelNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5A10D1C60652500926CDC /* DSMultilineLabelNode.m */; };
@@ -35,8 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A84D6C11C6323370003634D /* EKAdUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EKAdUtils.h; sourceTree = "<group>"; };
-		1A84D6C21C6323780003634D /* EKAdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKAdUtils.m; sourceTree = "<group>"; };
 		1AD5A0CB1C6063BA00926CDC /* EKVN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EKVN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD5A0CF1C6063BA00926CDC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AD5A0D11C6063BA00926CDC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,8 +61,6 @@
 		1AD5A1011C60652500926CDC /* roar1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roar1.caf; sourceTree = "<group>"; };
 		1AD5A1031C60652500926CDC /* demo script.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "demo script.plist"; sourceTree = "<group>"; };
 		1AD5A1041C60652500926CDC /* test script.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "test script.plist"; sourceTree = "<group>"; };
-		1AD5A1051C60652500926CDC /* vn_danmaku1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vn_danmaku1.plist; sourceTree = "<group>"; };
-		1AD5A1061C60652500926CDC /* vn_danmaku1b.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vn_danmaku1b.plist; sourceTree = "<group>"; };
 		1AD5A1081C60652500926CDC /* main_menu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = main_menu.plist; sourceTree = "<group>"; };
 		1AD5A1091C60652500926CDC /* vnscene view settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "vnscene view settings.plist"; sourceTree = "<group>"; };
 		1AD5A10C1C60652500926CDC /* DSMultilineLabelNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSMultilineLabelNode.h; sourceTree = "<group>"; };
@@ -140,8 +133,6 @@
 				1AD5A0EC1C60651500926CDC /* EKRecord.m */,
 				1AD5A0ED1C60651500926CDC /* EKUtils.h */,
 				1AD5A0EE1C60651500926CDC /* EKUtils.m */,
-				1A84D6C11C6323370003634D /* EKAdUtils.h */,
-				1A84D6C21C6323780003634D /* EKAdUtils.m */,
 			);
 			path = "EK Base Classes";
 			sourceTree = "<group>";
@@ -185,8 +176,6 @@
 			children = (
 				1AD5A1031C60652500926CDC /* demo script.plist */,
 				1AD5A1041C60652500926CDC /* test script.plist */,
-				1AD5A1051C60652500926CDC /* vn_danmaku1.plist */,
-				1AD5A1061C60652500926CDC /* vn_danmaku1b.plist */,
 			);
 			path = "demo plists";
 			sourceTree = "<group>";
@@ -282,11 +271,9 @@
 				1AD5A1521C60652500926CDC /* music01.mp3 in Resources */,
 				1AD5A1581C60652500926CDC /* main_menu.plist in Resources */,
 				1AD5A0E31C6063BA00926CDC /* LaunchScreen.storyboard in Resources */,
-				1AD5A1571C60652500926CDC /* vn_danmaku1b.plist in Resources */,
 				1AD5A1591C60652500926CDC /* vnscene view settings.plist in Resources */,
 				1AD5A0E01C6063BA00926CDC /* Assets.xcassets in Resources */,
 				1AD5A1541C60652500926CDC /* demo script.plist in Resources */,
-				1AD5A1561C60652500926CDC /* vn_danmaku1.plist in Resources */,
 				1AD5A0DE1C6063BA00926CDC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,7 +289,6 @@
 				1AD5A0F01C60651500926CDC /* EKUtils.m in Sources */,
 				1AD5A0FA1C60651F00926CDC /* VNScene.m in Sources */,
 				1AD5A0D31C6063BA00926CDC /* AppDelegate.m in Sources */,
-				1A84D6C31C6323780003634D /* EKAdUtils.m in Sources */,
 				1AD5A0D61C6063BA00926CDC /* GameScene.m in Sources */,
 				1AD5A0EF1C60651500926CDC /* EKRecord.m in Sources */,
 				1AD5A0FD1C60651F00926CDC /* VNTestScene.m in Sources */,

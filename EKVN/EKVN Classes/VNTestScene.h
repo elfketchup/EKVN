@@ -63,8 +63,6 @@
     
     BOOL isPlayingMusic;
     AVAudioPlayer* backgroundMusic;
-    
-    BOOL shouldShowAds;
 }
 
 - (void)startNewGame;

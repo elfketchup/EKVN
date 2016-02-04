@@ -1163,7 +1163,12 @@
         type = @VNScriptCommandSystemCall;
         analyzedArray = @[type, callString, extraParameters];
         
-    } else if( [action caseInsensitiveCompare:VNScriptStringCallCode] == NSOrderedSame ) {
+    } /*
+       
+       NOTE: CALLCODE has been disabled because it was a bad idea; it's better to just use SYSTEMCALL for
+             any unusual game-specific functionality.
+       
+       else if( [action caseInsensitiveCompare:VNScriptStringCallCode] == NSOrderedSame ) {
         
         // Function definition
         //
@@ -1207,7 +1212,7 @@
         
         type = @VNScriptCommandCallCode;
         analyzedArray = @[type, callingArray];
-    } else if( [action caseInsensitiveCompare:VNScriptStringSwitchScript] == NSOrderedSame ) {
+    } */ else if( [action caseInsensitiveCompare:VNScriptStringSwitchScript] == NSOrderedSame ) {
         
         // Function definition
         //
@@ -1438,58 +1443,7 @@
         analyzedArray = @[type, parameter1, durationToUse, numberForFlip];
     }
     
-    
-    
-    
-    
-    
-    
-    /** SYSTEM COMMANDS **/
-    
-    else if( [action caseInsensitiveCompare:VNScriptStringShowAds] == NSOrderedSame ) {
-        /*
-         .SHOWADS
-         
-         parameters:
-            #1: YES or NO (bool)
-         
-         example:
-            .SHOWADS:YES
-         */
-        
-        NSNumber* theValue = @([[command objectAtIndex:1] boolValue]);
-        
-        type = @VNScriptCommandShowAds;
-        analyzedArray = @[type, theValue];
-    }
-    
-    
-    
-    
-    /** GAME SPECIFIC COMMANDS **/
-    
-    
-    else if( [action caseInsensitiveCompare:VNScriptStringStartDanmaku] == NSOrderedSame ) {
-        /*
-         .STARTDANMAKU
-         
-         parameters:
-            #1: scene filename (string)
-            #2: transition duration (double) (default is 0.5)
-         
-         Example:
-            .STARTDANMAKU:level01:0.5
-         */
-        
-        NSNumber* durationOfTransition = @(0.5);
-        
-        if( command.count >= 3) {
-            durationOfTransition = [command objectAtIndex:2];
-        }
-        
-        type = @VNScriptCommandStartDanmaku;
-        analyzedArray = @[type, parameter1, durationOfTransition];
-    }
+    /** NEW COMMANDS ARE ADDED HERE **/
     
     return analyzedArray;
 }

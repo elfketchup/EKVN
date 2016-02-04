@@ -8,7 +8,6 @@
 #import "VNScene.h"
 #import "EKRecord.h"
 #import "ekutils.h"
-#import "EKAdUtils.h"
 //#import "OALSimpleAudio.h"
 
 /* this is to space choices further apart when the view is in portrait mode*/
@@ -163,7 +162,6 @@ VNScene* theCurrentScene = nil;
         if( backgroundMusic ) {
             [backgroundMusic stop];
         }
-        //[[OALSimpleAudio sharedInstance] stopBg];
     }
     
     isPlayingMusic = NO;
@@ -171,15 +169,11 @@ VNScene* theCurrentScene = nil;
 
 - (void)playBGMusic:(NSString*)filename willLoop:(BOOL)willLoopForever
 {
+    [self stopBGMusic]; // Cancel any existing music
+    
     //NSLog(@"did call play bgmusic");
     if( filename == nil )
         return;
-    
-    /*
-    bool loop = true;
-    if( willLoopForever == NO ) {
-        loop = false;
-    }*/
     
     backgroundMusic = EKAudioSoundFromFile(filename);
     if( backgroundMusic == nil ) {
@@ -190,31 +184,13 @@ VNScene* theCurrentScene = nil;
     if( willLoopForever == YES ) {
         backgroundMusic.numberOfLoops = -1;
     }
-    
-    [self stopBGMusic]; // Cancel any existing music
-    //[[OALSimpleAudio sharedInstance] playBg:filename loop:loop];
+
     [backgroundMusic play];
-    
-    isPlayingMusic = YES;
+    isPlayingMusic = YES; // set flag
 }
 
 - (void)playSoundEffect:(NSString*)filename
 {
-    //[self runAction:[SKAction playSoundFileNamed:filename waitForCompletion:NO]];
-    //[[OALSimpleAudio sharedInstance] playEffect:filename];
-    
-    //currentSoundEffect = EKAudioSoundFromFile(filename);
-    //AVAudioPlayer* soundEffect = EKAudioSoundFromFile(filename);
-    
-    /*if( currentSoundEffect == nil ) {
-        NSLog(@"[VNScene] ERROR: Could not load sound effect named: %@", filename);
-        return;
-    }*/
-    
-    //NSLog(@"Will play sound effect: %@", soundEffect);
-    //currentSoundEffect.numberOfLoops = 0;
-    //[currentSoundEffect play];
-    
     if( filename == nil ) {
         NSLog(@"[VNScene] ERROR: Cannot play sound effect because input filename is invalid.");
     } else {
@@ -2578,7 +2554,7 @@ VNScene* theCurrentScene = nil;
         // so make sure to include the header file for that class if you want VNScene to be able to access it this way. Also,
         // this really only works if the class is being accessed through a static function (or "class function," if you prefer),
         // since this command can't access instance variables directly.
-        case VNScriptCommandCallCode: {
+        /*case VNScriptCommandCallCode: {
             
             NSArray* callingArray = [command objectAtIndex:1];
             NSString* className = [callingArray objectAtIndex:0];
@@ -2614,7 +2590,7 @@ VNScene* theCurrentScene = nil;
             }
             
             
-        }break;
+        }break;*/
          
         // This command replaces the scene's script with a script loaded from another .PLIST file. This is useful in case
         // your script is actually broken up into multiple .PLIST files.
@@ -2870,39 +2846,9 @@ VNScene* theCurrentScene = nil;
             
         }break;
             
+        /** NEW COMMANDS ADDED HERE **/
             
             
-        case VNScriptCommandShowAds:
-        {
-            NSNumber* showValue = parameter1;
-            BOOL theValue = [showValue boolValue];
-            
-            EKAdsSetShowAds(theValue);
-            EKAdsHandleDisplayOfAds();
-            
-            heightMarginForAds = EKAdsHeightOfBanner();
-            
-        }break;
-
-            
-        case VNScriptCommandStartDanmaku:
-        {
-            /*DMLevel* scene = [[DMLevel alloc] initWithSize:self.frame.size fromFile:parameter1];
-            SKView* skView = (SKView*)self.view;
-            [skView presentScene:scene];*/
-            
-            self.transitionType = VNSceneTransitionTypeDanmaku;
-            self.transitionFilename = parameter1;
-            
-            NSNumber* durationOfTransition = [command objectAtIndex:2];
-            if( durationOfTransition ) {
-                self.transitionDuration = durationOfTransition.doubleValue;
-            }
-            
-            mode = VNSceneModeEnded;
-            
-        } break;
-    
             
         default:
         {
