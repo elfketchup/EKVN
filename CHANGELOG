@@ -1,3 +1,6 @@
+version 1.2.1 Feb-01-2016
+. [FIX] Removed OALSimpleAudio, due to OpenAL being deprecated in iOS 9.0. Sound effects and music are now done using AVAudioPlayer.
+
 version 1.2 Feb-01-2016
 . [NEW] EKVN now runs on SpriteKit instead of cocos2d.
 
