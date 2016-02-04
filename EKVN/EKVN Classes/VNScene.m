@@ -203,17 +203,28 @@ VNScene* theCurrentScene = nil;
     //[self runAction:[SKAction playSoundFileNamed:filename waitForCompletion:NO]];
     //[[OALSimpleAudio sharedInstance] playEffect:filename];
     
-    currentSoundEffect = EKAudioSoundFromFile(filename);
+    //currentSoundEffect = EKAudioSoundFromFile(filename);
     //AVAudioPlayer* soundEffect = EKAudioSoundFromFile(filename);
     
-    if( currentSoundEffect == nil ) {
+    /*if( currentSoundEffect == nil ) {
         NSLog(@"[VNScene] ERROR: Could not load sound effect named: %@", filename);
         return;
-    }
+    }*/
     
     //NSLog(@"Will play sound effect: %@", soundEffect);
-    currentSoundEffect.numberOfLoops = 0;
-    [currentSoundEffect play];
+    //currentSoundEffect.numberOfLoops = 0;
+    //[currentSoundEffect play];
+    
+    if( filename == nil ) {
+        NSLog(@"[VNScene] ERROR: Cannot play sound effect because input filename is invalid.");
+    } else {
+        SKAction* playSoundEffectAction = [SKAction playSoundFileNamed:filename waitForCompletion:NO];
+        if( playSoundEffectAction == nil ) {
+            NSLog(@"[VNScene] ERROR: Cannot play sound effect because SKAction for sound effect is invalid.");
+        } else {
+            [self runAction:playSoundEffectAction];
+        }
+    }
 }
 
 
