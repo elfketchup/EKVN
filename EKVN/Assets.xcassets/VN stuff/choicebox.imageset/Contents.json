@@ -1,0 +1,33 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "filename" : "choicebox.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "choicebox-hd.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "choicebox-hd2.png",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "choicebox-ipad.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "choicebox-ipadhd.png",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

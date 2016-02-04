@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>default background opacity</key>
+	<real>1</real>
+	<key>speechbox offset from bottom</key>
+	<real>0</real>
+	<key>sprite transition speed</key>
+	<real>0.5</real>
+	<key>text transition speed</key>
+	<real>0.5</real>
+	<key>speaker name transition speed</key>
+	<real>0.5</real>
+	<key>speech horizontal margins</key>
+	<integer>0</integer>
+	<key>speech vertical margins</key>
+	<integer>0</integer>
+	<key>speech offset x</key>
+	<real>0</real>
+	<key>speaker name offset x</key>
+	<real>0</real>
+	<key>speaker name offset y</key>
+	<real>0</real>
+	<key>font size</key>
+	<integer>17</integer>
+	<key>speech box filename</key>
+	<string>talkbox.png</string>
+	<key>button filename</key>
+	<string>choicebox.png</string>
+	<key>font name</key>
+	<string>Helvetica</string>
+	<key>multiply font size for iPad</key>
+	<real>1.5</real>
+	<key>override speech font from save</key>
+	<true/>
+	<key>override speech size from save</key>
+	<true/>
+	<key>override speaker font from save</key>
+	<true/>
+	<key>override speaker size from save</key>
+	<true/>
+	<key>no skipping until text is shown</key>
+	<false/>
+	<key>button untouched colors</key>
+	<dict>
+		<key>r</key>
+		<integer>0</integer>
+		<key>g</key>
+		<integer>0</integer>
+		<key>b</key>
+		<integer>0</integer>
+	</dict>
+	<key>button touched colors</key>
+	<dict>
+		<key>r</key>
+		<integer>0</integer>
+		<key>g</key>
+		<integer>0</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
+</dict>
+</plist>

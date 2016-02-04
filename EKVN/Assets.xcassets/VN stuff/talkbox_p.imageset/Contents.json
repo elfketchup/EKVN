@@ -1,0 +1,33 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "filename" : "t_1.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "t_5.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "t_6.png",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "t_po.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "t_p.png",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
