@@ -9,7 +9,7 @@
 #import "VNScene.h"
 #import "EKRecord.h"
 #import "ekutils.h"
-#import "OALSimpleAudio.h"
+//#import "OALSimpleAudio.h"
 
 // Some Z-values, so that Cocos2D knows where to position things on the Z-coordinate (and which nodes will
 // be drawn on top of which other nodes!)
@@ -229,8 +229,12 @@
 
 - (void)stopMenuMusic
 {
-    if( isPlayingMusic )
-        [[OALSimpleAudio sharedInstance] stopBg];
+    if( isPlayingMusic ) {
+        //[[OALSimpleAudio sharedInstance] stopBg];
+        if( backgroundMusic != nil ) {
+            [backgroundMusic stop];
+        }
+    }
     
     isPlayingMusic = NO;
 }
@@ -243,7 +247,16 @@
     if( isPlayingMusic )
         [self stopMenuMusic];
     
-    [[OALSimpleAudio sharedInstance] playBg:filename loop:true];
+    //[[OALSimpleAudio sharedInstance] playBg:filename loop:true];
+    
+    backgroundMusic = EKAudioSoundFromFile(filename);
+    if( backgroundMusic == nil ) {
+        NSLog(@"[VNTestScene] ERROR: Could not load background music from file named: %@", filename);
+        return;
+    } else {
+        backgroundMusic.numberOfLoops = -1;
+        [backgroundMusic play];
+    }
     
     isPlayingMusic = YES;
 }

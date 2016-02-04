@@ -8,7 +8,8 @@
 #import "VNScene.h"
 #import "EKRecord.h"
 #import "ekutils.h"
-#import "OALSimpleAudio.h"
+#import "EKAdUtils.h"
+//#import "OALSimpleAudio.h"
 
 /* this is to space choices further apart when the view is in portrait mode*/
 #define VNSceneSpaceBetweenButtonsFactorWhenPortrait    2.0
@@ -63,6 +64,7 @@ VNScene* theCurrentScene = nil;
     mode            = VNSceneModeLoading; // Mode is "loading resources"
     effectIsRunning = NO;
     isPlayingMusic  = NO;
+    backgroundMusic = nil;
     buttonPicked    = -1;
     soundsLoaded    = [[NSMutableArray alloc] init];
     sprites         = [[NSMutableDictionary alloc] init];
@@ -157,8 +159,12 @@ VNScene* theCurrentScene = nil;
 
 - (void)stopBGMusic
 {
-    if( isPlayingMusic )
-        [[OALSimpleAudio sharedInstance] stopBg];
+    if( isPlayingMusic ) {
+        if( backgroundMusic ) {
+            [backgroundMusic stop];
+        }
+        //[[OALSimpleAudio sharedInstance] stopBg];
+    }
     
     isPlayingMusic = NO;
 }
@@ -169,12 +175,25 @@ VNScene* theCurrentScene = nil;
     if( filename == nil )
         return;
     
+    /*
     bool loop = true;
-    if( willLoopForever == NO )
+    if( willLoopForever == NO ) {
         loop = false;
+    }*/
+    
+    backgroundMusic = EKAudioSoundFromFile(filename);
+    if( backgroundMusic == nil ) {
+        NSLog(@"[VNScene] ERROR: Could not load sound object from file named: %@", filename);
+        return;
+    }
+    
+    if( willLoopForever == YES ) {
+        backgroundMusic.numberOfLoops = -1;
+    }
     
     [self stopBGMusic]; // Cancel any existing music
-    [[OALSimpleAudio sharedInstance] playBg:filename loop:loop];
+    //[[OALSimpleAudio sharedInstance] playBg:filename loop:loop];
+    [backgroundMusic play];
     
     isPlayingMusic = YES;
 }
@@ -182,7 +201,19 @@ VNScene* theCurrentScene = nil;
 - (void)playSoundEffect:(NSString*)filename
 {
     //[self runAction:[SKAction playSoundFileNamed:filename waitForCompletion:NO]];
-    [[OALSimpleAudio sharedInstance] playEffect:filename];
+    //[[OALSimpleAudio sharedInstance] playEffect:filename];
+    
+    currentSoundEffect = EKAudioSoundFromFile(filename);
+    //AVAudioPlayer* soundEffect = EKAudioSoundFromFile(filename);
+    
+    if( currentSoundEffect == nil ) {
+        NSLog(@"[VNScene] ERROR: Could not load sound effect named: %@", filename);
+        return;
+    }
+    
+    //NSLog(@"Will play sound effect: %@", soundEffect);
+    currentSoundEffect.numberOfLoops = 0;
+    [currentSoundEffect play];
 }
 
 

@@ -657,81 +657,77 @@ NSString* EKStringFilenameWithoutExtension(NSString* input, NSString* extension)
     return input;
 }
 
-#pragma mark - Ads
-
-#define EKUtilsShouldNeverShowAdsKey    @"should_never_show_ads" // stored in NSUserDefaults; determines whether or not ads can NEVER be shown (IAP?)
-
-BOOL EKUtilsShouldShowAds = NO;
-BOOL EKUtilsCurrentlyShowingAds = NO;
-
-// Sets value in NSUserDefaults
-BOOL EKAdsShouldNeverShowAds()
+/*
+ Pass in a filename; the filename is separated into the "name" and the extension. For example, if you pass in
+ "image.jpg" then you get an array where index 0 is "image" and index 1 is "jpg"
+ */
+NSArray* EKStringArrayWithFilenameAndExtension(NSString* filename)
 {
-    NSNumber* neverShowAdsNumber = [[NSUserDefaults standardUserDefaults] objectForKey:EKUtilsShouldNeverShowAdsKey];
-    
-    if( neverShowAdsNumber != nil ) {
-        return neverShowAdsNumber.boolValue;
+    if( filename == nil ) {
+        return nil;
     }
     
-    return NO;
-}
-
-void EKAdsSetShouldNeverShowAds(BOOL value)
-{
-    NSNumber* updatedValue = [NSNumber numberWithBool:value];
+    NSArray* theArray = [filename componentsSeparatedByString:@"."];
     
-    if( updatedValue != nil ) {
-        [[NSUserDefaults standardUserDefaults] setValue:updatedValue forKey:EKUtilsShouldNeverShowAdsKey];
-    } else {
-        NSLog(@"[EKUtils] ERROR: Could not set value in NSUserDefaults for: %@", EKUtilsShouldNeverShowAdsKey);
-    }
-}
-
-void EKAdsSetShowAds(BOOL value)
-{
-    EKUtilsShouldShowAds = value;
-}
-
-BOOL EKAdsCanShowAds()
-{
-    BOOL shouldNeverShowAds = EKAdsShouldNeverShowAds();
-    if( shouldNeverShowAds == YES ) {
-        return NO;
+    if( theArray.count < 2 ) {
+        NSLog(@"[EKStringArrayWithFilenameAndExtension] WARNING: Resulting array from [%@] has less than 2 indexes.", filename);
+    } else if( theArray.count > 2 ) {
+        NSLog(@"[EKStringArrayWithFilenameAndExtension] WARNING: Resulting array from [%@] has more than 2 indexes.", filename);
     }
     
-    return EKUtilsShouldShowAds;
+    return theArray;
 }
 
-void EKAdsHandleDisplayOfAds()
+/*
+ Pass in filename, get the URL for the resource stored in NSBundle.
+ */
+NSURL* EKStringURLFromFilename(NSString* filename)
 {
-    BOOL canShowAds = EKAdsCanShowAds();
-    
-    if( canShowAds == NO ) {
-        // Determine if ads are currently showing and need to be hidden
-        if( EKUtilsCurrentlyShowingAds == YES ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:EKUtilsHideAdsNotificationID object:nil];
-            EKUtilsCurrentlyShowingAds = NO; // set "showing ads" to off
-        }
-    } else {
-        // determine if ads are currently hidden and need to be shown
-        if( EKUtilsCurrentlyShowingAds == NO ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:EKUtilsShowAdsNotificationID object:nil];
-            EKUtilsCurrentlyShowingAds = YES;
-        }
+    if( filename == nil ) {
+        return nil;
     }
+    
+    NSArray* filenameComponents = EKStringArrayWithFilenameAndExtension(filename);
+    
+    // check for errors; this is mostly for the sake of diagnosing any weird bugs
+    if( filenameComponents == nil ) {
+        NSLog(@"[EKStringURLFromFilename] ERROR: Could not load filename array from file named: %@", filename);
+        return nil;
+    } else if( filenameComponents.count < 2 ) {
+        NSLog(@"[EKStringURLFromFilename] ERROR: Filename array from file named [%@] had less than two indexes.", filename);
+        return nil;
+    }
+    
+    NSString* nameForFile       = [filenameComponents objectAtIndex:0];
+    NSString* extensionForFile  = [filenameComponents objectAtIndex:1];
+    
+    NSURL* theURL = [[NSBundle mainBundle] URLForResource:nameForFile withExtension:extensionForFile];
+    
+    return theURL;
 }
 
-CGFloat EKAdsHeightOfBanner()
+#pragma mark - Audio
+
+/*
+ Enter filename for audio file, get an AVAudioPlayer object (can be played as a sound effect, 
+ or set to infinite loop (-1) for use as background music.
+ */
+AVAudioPlayer* EKAudioSoundFromFile(NSString* filename)
 {
-    if( EKAdsCanShowAds() == NO ){
-        return 0;
+    NSURL* soundFileURL = EKStringURLFromFilename(filename);
+    
+    if( soundFileURL == nil ) {
+        NSLog(@"[EKAudioSoundFromFile] ERROR: Could not retrieve URL from audio file named: %@", filename);
+        return nil;
     }
     
-    BOOL isPortrait = EKScreenIsPortrait();
-    
-    if( isPortrait == YES ) {
-        return 50;
+    AVAudioPlayer* player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    if( player == nil ) {
+        NSLog(@"[EKAudioSoundFromFile] ERROR: Failed to initialize audio from file named: %@", filename);
+        return nil;
     }
     
-    return 30;
+    return player;
 }
+
+// END OF FILE

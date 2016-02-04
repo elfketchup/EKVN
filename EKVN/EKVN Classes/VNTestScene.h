@@ -62,6 +62,7 @@
     VNScene* testScene;
     
     BOOL isPlayingMusic;
+    AVAudioPlayer* backgroundMusic;
     
     BOOL shouldShowAds;
 }

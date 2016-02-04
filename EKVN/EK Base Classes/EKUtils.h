@@ -18,6 +18,7 @@
  */
 
 #include <SpriteKit/SpriteKit.h>
+@import AVFoundation;
 
 #pragma mark - Definitions
 
@@ -92,6 +93,8 @@ NSUInteger EKScoringLocalScore();
 
 // Strings
 NSString* EKStringFilenameWithoutExtension(NSString* input, NSString* extension);
+NSArray* EKStringArrayWithFilenameAndExtension(NSString* filename);
+NSURL* EKStringURLFromFilename(NSString* filename);
 
 // Dictionary (used to load a dicdtionary from a file or retrieve objects from dictionary)
 NSDictionary* EKDictionaryFromFile(NSString* plistFilename);
@@ -115,13 +118,10 @@ NSInteger EKNumberToIntegerOrUseDefault(NSNumber* theNumber, NSInteger theDefaul
 NSUInteger EKNumberToUnsignedIntegerOrUseDefault(NSNumber* theNumber, NSUInteger theDefault);
 NSString* EKStringToStringOrUseDefault(NSString* theString, NSString* theDefault);
 
-// Ads
-BOOL EKAdsShouldNeverShowAds(); // retrieves value from NSUserDefaults about whether or not ads can ever be shown
-void EKAdsSetShouldNeverShowAds(BOOL value); // updates NSUserDefaults value about whether or not ads can ever be shown
-void EKAdsSetShowAds(BOOL value);
-BOOL EKAdsCanShowAds();
-void EKAdsHandleDisplayOfAds(); // handles displaying of ads (can be used to update ad display based on show/don't-show state machine
-CGFloat EKAdsHeightOfBanner();
+// Audio
+AVAudioPlayer* EKAudioSoundFromFile(NSString* filename);
+//void EKAudioSetLoops(AVAudioPlayer* sound, int numberOfLoops);
+
 
 #pragma mark - Inline functions
 

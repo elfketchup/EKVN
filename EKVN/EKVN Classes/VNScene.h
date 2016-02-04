@@ -218,6 +218,8 @@
     BOOL effectIsRunning;
     BOOL isPlayingMusic;
     BOOL noSkippingUntilTextIsShown;
+    AVAudioPlayer* backgroundMusic;
+    AVAudioPlayer* currentSoundEffect; // AVAudioPlayer objects seem to require a strong reference to them or they won't play
     
     NSMutableArray* soundsLoaded;
     NSMutableArray* buttons;
