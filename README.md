@@ -1,4 +1,4 @@
-EKVN - ElfKetchup Visual Novel system
+EKVN - a visual novel framework
 ==================================================================
 
 EKVN is a framework, built on top of SpriteKit, that can be used to create either
@@ -8,10 +8,10 @@ built-in save game features, and a customizable user interface.
 
 To start projects with EKVN, you'll need:
 
-1. A Mac, running OS X 10.9 or newer
-2. Xcode 6 or newer - http://developer.apple.com/xcode
-3. iOS 8 (EKVN SpriteKit won’t run on iOS 7 or earlier versions)
-
+   1. A Mac, running OS X 10.9 or newer
+   2. Xcode 6 or newer - http://developer.apple.com/xcode
+   3. iOS 8 (EKVN SpriteKit won’t run on iOS 7 or earlier versions)
+   
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
 
@@ -22,7 +22,7 @@ page for that can be found at: https://github.com/downrightsimple/DSMultilineLab
 Contact
 -------
 
-Twitter: http://twitter.com/elfketchup
+Twitter: https://twitter.com/sporkinthemoon
 
 Getting Started
 ===============
@@ -73,31 +73,31 @@ shouldn’t be an issue.)
 
 7. Open AppDelegate.m and replace the lines:
 
-#import “GameScene.h”
+        #import “GameScene.h”
 
-with:
-
-#import "VNTestScene.h"
+    with:
+ 
+        #import "VNTestScene.h"
 
 8. Scroll down to (or search for) the line that says
 
-GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+        GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
 
-and replace it with:
+    and replace it with:
 
-VNTestScene* scene = [[VNTestScene alloc] initWithSize:skView.frame.size];
+        VNTestScene* scene = [[VNTestScene alloc] initWithSize:skView.frame.size];
 
 9. (Optional) Change the lines that say:
 
-skView.showsFPS = YES;
-skView.showsNodeCount = YES;
+        skView.showsFPS = YES;
+        skView.showsNodeCount = YES;
 
-to:
+    to:
 
-skView.showsFPS = NO;
-skView.showsNodeCount = NO;
+        skView.showsFPS = NO;
+        skView.showsNodeCount = NO;
 
-Unless, of course, you want to see how many frames-per-second the app is running at.
+    Unless, of course, you want to see how many frames-per-second the app is running at.
 
 10. Now, it’s time to add all the art / UI files. First, open “Images.xcassets” in the Project Navigator.
 Then, in Finder, navigate to where the “EKVN Resources” folder is stored, and then “demo art.” With Xcode 
@@ -137,10 +137,10 @@ the object will wind up pretty far offscreen!)
 The three most important values in the Main Menu settings (and by "most important," I really mean
 "the ones you're most likely to change!") are these:
 
-1. background image
-2. title image
-3. script to load
-
+  1. background image
+  2. title image
+  3. script to load
+  
 The first one is pretty self-explanatory. If you want to create your own game, you should
 supply your own background art. Due to the varying screen sizes among iOS devices, you may
 wind up supplying multiple images at different resolutions, but you could also be lazy
@@ -149,12 +149,12 @@ we’re only developing for iPhones, so you can discard iPad-specific images. :)
 
 The main resolutions used by SpriteKit on iOS 8 are:
 
-iPhone 4S -> 960 * 640
-iPhone 5/5S -> 1136x640
-iPad 2 / iPad mini (1st gen) -> 1024x768
-iPad Air / iPad mini retina -> 2048x1536
-iPhone 6 -> 1334x750
-iPhone 6 Plus -> 2208x1242
+    iPhone 4S -> 960 * 640
+    iPhone 5/5S -> 1136x640
+    iPad 2 / iPad mini (1st gen) -> 1024x768
+    iPad Air / iPad mini retina -> 2048x1536
+    iPhone 6 -> 1334x750
+    iPhone 6 Plus -> 2208x1242
 
 (NOTE: Apple states the iPhone 6 Plus is 1920x1080, but due to technical issues, it’s actually rendered
 as 2208x1242 and then downscaled to 1920x1080. You can search the Internet if you want an in-depth explanation.)
@@ -164,8 +164,8 @@ is to just create artwork for the iPhone 6 Plus — and the iPad Air if you’re
 let SpriteKit downscale them for smaller displays. If you do this, you wind up using just the following
 two resolutions:
 
-iPhone 3x / Retina HD -> 2208x1242 image
-iPad Air -> 2048x1536 image
+    iPhone 3x / Retina HD -> 2208x1242 image
+    iPad Air -> 2048x1536 image
 
 If you develop for only one device (iPhone or iPad, but not both), then you only need one kind.
 
@@ -223,7 +223,7 @@ characters would appear onscreen, and there wouldn't be much interaction going o
 This is where the scripting language's commands come in. Each command starts with a dot (".")
 and the command and its parameters are separated by the colon (":") character. The template is
 
-.(COMMAND NAME):(parameter #1):(possibly more parameters...?)
+    .(COMMAND NAME):(parameter #1):(possibly more parameters...?)
 
 (For reference, the commands given in the guide are all in UPPERCASE, so that it's easier to
 tell which is a command, and which is not. However, commands in EKVN are not case-sensitive. You
@@ -235,47 +235,47 @@ running in the Simulator, but it will have very different results on an actual i
 
 Now, back to the script you're writing. Try entering:
 
-.SETBACKGROUND:pond.png
-
+    .SETBACKGROUND:pond.png
+  
 Run it, and then... nothing really happens? Actually, something DID happen, except that
 the scene immediately ended afterwards, so it wasn't noticeable. Add the following line:
 
-Hey, a background!
+    Hey, a background!
 
 Now, your new scene will point out the obvious before returning to the main menu. Still,
 there's not much going on, and a visual novel about changing backgrounds is probably not
 going to be overwhelmingly popular. So, here are a few more lines you can add (in this order):
 
-.ADDSPRITE:matsuri_close.png
-
-Suddenly, an anime girl appears!
-
-.SETSPEAKER:Matsuri
-
-Hi, my name is Matsuri.
-
-.SETSPEAKER:nil
-
-You've now met your first character.
-
-.PLAYMUSIC:music01.mp3
-
-.ALIGNSPRITE:matsuri_close.png:left
-
-.ALIGNSPRITE:matsuri_close.png:right
-
-.ALIGNSPRITE:matsuri_close.png:center
-
-Is she... dancing?
-
-.PLAYMUSIC:nil
-
-.REMOVESPRITE:matsuri_close.png
-
-The music stops, and the girl disappears.
-
-That wasn't strange at all.
-
+    .ADDSPRITE:matsuri_close.png
+  
+    Suddenly, an anime girl appears!
+  
+    .SETSPEAKER:Matsuri
+  
+    Hi, my name is Matsuri.
+  
+    .SETSPEAKER:nil
+  
+    You've now met your first character.
+  
+    .PLAYMUSIC:music01.mp3
+  
+    .ALIGNSPRITE:matsuri_close.png:left
+  
+    .ALIGNSPRITE:matsuri_close.png:right
+  
+    .ALIGNSPRITE:matsuri_close.png:center
+  
+    Is she... dancing?
+  
+    .PLAYMUSIC:nil
+  
+    .REMOVESPRITE:matsuri_close.png
+  
+    The music stops, and the girl disappears.
+  
+    That wasn't strange at all.
+  
 Now, after you've entered those lines, try building and running the game. You should experience
 a strange (but working!) scene, especially if you've imported all of the files from EKVN test.
 (if you didn't, the app would have crashed since it would be missing some of the art / audio
@@ -287,24 +287,24 @@ of a story (or script, in this case). Click on the "Root" object in the script, 
 Enter. A String object titled "New item" appears, change it to an Array object named "color", and
 then click the triangle and add the following lines:
 
-.ADDSPRITE:matsuri_close.png
-
-Matsuri reappears, in color again!
-
+    .ADDSPRITE:matsuri_close.png
+  
+    Matsuri reappears, in color again!
+  
 Now click on the Root, but this time create an Array titled "sketch" with the following lines:
 
-.ADDSPRITE:sketchmatsuri_close.png
-
-Matsuri reappears, but now she just looks like a sketch of an anime girl.
-
+    .ADDSPRITE:sketchmatsuri_close.png
+  
+    Matsuri reappears, but now she just looks like a sketch of an anime girl.
+  
 Go back to the "start" section, and at the end (after the line "That wasn't strange at all."),
 add the following lines:
 
-.SYSTEMCALL:autosave
+    .SYSTEMCALL:autosave
 
-Would you prefer Matsuri to have color, or not?
-
-.JUMPONCHOICE:"She should have color":color:No color is better:sketch
+    Would you prefer Matsuri to have color, or not?
+  
+    .JUMPONCHOICE:"She should have color":color:No color is better:sketch
 
 Now, when you run the app, you'll be presented with a choice, and can choose which version
 of Matsuri to see. If you press on the button "She should have color" then EKVN will switch
@@ -321,20 +321,20 @@ Finally (in case this guide isn't long enough!), EKVN also comes with a "Flags" 
 which can also be used for diverging story branches. Delete the last line (with .JUMPONCHOICE)
 and replace it with the following
 
-.SETFLAG:matsuri_color:0
-
-.MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
-
-Well, you've made your choice.
-
-.ISFLAG:matsuri_color:1:You like the full-color version better, huh?
-
-.ISFLAG:matsuri_color:0:You like the non-colored version better?
-
-.ISFLAG:matsuri_color:1:.SETCONVERSATION:color
-
-.SETCONVERSATION:sketch
-
+    .SETFLAG:matsuri_color:0
+  
+    .MODIFYFLAGBYCHOICE:"She should have color":matsuri_color:1:No color is better:matsuri_color:0
+  
+    Well, you've made your choice.
+  
+    .ISFLAG:matsuri_color:1:You like the full-color version better, huh?
+  
+    .ISFLAG:matsuri_color:0:You like the non-colored version better?
+  
+    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+  
+    .SETCONVERSATION:sketch
+  
 Run your scene again, and you'll what happens: MOSTLY the same thing as last time! Now, you might
 be thinking "this latest version is actually more work! Why would I want to do it this way? The earlier
 version was easier!"
@@ -348,12 +348,12 @@ to different sections and dealing with the hassle of keeping track of all the br
 
 Oh, and one more thing. You can change the last .ISFLAG command from
 
-.ISFLAG:matsuri_color:1:.SETCONVERSATION:color
-
+    .ISFLAG:matsuri_color:1:.SETCONVERSATION:color
+  
 into:
 
-.JUMPONFLAG:matsuri_color:1:color
-
+    .JUMPONFLAG:matsuri_color:1:color
+  
 This is a simpler way to change sections/conversations based on the values of certain flags.
 Also, another thing to keep in mind: All flags, when created, start with a value of ZERO, and 
 can be manually SET to a specific value by .SETFLAG, or MODIFIED by a particular value by 
@@ -402,11 +402,11 @@ want to integrate some of EKVN's features into existing code. This section expla
 If you want to run EKVN (or at least, its "central" class, VNScene) on its own, the simplest way is
 to do something like this:
 
-NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
-NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
-VNScene* scene = [[VNScene alloc] initWithSize:skView.frame.size andSettings:settingsForScene];
-[skView presentScene:scene];
-
+    NSString* nameOfScriptFile = @"my script"; // Leave out the .plist extension!
+    NSDictionary* settingsForScene = @{ VNSceneToPlayKey: nameOfScriptFile };
+    VNScene* scene = [[VNScene alloc] initWithSize:skView.frame.size andSettings:settingsForScene];
+    [skView presentScene:scene];
+  
 This creates an entirely new VNScene object, and has it runs as the top-level SpriteKit scene,
 with a particular script.
 
@@ -414,14 +414,14 @@ Of course, this is only for starting new games. EKVN stores its own saved game d
 class called EKRecord, which in turn stores its data in NSUserDefaults. To load a saved EKVN game,
 you can just do something like this:
 
-if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
+    if( [[EKRecord sharedRecord] hasAnySavedData] == YES ) {
 
-NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
-NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
-VNScene* scene = [[VNScene alloc] initWithSize:skView.frame.size andSettings:savedData];
-[skView presentScene:scene];
-}
-
+        NSDictionary* activityRecords = [[EKRecord sharedRecord] activityDict];
+        NSDictionary* savedData = [activityRecords objectForKey:EKRecordActivityDataKey];
+        VNScene* scene = [[VNScene alloc] initWithSize:skView.frame.size andSettings:savedData];
+        [skView presentScene:scene];
+    }
+  
 If EKVN has any saved data, then it will reload a previously-saved game, along with whatever
 text / sprites / audio / etc. it had when the game was saved.
 

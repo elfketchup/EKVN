@@ -1,4 +1,4 @@
-EKVN - ElfKetchup Visual Novel system
+EKVN - a visual novel framework
 ==================================================================
 
 EKVN is a framework, built on top of SpriteKit, that can be used to create either
@@ -22,7 +22,7 @@ page for that can be found at: https://github.com/downrightsimple/DSMultilineLab
 Contact
 -------
 
-Twitter: http://twitter.com/elfketchup
+Twitter: https://twitter.com/sporkinthemoon
 
 Getting Started
 ===============
