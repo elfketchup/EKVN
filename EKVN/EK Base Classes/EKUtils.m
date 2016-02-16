@@ -624,6 +624,7 @@ NSString* EKStringToStringOrUseDefault(NSString* theString, NSString* theDefault
     return theString;
 }
 
+
 /*
  Pass in a filename. If the filename has an extension (like ".png") then the extension is removed.
  Otherwise, the string is just returned normally if no extension is detected.
@@ -647,7 +648,12 @@ NSString* EKStringFilenameWithoutExtension(NSString* input, NSString* extension)
         }
     }
     
-    NSUInteger expectedPositionOfPeriod = input.length - expectedLength; // A.jpg
+    NSInteger expectedPositionOfPeriod = (input.length - expectedLength); // A.jpg
+    
+    // check for possible out-of-bounds error
+    if( expectedPositionOfPeriod < 0 )
+        expectedPositionOfPeriod = 0;
+    
     unichar theCharacter = [input characterAtIndex:expectedPositionOfPeriod];
     
     if( theCharacter == '.' ) {

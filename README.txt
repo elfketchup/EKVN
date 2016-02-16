@@ -9,8 +9,8 @@ built-in save game features, and a customizable user interface.
 To start projects with EKVN, you'll need:
 
    1. A Mac, running OS X 10.9 or newer
-   2. Xcode 6 or newer - http://developer.apple.com/xcode
-   3. iOS 8 (EKVN SpriteKit won’t run on iOS 7 or earlier versions)
+   2. Xcode 7 or newer - http://developer.apple.com/xcode
+   3. iOS 9
    
 (And if you want to distribute games on the App Store, you'll also need to be a part of Apple's
 iOS Developer Program! -> https://developer.apple.com/devcenter/ios/ )
@@ -49,7 +49,7 @@ Getting Started, Part 1: Starting a new project
 (This assumes that you've downloaded the "EKVN SpriteKit” project that has all the code and resource files 
 that you'll need to get started)
 
-1. Open up Xcode (I'm using version 6.0 )
+1. Open up Xcode
 
 2. Choose the “Game” template (under “iOS > Application”), and set the Language to Objective-C and the
 Game Technology to “SpriteKit.” By default, Devices is set to “Universal,” but for simplicity’s sake,
@@ -376,7 +376,7 @@ you to change things like fonts, margins/offsets, text sizes, etc. (If a particu
 mysterious, try changing it around and seeing what happens... you may get interesting results!)
 
 You can also completely change the look of the speech/dialogue-boxes and menu buttons just
-by overwriting the “choicebox.png” and “talkbox.png” image files. (While EKVN SpriteKit has
+by overwriting the “choicebox.png” and “talkbox.png” image files. (While EKVN has
 some copies stored in the EKVN Resources folder, the app actually pulls them directly from
 the “Images.xcassets” folder. If you want to find/modify/replace these files, that’s where
 you should look!)
