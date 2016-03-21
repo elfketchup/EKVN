@@ -22,7 +22,7 @@ page for that can be found at: https://github.com/downrightsimple/DSMultilineLab
 Contact
 -------
 
-Twitter: https://twitter.com/sporkinthemoon
+Twitter: https://twitter.com/elfketchup
 
 Getting Started
 ===============
