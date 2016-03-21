@@ -101,6 +101,9 @@ VNScene* theCurrentScene = nil;
     fontSizeForSpeech   = 0.0;
     heightMarginForAds  = 0;
     doesUseHeightMarginForAds = NO;
+    speechBoxColor      = nil;
+    speechBoxTextColor  = nil;
+    buttonTextColor     = nil;
     
     NSLog(@"[VNScene] Loading settings...");
     // Try to load script info from any saved script data that might exist. Otherwise, just create a fresh script object
@@ -427,8 +430,25 @@ VNScene* theCurrentScene = nil;
     NSDictionary* buttonUntouchedColorsDict = @{@"r":@(0),
                                                  @"g":@(0),
                                                  @"b":@(0) }; // BLACK <- r0, g0, b0
+    NSDictionary* buttonTextColorsDict = @{@"r":@(255),
+                                           @"g":@(255),
+                                           @"b":@(255)};
     [viewSettings setValue:buttonTouchedColorsDict forKey:VNSceneViewButtonsTouchedColorsKey];
     [viewSettings setValue:buttonUntouchedColorsDict forKey:VNSceneViewButtonUntouchedColorsKey];
+    [viewSettings setValue:buttonTextColorsDict forKey:VNSceneViewButtonTextColorKey];
+    
+    // create default speechbox colors
+    NSDictionary* colorsForSpeechBox = @{@"r":@(255),
+                                         @"g":@(255),
+                                         @"b":@(255)};
+    [viewSettings setValue:colorsForSpeechBox forKey:VNSceneViewSpeechboxColorKey];
+
+    // create colors for speechbox text
+    NSDictionary* colorsForSpeechboxText = @{@"r":@(255),
+                                             @"g":@(255),
+                                             @"b":@(255)};
+    [viewSettings setValue:colorsForSpeechboxText forKey:VNSceneViewSpeechboxTextColorKey];
+    
     
     // Load other settings
     [viewSettings setValue:@NO forKey:VNSceneViewNoSkipUntilTextShownKey];
@@ -508,6 +528,25 @@ VNScene* theCurrentScene = nil;
         widthOfSpeechBox = widthOfScreen; // Limit the width to whatever the screen's width is
     }
     
+    // Load speechbox color
+    NSDictionary* speechBoxColorDictionary = [viewSettings objectForKey:VNSceneViewSpeechboxColorKey];
+    if( speechBoxColorDictionary != nil ) {
+        UIColor* colorForSpeechBox = EKColorFromUnsignedCharRGB([[speechBoxColorDictionary objectForKey:@"r"] unsignedCharValue],
+                                                                [[speechBoxColorDictionary objectForKey:@"g"] unsignedCharValue],
+                                                                [[speechBoxColorDictionary objectForKey:@"b"] unsignedCharValue]);
+        if( colorForSpeechBox != nil ) {
+            speechBoxColor = colorForSpeechBox.copy;
+            
+            // set speechbox color
+            speechBox.colorBlendFactor = 1.0;
+            speechBox.color = speechBoxColor;
+            
+            NSLog(@"[VNScene] Speechbox color set to: %@", speechBoxColor);
+        } else {
+            NSLog(@"[VNScene] WARNING: Found speechbox color dictionary, but could not load color data. No color will be used.");
+        }
+    }
+    
     // Part 2: Create the speech label.
     // The "margins" part is tricky. When generating the size for the CCLabelTTF object, it's important to pretend
     // that the margins value is twice as large (as what's stored), since the label's position won't be in the
@@ -532,8 +571,9 @@ VNScene* theCurrentScene = nil;
     speech.paragraphWidth = (speechSize.width * 0.92) - (horizontalMargins * widthMultiplierValue);
     
     // Adjust for iPad size differences
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
         speech.paragraphWidth = (speechSize.width * 0.94) - (horizontalMargins * widthMultiplierValue);
+    }
     
     // Make sure that the position is slightly off-center from where the textbox would be (plus any other offsets that may exist).
     float speechXOffset = [[viewSettings objectForKey:VNSceneViewSpeechOffsetXKey] floatValue];
@@ -547,6 +587,24 @@ VNScene* theCurrentScene = nil;
     speech.zPosition = VNSceneTextLayer;
     speech.name = VNSceneTagSpeechText;
     [speechBox addChild:speech];
+    
+    // Load speech color
+    NSDictionary* colorForSpeechboxText = [viewSettings objectForKey:VNSceneViewSpeechboxTextColorKey];
+    if( colorForSpeechboxText != nil ) {
+        UIColor* colorForText = EKColorFromUnsignedCharRGB([[colorForSpeechboxText objectForKey:@"r"] unsignedCharValue],
+                                                           [[colorForSpeechboxText objectForKey:@"g"] unsignedCharValue],
+                                                           [[colorForSpeechboxText objectForKey:@"b"] unsignedCharValue]);
+        if( colorForText != nil ) {
+            speechBoxTextColor = colorForText.copy;
+            // set speechbox color
+            speech.colorBlendFactor = 1.0;
+            speech.color = speechBoxTextColor;
+            
+            NSLog(@"[VNScene] Speechbox text color set to: %@", speechBoxTextColor);
+        } else {
+            NSLog(@"[VNScene] WARNING: Found speechbox text color dictionary, but could not load color data. No color will be used.");
+        }
+    }
     
     // Determine if the UI will use height margin for ads
     NSNumber* numberForDoesUseHeightMarginForAds = [viewSettings objectForKey:VNSceneViewDoesUseHeightMarginForAdsKey];
@@ -590,6 +648,12 @@ VNScene* theCurrentScene = nil;
     speaker.name = VNSceneTagSpeakerName;
     [speechBox addChild:speaker];
     
+    // set speaker text color to whatever speechbox text is set to
+    if( speechBoxTextColor != nil ) {
+        speaker.colorBlendFactor = 1.0;
+        speaker.color = speechBoxTextColor;
+    }
+    
     // Part 4: Load the button colors
     // First load the default colors
     buttonUntouchedColors = [[UIColor blackColor] copy];
@@ -598,6 +662,7 @@ VNScene* theCurrentScene = nil;
     // Grab dictionaries from view settings
     NSDictionary* buttonUntouchedColorsDict = [viewSettings objectForKey:VNSceneViewButtonUntouchedColorsKey];
     NSDictionary* buttonTouchedColorsDict = [viewSettings objectForKey:VNSceneViewButtonsTouchedColorsKey];
+    NSDictionary* colorsForButtonTextDict = [viewSettings objectForKey:VNSceneViewButtonTextColorKey];
     
     // Copy values from the dictionary
     if( buttonUntouchedColorsDict ) {
@@ -614,6 +679,14 @@ VNScene* theCurrentScene = nil;
                                                            [[buttonTouchedColorsDict objectForKey:@"g"] unsignedCharValue],
                                                            [[buttonTouchedColorsDict objectForKey:@"b"] unsignedCharValue]);
         buttonTouchedColors = [touchedColor copy];
+    }
+    if( colorsForButtonTextDict != nil ) {
+        UIColor* theColorForButtonText = EKColorFromUnsignedCharRGB([[colorsForButtonTextDict objectForKey:@"r"] unsignedCharValue],
+                                                                    [[colorsForButtonTextDict objectForKey:@"g"] unsignedCharValue],
+                                                                    [[colorsForButtonTextDict objectForKey:@"b"] unsignedCharValue]);
+        
+        buttonTextColor = theColorForButtonText.copy;
+        NSLog(@"[VNScene] Color for button text set to: %@", buttonTextColor);
     }
     
     // Part 5: Load transition speeds
@@ -1201,23 +1274,6 @@ VNScene* theCurrentScene = nil;
     [self setUserInteractionEnabled:NO];
     
     switch( self.transitionType ) {
-            
-        case VNSceneTransitionTypeDanmaku:
-        {
-            NSLog(@"[VNScene] Will transition to danmaku level with parameter: %@", self.transitionFilename);
-         
-            /*
-            DMLevel* scene = [[DMLevel alloc] initWithSize:self.frame.size fromFile:self.transitionFilename];
-            if(scene==nil) {
-                NSLog(@"[VNScene] ERROR: Could not load danmaku scene.");
-            }
-            SKView* skView = (SKView*)self.view;
-            //[skView presentScene:scene];
-            
-            SKTransition* transition = [SKTransition fadeWithDuration:self.transitionDuration];
-            [skView presentScene:scene transition:transition];*/
-            
-        }break;
             
         case VNSceneTransitionTypeNone:{
             NSLog(@"[VNScene] ERROR: Transition type is NONE.");
@@ -2076,6 +2132,14 @@ VNScene* theCurrentScene = nil;
                 button.colorBlendFactor = 1.0; // Needed to "color" the sprite; it wouldn't have any color-blending otherwise
                 //[button addChild:buttonLabel z:VNSceneButtonTextLayer];
                 
+                // set button label color
+                if( buttonTextColor != nil ) {
+                    buttonLabel.colorBlendFactor = 1.0;
+                    buttonLabel.color = buttonTextColor;
+                    buttonLabel.fontColor = buttonTextColor;
+                    //NSLog(@"button text color set to: %@", buttonLabel.color);
+                }
+                
                 // Add destionation/conversation data to the 'choices' array
                 [choices addObject:[destinations objectAtIndex:i]];
             }
@@ -2494,6 +2558,14 @@ VNScene* theCurrentScene = nil;
                 [button addChild:buttonLabel];
                 button.colorBlendFactor = 1.0;
                 
+                // set button label color
+                if( buttonTextColor != nil ) {
+                    buttonLabel.colorBlendFactor = 1.0;
+                    buttonLabel.color = buttonTextColor;
+                    buttonLabel.fontColor = buttonTextColor;
+                    //NSLog(@"Set button text color to: %@", buttonTextColor);
+                }
+                
                 // Set up choices
                 [choices addObject:[variableNames objectAtIndex:i]];
                 [choiceExtras addObject:[variableValues objectAtIndex:i]];
@@ -2721,6 +2793,12 @@ VNScene* theCurrentScene = nil;
                     //NSLog(@"d: child z is %f and name is %@", aChild.zPosition, aChild.name);
                 }
                 
+                // set the speechbox color
+                if( speechBoxColor != nil ) {
+                    speechBox.colorBlendFactor = 1.0;
+                    speechBox.color = speechBoxColor;
+                }
+                
             } else {
                 
                 // switch gradually
@@ -2744,6 +2822,12 @@ VNScene* theCurrentScene = nil;
                 speechBox.zPosition = VNSceneUILayer;
                 speechBox.name = VNSceneTagSpeechBox;
                 [self addChild:speechBox];
+                
+                // set the speechbox color
+                if( speechBoxColor != nil ) {
+                    speechBox.colorBlendFactor = 1.0;
+                    speechBox.color = speechBoxColor;
+                }
                 
                 for( SKNode* aChild in speechBoxChildren ) {
                     [speechBox addChild:aChild];

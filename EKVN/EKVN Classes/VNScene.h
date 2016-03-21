@@ -105,6 +105,9 @@
 #define VNSceneViewButtonUntouchedColorsKey     @"button untouched colors"
 #define VNSceneViewButtonsTouchedColorsKey      @"button touched colors"
 #define VNSceneViewDoesUseHeightMarginForAdsKey @"does use height margin for ads" // currently does nothing
+#define VNSceneViewButtonTextColorKey           @"button text color"    // color of the text in buttons
+#define VNSceneViewSpeechboxColorKey            @"speechbox color"      // color speech box
+#define VNSceneViewSpeechboxTextColorKey        @"speechbox text color" // color of text in speech box (both dialogue and speaker name)
 
 // Resource dictionary keys
 #define VNSceneViewSpeechTextKey                @"speech text"
@@ -186,7 +189,6 @@
 
 // Transition types
 #define VNSceneTransitionTypeNone       00 // default, does nothing
-#define VNSceneTransitionTypeDanmaku    10 // transitions to danmaku scene
 
 #pragma mark - VNScene Declaration
 
@@ -233,6 +235,8 @@
     SKSpriteNode* speechBox; // Dialogue box
     DSMultilineLabelNode* speech;  // The text displayed as dialogue
     DSMultilineLabelNode* speaker; // Name of speaker
+    UIColor* speechBoxColor; // color of speechbox
+    UIColor* speechBoxTextColor; // color of text in speechbox (dialogue / speaker name). The default value is white.
     
     /* NOTE: Currently height margins aren't used / haven't been incorporated */
     CGFloat heightMarginForAds; // affects sprite Y-position when ads are shown
@@ -246,6 +250,7 @@
     float spriteTransitionSpeed, speechTransitionSpeed, speakerTransitionSpeed;
     UIColor* buttonTouchedColors;
     UIColor* buttonUntouchedColors;
+    UIColor* buttonTextColor; // color for text in buttons (default is white)
     
     // Cinematic text
     double cinematicTextSpeed; // The speed at which text progresses without user input

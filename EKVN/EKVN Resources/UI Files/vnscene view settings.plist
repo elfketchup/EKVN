@@ -42,6 +42,33 @@
 	<true/>
 	<key>no skipping until text is shown</key>
 	<false/>
+	<key>speechbox text color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
+	<key>speechbox color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
+	<key>button text color</key>
+	<dict>
+		<key>r</key>
+		<integer>255</integer>
+		<key>g</key>
+		<integer>255</integer>
+		<key>b</key>
+		<integer>255</integer>
+	</dict>
 	<key>button untouched colors</key>
 	<dict>
 		<key>r</key>
