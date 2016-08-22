@@ -26,16 +26,20 @@
 		<string>Hello.</string>
 		<string>.SETBACKGROUND:pond.png</string>
 		<string>Hey, a background!</string>
+		<string>.ROLLDICE:100</string>
 		<string>OK gonna test showing ads</string>
 		<string>.SHOWADS:YES</string>
 		<string>Also, I&apos;m going to change the font name.</string>
 		<string>.SETSPEECHFONT:Courier New</string>
 		<string>How does this look?</string>
+		<string>.ROLLDICE:6:10</string>
 		<string>Now let&apos;s hide these ads.</string>
 		<string>.SHOWADS:NO</string>
 		<string>Now let&apos;s change the speaker font.</string>
 		<string>.SETSPEAKERFONT:Times New Roman</string>
 		<string>Now how does that look?</string>
+		<string>.SETFLAG:luck_modifier:9999</string>
+		<string>.ROLLDICE:6:10:luck_modifier</string>
 		<string>Let&apos;s change some sizes too.</string>
 		<string>.SETSPEAKERFONTSIZE:15.0</string>
 		<string>.SETSPEECHFONTSIZE:13.0</string>

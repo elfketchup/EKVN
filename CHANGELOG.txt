@@ -1,3 +1,6 @@
+version 1.2.3 Aug-22-2016
+. [NEW] Added .ROLLDICE script command, which generates a random number and stores it in a flag named "DICEROLL" (useful if you need random numbers)
+
 version 1.2.2 Mar-21-2016
 . [NEW] Can now change speechbox color, the text color in the speechbox, and the label color in buttons, from the "vnscene view settings.plist" file.
 

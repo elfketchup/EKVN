@@ -104,6 +104,8 @@ VNScene* theCurrentScene = nil;
     speechBoxColor      = nil;
     speechBoxTextColor  = nil;
     buttonTextColor     = nil;
+    choiceButtonOffsetX = 0.0;
+    choiceButtonOffsetY = 0.0;
     
     NSLog(@"[VNScene] Loading settings...");
     // Try to load script info from any saved script data that might exist. Otherwise, just create a fresh script object
@@ -388,6 +390,16 @@ VNScene* theCurrentScene = nil;
     
     [self updateTypewriterTextSettings];
 
+    // Choicebox offsets
+    NSNumber* valueForChoiceboxOffsetX = [record objectForKey:VNSceneViewChoiceButtonOffsetX];
+    NSNumber* valueForChoiceboxOffsetY = [record objectForKey:VNSceneViewChoiceButtonOffsetY];
+    
+    if( valueForChoiceboxOffsetX ) {
+        choiceButtonOffsetX = (CGFloat) valueForChoiceboxOffsetX.doubleValue;
+    }
+    if( valueForChoiceboxOffsetY ) {
+        choiceButtonOffsetY = (CGFloat) valueForChoiceboxOffsetY.doubleValue;
+    }
 }
 
 // Loads the default, hard-coded values for the view / UI settings dictionary.
@@ -713,6 +725,16 @@ VNScene* theCurrentScene = nil;
         speech.fontName = overrideSpeechFont;
     if( shouldOverrideSpeechSize && overrideSpeechSize )
         speech.fontSize = [overrideSpeechSize floatValue];
+    
+    // Load choicebox/choice-button offsets
+    NSNumber* valueForChoiceboxOffsetX = [viewSettings objectForKey:VNSceneViewChoiceButtonOffsetX];
+    NSNumber* valueForChoiceboxOffsetY = [viewSettings objectForKey:VNSceneViewChoiceButtonOffsetY];
+    if( valueForChoiceboxOffsetX ) {
+        choiceButtonOffsetX = (CGFloat) valueForChoiceboxOffsetX.doubleValue;
+    }
+    if( valueForChoiceboxOffsetY ) {
+        choiceButtonOffsetY = (CGFloat) valueForChoiceboxOffsetY.doubleValue;
+    }
     
     // Part 7: Load extra features
     NSNumber* blockSkippingUntilTextIsDone = [viewSettings objectForKey:VNSceneViewNoSkipUntilTextShownKey];
@@ -2091,11 +2113,11 @@ VNScene* theCurrentScene = nil;
                 
                 float buttonHeight          = button.frame.size.height;
                 float totalButtonSpace      = buttonHeight + spaceBetweenButtons;
-                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices / 2 ) * totalButtonSpace );
+                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices / 2 ) * totalButtonSpace ) + choiceButtonOffsetY;
                 float buttonY               = startingPosition + ( i * totalButtonSpace );
                 
                 // Set button position
-                button.position = CGPointMake( screenWidth * 0.5, buttonY );
+                button.position = CGPointMake( (screenWidth * 0.5) + choiceButtonOffsetX, buttonY );
                 button.zPosition = VNSceneButtonsLayer;
                 button.name = [NSString stringWithFormat:@"%d", i];
                 //[self addChild:button z:VNSceneButtonsLayer name:[NSString stringWithFormat:@"%d", i]];
@@ -2518,11 +2540,11 @@ VNScene* theCurrentScene = nil;
                 }
                 float buttonHeight          = button.frame.size.height;
                 float totalButtonSpace      = buttonHeight + spaceBetweenButtons; // total used-up space = 120% of button height
-                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices * 0.5 ) * totalButtonSpace );
+                float startingPosition      = (screenHeight * 0.5) + ( ( numberOfChoices * 0.5 ) * totalButtonSpace ) + choiceButtonOffsetY;
                 float buttonY               = startingPosition + ( i * totalButtonSpace ); // This button's position
                 
                 // Set button position and other attributes
-                button.position     = CGPointMake( screenWidth * 0.5, buttonY );
+                button.position     = CGPointMake( (screenWidth * 0.5) + choiceButtonOffsetX, buttonY );
                 //button.color        = [[CCColor alloc] initWithCcColor3b:buttonUntouchedColors];
                 button.color        = buttonUntouchedColors;
                 button.zPosition    = VNSceneButtonsLayer;
@@ -2929,6 +2951,115 @@ VNScene* theCurrentScene = nil;
             [sprite runAction:theSequence];
             
         }break;
+            
+        case VNScriptCommandRollDice:
+        {
+            NSNumber* maximumNumber = [command objectAtIndex:1];
+            NSNumber* numberOfDice  = [command objectAtIndex:2];
+            NSString* flagName      = [command objectAtIndex:3];
+            
+            int flagModifier = 0;
+            
+            // retrieve the flag assuming it doesn't have the "nil value" name (".nil", which signifies no flag was actually passed in)
+            if( [flagName caseInsensitiveCompare:VNScriptNilValue] != NSOrderedSame) {
+                // check if the flag exists
+                id theFlag = [flags objectForKey:flagName];
+                if( theFlag != nil ) {
+                    // copy data to flag modifier
+                    flagModifier = [theFlag intValue];
+                }
+            } // end flag name check
+            
+            int resultOfRoll = EKRollDice(numberOfDice.intValue, maximumNumber.intValue, flagModifier);
+            
+            // Store results in DICEROLL flag
+            NSNumber* diceRollResult = [NSNumber numberWithInt:resultOfRoll];
+            [flags setValue:diceRollResult forKey:VNSceneDiceRollResultFlag];
+            
+            NSLog(@"[VNScene] Dice roll results of %@ stored in flag named: %@", diceRollResult, VNSceneDiceRollResultFlag);
+            
+        }break;
+            
+        case VNScriptCommandModifyChoiceboxOffset:
+        {
+            NSNumber* xOffset = [command objectAtIndex:1];
+            NSNumber* yOffset = [command objectAtIndex:2];
+            
+            choiceButtonOffsetX = (CGFloat) xOffset.doubleValue;
+            choiceButtonOffsetY = (CGFloat) yOffset.doubleValue;
+            
+            // save offset data to record
+            [record setValue:@(choiceButtonOffsetX) forKey:VNSceneViewChoiceButtonOffsetX];
+            [record setValue:@(choiceButtonOffsetY) forKey:VNSceneViewChoiceButtonOffsetY];
+            
+        }break;
+            
+        case VNScriptCommandScaleBackground:
+        {
+            SKSpriteNode* background = (SKSpriteNode*) [self childNodeWithName:VNSceneTagBackground];
+            if( background == nil )
+                return;
+            
+            NSNumber* scaleNumber = [command objectAtIndex:1];
+            NSNumber* durationNumber = [command objectAtIndex:2];
+            double theDuration = durationNumber.doubleValue;
+            
+            if( theDuration <= 0.0 ) {
+                //background.scale = scaleNumber.floatValue;
+                [background setScale:scaleNumber.doubleValue];
+            } else {
+                [self createSafeSave];
+                [self setEffectRunningFlag];
+                
+                SKAction* scaleAction = [SKAction scaleTo:scaleNumber.doubleValue duration:theDuration];
+                SKAction* callClearFlag = [SKAction performSelector:@selector(clearEffectRunningFlag) onTarget:self];
+                SKAction* sequence = [SKAction sequence:@[scaleAction, callClearFlag]];
+                
+                [background runAction:sequence];
+            }
+            
+            [record setValue:@(scaleNumber.doubleValue) forKey:VNSceneBackgroundScaleKey];
+            
+        }break;
+            
+        case VNScriptCommandScaleSprite:
+        {
+            NSString* spriteName = [command objectAtIndex:1];
+            NSNumber* scaleNumber = [command objectAtIndex:2];
+            NSNumber* durationNumber = [command objectAtIndex:3];
+            
+            SKSpriteNode* sprite = sprites[spriteName];
+            if( sprite == nil )
+                return;
+            
+            CGFloat theScale = scaleNumber.doubleValue;
+            CGFloat theDuration = durationNumber.doubleValue;
+            
+            CGFloat xScale = theScale;
+            CGFloat yScale = theScale;
+            
+            // Invert x/y-scale values when dealing with flipped sprites
+            if( sprite.xScale < 0.0 ) {
+                xScale = xScale * (-1);
+            }
+            if( sprite.yScale < 0.0 ) {
+                yScale = yScale * (-1);
+            }
+            
+            if( theDuration <= 0.0 ) {
+                sprite.xScale = xScale;
+                sprite.yScale = yScale;
+            } else {
+                [self createSafeSave];
+                [self setEffectRunningFlag];
+                
+                SKAction* scaleAction = [SKAction scaleXTo:xScale y:yScale duration:theDuration];
+                SKAction* callClearFlag = [SKAction performSelector:@selector(clearEffectRunningFlag) onTarget:self];
+                SKAction* sequence = [SKAction sequence:@[scaleAction, callClearFlag]];
+                
+                [sprite runAction:sequence];
+            }
+        }
             
         /** NEW COMMANDS ADDED HERE **/
             

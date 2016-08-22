@@ -558,10 +558,10 @@ Example: .addsprite:girl.png:NO
 
       #1: Name of speechbox sprite to use (string)
 
-      #2: Duration of transition (in seconds) (default is 0, which is instant)
+      #2: (OPTIONAL) Duration of transition, in seconds) (double)
+          (default is 0, which is instant)
 
   Example: .SETSPEECHBOX:alternate_box.png:1.0
-
 ================
 
   Name: .FLIPSPRITE
@@ -570,13 +570,32 @@ Example: .addsprite:girl.png:NO
 
   Parameters:
 
-      #1: Name of sprite
+      #1: Name of sprite (string)
 
-      #2: Duration (in seconds). Duration of zero is instantaneous.
+      #2: (OPTIONAL) Duration in seconds. Duration of zero is instantaneous. (double)
 
-      #3: Whether to flip horizontally or not (YES means horizontal flip, NO means vertical flip)
+      #3: (OPTIONAL) Whether to flip horizontally or not (BOOL)
+          (YES means horizontal flip, NO means vertical flip)
 
   Example: .FLIPSPRITE:girl.png:0:YES
+
+================
+
+  Name: .ROLLDICE
+
+  Rolls dice to get random result, stores value in a flag named DICEROLL. A flag (holding an integer value)
+  can be added as a "modifier." Whatever the value the flag has is added to the final result of the dice roll.
+
+  Parameters:
+
+      #1: Maximum value of roll; possible results = from 1 to (max value) (int)
+
+      #2: (OPTIONAL) Number of dice, default is 1 (int)
+
+      #3: (OPTIONAL) Name of flag, adds integer value in flag to final result (string)
+          (default is ".nil")
+
+  Example: .ROLLDICE:20:1:luck_modifier
 
 ================
 
@@ -586,9 +605,9 @@ Example: .addsprite:girl.png:NO
 
   Parameters:
 
-      #1: X coordinate (in points)
+      #1: X coordinate (in points) (double)
 
-      #2: Y coordinate (in points)
+      #2: Y coordinate (in points) (double)
 
   Example: .MODIFYCHOICEBOXOFFSET:10:10
 
@@ -600,9 +619,9 @@ Example: .addsprite:girl.png:NO
 
   Parameters:
 
-      #1: Scale (1.0 is normal)
+      #1: Scale (1.0 is normal) (double)
 
-      #2: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+      #2: (OPTIONAL) Duration in seconds; 0 results in instantaneous scaling (double)
 
   Example: .SCALEBACKGROUND:2.5:1
 
@@ -616,9 +635,9 @@ Example: .addsprite:girl.png:NO
 
       #1: Name of sprite (string)
 
-      #2: Scale (default is 1.0)
+      #2: Scale (default is 1.0) (double)
 
-      #3: Duration in seconds; 0 results in instantaneous scaling (this is optional)
+      #3: (OPTIONAL) Duration in seconds; 0 results in instantaneous scaling (double)
 
   Example: .SCALESPRITE:girl.png:2:1.5
 
