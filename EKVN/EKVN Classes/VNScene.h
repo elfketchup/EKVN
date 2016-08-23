@@ -69,6 +69,7 @@
 #define VNSceneViewFontSize             17
 #define VNSceneSpriteIsSafeToRemove     @"sprite is safe to remove" // Used for sprite removal (to free up memory and remove unused sprite)
 #define VNScenePopSceneWhenDoneKey      @"pop scene when done" // Ask CCDirector to pop the  scene when the script finishes?
+#define VNSceneDiceRollResultFlag       @"DICEROLL" // flag that stores results of dice rolls
 
 // Sprite alignment strings (used for commands)
 #define VNSceneViewSpriteAlignmentLeftString                @"left"             // 25% of screen width
@@ -108,6 +109,8 @@
 #define VNSceneViewButtonTextColorKey           @"button text color"    // color of the text in buttons
 #define VNSceneViewSpeechboxColorKey            @"speechbox color"      // color speech box
 #define VNSceneViewSpeechboxTextColorKey        @"speechbox text color" // color of text in speech box (both dialogue and speaker name)
+#define VNSceneViewChoiceButtonOffsetX          @"choicebox offset x"
+#define VNSceneViewChoiceButtonOffsetY          @"choicebox offset y"
 
 // Resource dictionary keys
 #define VNSceneViewSpeechTextKey                @"speech text"
@@ -145,6 +148,7 @@
 #define VNSceneShowSpeechKey                    @"show speech"
 #define VNSceneBackgroundXKey                   @"background x"
 #define VNSceneBackgroundYKey                   @"background y"
+#define VNSceneBackgroundScaleKey               @"background scale"
 #define VNSceneCinematicTextSpeedKey            @"cinematic text speed"
 #define VNSceneCinematicTextInputAllowedKey     @"cinematic text input allowed"
 #define VNSceneTypewriterTextCanSkip            @"typewriter text can skip"
@@ -251,6 +255,7 @@
     UIColor* buttonTouchedColors;
     UIColor* buttonUntouchedColors;
     UIColor* buttonTextColor; // color for text in buttons (default is white)
+    CGFloat choiceButtonOffsetX, choiceButtonOffsetY; // offsets buttons (in choice menus) by a certain number of points (default is zero)
     
     // Cinematic text
     double cinematicTextSpeed; // The speed at which text progresses without user input

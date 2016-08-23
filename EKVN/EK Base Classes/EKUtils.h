@@ -122,6 +122,9 @@ NSString* EKStringToStringOrUseDefault(NSString* theString, NSString* theDefault
 AVAudioPlayer* EKAudioSoundFromFile(NSString* filename);
 //void EKAudioSetLoops(AVAudioPlayer* sound, int numberOfLoops);
 
+// Misc functions
+int EKRollDice( int numberOfDice, int maximumRollValue, int plusModifier );
+
 
 #pragma mark - Inline functions
 

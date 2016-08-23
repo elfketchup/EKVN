@@ -88,6 +88,10 @@
 #define VNScriptCommandSetSpeechbox             133
 #define VNScriptCommandSetSpriteAlias           134
 #define VNScriptCommandFlipSprite               135
+#define VNScriptCommandRollDice                 136
+#define VNScriptCommandModifyChoiceboxOffset    137
+#define VNScriptCommandScaleBackground          138
+#define VNScriptCommandScaleSprite              139
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -126,6 +130,10 @@
 #define VNScriptStringSetSpriteAlias            @".setspritealias"      // Assigns a filename to a sprite alias
 #define VNScriptStringSetSpeechbox              @".setspeechbox"        // dynamically change speechbox sprite
 #define VNScriptStringFlipSprite                @".flipsprite"          // flips sprite around (left/right or upside-down)
+#define VNScriptStringRollDice                  @".rolldice"            // rolls dice, retrieves value and stores in flag
+#define VNScriptStringModifyChoiceboxOffset     @".modifychoiceboxoffset" // adds X/Y offset to button coordinates during choices (default = 0,0)
+#define VNScriptStringScaleBackground           @".scalebackground"     // changes background scale
+#define VNScriptStringScaleSprite               @".scalesprite"         // changes sprite scale
 
 // Script syntax
 #define VNScriptSeparationString               @":"

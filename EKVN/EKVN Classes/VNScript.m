@@ -1337,7 +1337,8 @@
         //      #1: How many characters it should print per second (Integer)
         //          (setting this to zero disables typewriter text mode)
         //
-        //      #2: Whether the user can still skip ahead by tapping the screen (BOOL) (default value is NO)
+        //      #2: (OPTIONAL) Whether the user can still skip ahead by tapping the screen (BOOL)
+        //          (default value is NO)
         //
         //  Example: .SETTYPEWRITERTEXT:30:NO
         //
@@ -1367,9 +1368,9 @@
         //
         //  Parameters:
         //
-        //      #1: The sprite alias.
+        //      #1: The sprite alias. (string)
         //
-        //      #2: The filename to use.
+        //      #2: The filename to use. (string)
         //
         //  Example: .SETSPRITEALIAS:hero:harry.png
         //
@@ -1392,7 +1393,8 @@
         //
         //      #1: Name of speechbox sprite to use (string)
         //
-        //      #2: Duration of transition (in seconds) (default is 0, which is instant)
+        //      #2: (OPTIONAL) Duration of transition, in seconds) (double)
+        //          (default is 0, which is instant)
         //
         //  Example: .SETSPEECHBOX:alternate_box.png:1.0
         //
@@ -1418,11 +1420,12 @@
         //
         //  Parameters:
         //
-        //      #1: Name of sprite
+        //      #1: Name of sprite (string)
         //
-        //      #2: Duration (in seconds). Duration of zero is instantaneous.
+        //      #2: (OPTIONAL) Duration in seconds. Duration of zero is instantaneous. (double)
         //
-        //      #3: Whether to flip horizontally or not (YES means horizontal flip, NO means vertical flip)
+        //      #3: (OPTIONAL) Whether to flip horizontally or not (BOOL)
+        //          (YES means horizontal flip, NO means vertical flip)
         //
         //  Example: .FLIPSPRITE:girl.png:0:YES
         //
@@ -1441,6 +1444,139 @@
         NSNumber* durationToUse = @([duration doubleValue]);
         NSNumber* numberForFlip = @(flipBool.boolValue);
         analyzedArray = @[type, parameter1, durationToUse, numberForFlip];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringRollDice] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .ROLLDICE
+        //
+        //  Rolls dice to get random result, stores value in a flag named DICEROLL. A flag (holding an integer value)
+        //  can be added as a "modifier." Whatever the value the flag has is added to the final result of the dice roll.
+        //
+        //  Parameters:
+        //
+        //      #1: Maximum value of roll; possible results = from 1 to (max value) (int)
+        //
+        //      #2: (OPTIONAL) Number of dice, default is 1 (int)
+        //
+        //      #3: (OPTIONAL) Name of flag, adds integer value in flag to final result (string)
+        //          (default is ".nil")
+        //
+        //  Example: .ROLLDICE:20:1:luck_modifier
+        //
+        
+        // set defaults
+        NSString* numberOfDice = @"1";
+        NSString* nameOfFlagModifier = VNScriptNilValue; // ".nil"
+        
+        if( command.count >= 3 )
+            numberOfDice = [command objectAtIndex:2];
+        if( command.count >= 4 )
+            nameOfFlagModifier = [command objectAtIndex:3];
+        
+        type = @VNScriptCommandRollDice;
+        NSNumber* maximumValueOfDice = @(parameter1.intValue);
+        NSNumber* diceNumberToUse = @(numberOfDice.intValue);
+        analyzedArray = @[type, maximumValueOfDice, diceNumberToUse, nameOfFlagModifier];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringModifyChoiceboxOffset] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .MODIFYCHOICEBOXOFFSET
+        //
+        //  Modifies button offsets during choices, in case you don't want them to show up in the middle of the screen.
+        //
+        //  Parameters:
+        //
+        //      #1: X coordinate (in points) (double)
+        //
+        //      #2: Y coordinate (in points) (double)
+        //
+        //  Example: .MODIFYCHOICEBOXOFFSET:10:10
+        //
+        
+        // Set default values
+        NSString* xOffset = [NSString stringWithFormat:@"0"];
+        NSString* yOffset = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 2 )
+            xOffset = [command objectAtIndex:1];
+        if( command.count >= 3 )
+            yOffset = [command objectAtIndex:2];
+        
+        type = @VNScriptCommandModifyChoiceboxOffset;
+        NSNumber* xAsNumber = @(xOffset.doubleValue);
+        NSNumber* yAsNumber = @(yOffset.doubleValue);
+        analyzedArray = @[type, xAsNumber, yAsNumber];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringScaleBackground] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SCALEBACKGROUND
+        //
+        //  Changes background scale (1.0 being the "normal" scale)
+        //
+        //  Parameters:
+        //
+        //      #1: Scale (double)
+        //
+        //      #2: (OPTIONAL) Duration in seconds; 0 results in instantaneous scaling (double)
+        //
+        //  Example: .SCALEBACKGROUND:2.5:1
+        //
+        
+        // Set default values
+        NSString* scaleValue    = [NSString stringWithFormat:@"1"];
+        NSString* durationValue = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 2 )
+            scaleValue = [command objectAtIndex:1];
+        if( command.count >= 3 )
+            durationValue = [command objectAtIndex:2];
+        
+        type = @VNScriptCommandScaleBackground;
+        NSNumber* scaleNumber = @(scaleValue.doubleValue);
+        NSNumber* durationNumber = @(durationValue.doubleValue);
+        analyzedArray = @[type, scaleNumber, durationNumber];
+        
+    } else if( [action caseInsensitiveCompare:VNScriptStringScaleSprite] == NSOrderedSame ) {
+        
+        // Function definition
+        //
+        //  Name: .SCALESPRITE
+        //
+        //  Changes sprite scale (1.0 being the "normal" scale)
+        //
+        //  Parameters:
+        //
+        //      #1: Name of sprite (string)
+        //
+        //      #2: Scale (default is 1.0) (double)
+        //
+        //      #3: (OPTIONAL) Duration in seconds; 0 results in instantaneous scaling (double)
+        //
+        //  Example: .SCALESPRITE:girl.png:2:1.5
+        //
+        
+        // Set default values
+        NSString* inputScale    = [NSString stringWithFormat:@"1"];
+        NSString* inputDuration = [NSString stringWithFormat:@"0"];
+        
+        // Overwrite any default values with any values that have been explicitly written into the script
+        if( command.count >= 3 )
+            inputScale = [command objectAtIndex:2];
+        if( command.count >= 4 )
+            inputDuration = [command objectAtIndex:3];
+        
+        type = @VNScriptCommandScaleSprite;
+        NSNumber* scaleNumber = @(inputScale.doubleValue);
+        NSNumber* durationNumber = @(inputDuration.doubleValue);
+        analyzedArray = @[type, parameter1, scaleNumber, durationNumber];
     }
     
     /** NEW COMMANDS ARE ADDED HERE **/

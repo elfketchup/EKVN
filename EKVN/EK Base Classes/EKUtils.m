@@ -736,4 +736,39 @@ AVAudioPlayer* EKAudioSoundFromFile(NSString* filename)
     return player;
 }
 
+/** MISC FUNCTIONS **/
+
+/** MISC FUNCTIONS **/
+/*
+ Stuff that really doesn't fit elsewhere
+ */
+
+// Rolls "dice" to generate random number; possible values include 1 to (maximumRollValue)
+//
+// for example, to generate the equivalent of a 10d6 with a +5 bonus, you would call: SMDiceRoll(10, 6, 5).
+int EKRollDice( int numberOfDice, int maximumRollValue, int plusModifier ) {
+    
+    int diceCount   = numberOfDice;
+    int maxValue    = maximumRollValue;
+    int finalValue  = 0;
+    int random      = 0;
+    
+    
+    // check for invalid inputs
+    if( diceCount < 1 )
+        diceCount = 1;
+    if( maxValue < 2 )
+        maxValue = 2;
+    
+    for( int i = 0; i < diceCount; i++ ) {
+        //random = Int(arc4random_uniform(maxValue))
+        random = arc4random() % maxValue;
+        finalValue = finalValue + random + 1; // adds 1 so that the results are 1-(max)
+    }
+    
+    finalValue = finalValue + plusModifier;
+    
+    return finalValue;
+}
+
 // END OF FILE
