@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 James Briones. All rights reserved.
 //
 
-#include "ekutils.h"
+#include "EKUtils.h"
 #import "EKRecord.h"
 
 __weak SKView* EKTheCurrentView = nil;
