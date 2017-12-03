@@ -30,13 +30,13 @@
 
 // Set (or find) the screen size in points (as opposed to the screen size in pixels).
 void EKSetScreenSizeInPoints( CGFloat width, CGFloat height );
-CGSize EKScreenSizeInPoints();
-BOOL EKScreenIsPortrait();
+CGSize EKScreenSizeInPoints(void);
+BOOL EKScreenIsPortrait(void);
 
 // Retrieves view/screen size data from an SKView object.
 void EKSetScreenDataFromView( SKView* view );
-SKView* EKCurrentView();
-SKScene* EKCurrentScene();
+SKView* EKCurrentView(void);
+SKScene* EKCurrentScene(void);
 
 // Sets position using normalized coordinates; used mostly to set SKNode positions to normalized coordinates (0.0 to 1.0)
 CGPoint EKPositionWithNormalizedCoordinates( CGFloat normalizedX, CGFloat normalizedY );
@@ -80,16 +80,16 @@ int EKMathClampInt(int input, int min, int max);
 int EKSecondsToFrames( double seconds );
 double EKFramesToSeconds( int frames );
 void EKSetFPS( int numberOfFramesPerSecond );
-int EKFramesPerSecond();
+int EKFramesPerSecond(void);
 void EKSetAnimationInterval( double interval );
-double EKAnimationInterval();
+double EKAnimationInterval(void);
 
 // Scoring functions
-void EKScoringResetLocalScore();
-void EKScoringLoadLocalScoreFromRecord();
+void EKScoringResetLocalScore(void);
+void EKScoringLoadLocalScoreFromRecord(void);
 void EKScoringModifyLocalScore(NSUInteger scoreModifier);
-void EKScoringAddScoreToRecord();
-NSUInteger EKScoringLocalScore();
+void EKScoringAddScoreToRecord(void);
+NSUInteger EKScoringLocalScore(void);
 
 // Strings
 NSString* EKStringFilenameWithoutExtension(NSString* input, NSString* extension);
