@@ -28,6 +28,9 @@
 
 #pragma Mark - Functions
 
+// Determines if this is an iPad (if not, assume iPhone)
+bool EKDeviceIsIPad( void );
+
 // Set (or find) the screen size in points (as opposed to the screen size in pixels).
 void EKSetScreenSizeInPoints( CGFloat width, CGFloat height );
 CGSize EKScreenSizeInPoints(void);

@@ -24,6 +24,14 @@ NSUInteger EKUtilsLocalScore = 0;
 
 #pragma mark - Screen dimensions
 
+bool EKDeviceIsIPad( void ) {
+    if( UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        return true;
+    }
+    
+    return false;
+}
+
 void EKSetScreenSizeInPoints( CGFloat width, CGFloat height )
 {
     EKScreenWidthInPoints = fabs( width );
@@ -32,7 +40,7 @@ void EKSetScreenSizeInPoints( CGFloat width, CGFloat height )
     //NSLog(@"Screen size in points has been set to: %f, %f", EKScreenWidthInPoints, EKScreenHeightInPoints);
 }
 
-CGSize EKScreenSizeInPoints()
+CGSize EKScreenSizeInPoints(void)
 {
     return CGSizeMake( EKScreenWidthInPoints, EKScreenHeightInPoints );
 }
@@ -56,13 +64,14 @@ void EKSetScreenDataFromView( SKView* view )
         //
         // This works a little differently than cocos2d's CCDirection "animationInterval" (or whatever it's called), which
         // just returns the actual FPS it should be set to.
-        int frameInterval = (int) view.frameInterval;
+        //int frameInterval = (int) view.frameInterval;
+        int frameInterval = (int) view.preferredFramesPerSecond;
         EKNumberOfFramesPerSecond = 60 / frameInterval; // 60 / 1 = 60 FPS
         //NSLog(@"[GLOBAL] SKView's frame interval is %d frames per second.", EKNumberOfFramesPerSecond);
     }
 }
 
-BOOL EKScreenIsPortrait()
+BOOL EKScreenIsPortrait(void)
 {
     if( EKScreenWidthInPoints > EKScreenHeightInPoints ) {
         return NO;
@@ -71,7 +80,7 @@ BOOL EKScreenIsPortrait()
     return YES;
 }
 
-SKView* EKCurrentView()
+SKView* EKCurrentView(void)
 {
     if( EKTheCurrentView == nil )
         NSLog(@"[GLOBAL] WARNING: Cannot find current view data.");
@@ -79,7 +88,7 @@ SKView* EKCurrentView()
     return EKTheCurrentView;
 }
 
-SKScene* EKCurrentScene()
+SKScene* EKCurrentScene(void)
 {
     // Grab the current scene from the current view, if it exists
     SKView* theCurrentView = EKCurrentView();
@@ -365,7 +374,7 @@ void EKSetFPS( int numberOfFramesPerSecond )
     //NSLog(@"FPS set to %d, with animation interval set to %f", EKNumberOfFramesPerSecond, EKAnimationIntervalValue);
 }
 
-int EKFramesPerSecond()
+int EKFramesPerSecond(void)
 {
     if( EKNumberOfFramesPerSecond < 1 )
         EKSetFPS(0);
@@ -382,7 +391,7 @@ void EKSetAnimationInterval( double interval )
         EKAnimationIntervalValue = interval;
 }
 
-double EKAnimationInterval()
+double EKAnimationInterval(void)
 {
     if( EKAnimationIntervalValue <= 0.0 || EKAnimationIntervalValue >= 1.0 )
         EKSetFPS(0);
@@ -392,12 +401,12 @@ double EKAnimationInterval()
 
 #pragma mark - Scoring
 
-void EKScoringResetLocalScore()
+void EKScoringResetLocalScore(void)
 {
     EKUtilsLocalScore = 0;
 }
 
-void EKScoringLoadLocalScoreFromRecord()
+void EKScoringLoadLocalScoreFromRecord(void)
 {
     EKUtilsLocalScore = [[EKRecord sharedRecord] currentScore];
 }
@@ -407,13 +416,13 @@ void EKScoringModifyLocalScore(NSUInteger scoreModifier)
     EKUtilsLocalScore = EKUtilsLocalScore + scoreModifier;
 }
 
-void EKScoringAddScoreToRecord()
+void EKScoringAddScoreToRecord(void)
 {
     NSUInteger total = [[EKRecord sharedRecord] currentScore] + EKUtilsLocalScore;
     [[EKRecord sharedRecord] setCurrentScore:total];
 }
 
-NSUInteger EKScoringLocalScore() {
+NSUInteger EKScoringLocalScore(void) {
     return EKUtilsLocalScore;
 }
 

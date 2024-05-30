@@ -497,7 +497,8 @@ VNScene* theCurrentScene = nil;
     float widthOfScreen = self.frame.size.width;
     
     // Check if this is on an iPad, and if the default font size should be adjusted to compensate for the larger screen size
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+    //if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+    if( EKDeviceIsIPad() == true ) {
         
         NSNumber* multiplyFontSizeForiPadFactor = [viewSettings objectForKey:VNSceneViewMultiplyFontSizeForiPadKey]; // Default is 1.5x
         NSNumber* standardFontSize = [viewSettings objectForKey:VNSceneViewFontSizeKey]; // Default value is 17.0
@@ -569,8 +570,10 @@ VNScene* theCurrentScene = nil;
     // Width multiplier is used for creating margins (when displaying the speech text). Due to differences in size,
     // the exact value changes between the iPhone and the iPad.
     CGFloat widthMultiplierValue = 4.0;
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    //if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    if( UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         widthMultiplierValue = 6.0;
+    }
     
     CGSize speechSize = CGSizeMake( widthOfSpeechBox - (horizontalMargins * widthMultiplierValue),
                                     heightOfSpeechBox - (verticalMargins * 2.0) );
@@ -583,7 +586,7 @@ VNScene* theCurrentScene = nil;
     speech.paragraphWidth = (speechSize.width * 0.92) - (horizontalMargins * widthMultiplierValue);
     
     // Adjust for iPad size differences
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+    if( EKDeviceIsIPad() == true ) {
         speech.paragraphWidth = (speechSize.width * 0.94) - (horizontalMargins * widthMultiplierValue);
     }
     
@@ -2128,7 +2131,7 @@ VNScene* theCurrentScene = nil;
                 
                 // Determine where the text should be positioned inside the button
                 CGPoint labelWithinButtonPos = CGPointMake( button.frame.size.width * 0.5, button.frame.size.height * 0.35 );
-                if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+                if( EKDeviceIsIPad() == true ) {
                     
                     // The position of the text inside the button has to be adjusted, since the actual font size on the iPad isn't exactly
                     // twice as large, but modified with some custom code. This results in having to do some custom positioning as well!
@@ -2146,7 +2149,7 @@ VNScene* theCurrentScene = nil;
                 buttonLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter; // This centers the text in the button
                 //buttonLabel.position = labelWithinButtonPos;
                 CGFloat buttonLabelY = 0 - (button.size.height * 0.20);
-                if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+                if( EKDeviceIsIPad() == true )
                     buttonLabelY = 0 - (button.size.height * 0.20);
                 buttonLabel.position = CGPointMake(0, buttonLabelY);
                 buttonLabel.zPosition = VNSceneButtonTextLayer;
@@ -2556,7 +2559,7 @@ VNScene* theCurrentScene = nil;
                 
                 // Determine where the text should be positioned inside the button
                 CGPoint labelWithinButtonPos = CGPointMake( button.frame.size.width * 0.5, button.frame.size.height * 0.35 );
-                if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+                if( EKDeviceIsIPad() == true ) {
                     labelWithinButtonPos.y = button.frame.size.height * 0.31;
                 }
                 
@@ -2573,7 +2576,7 @@ VNScene* theCurrentScene = nil;
                 buttonLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
                 //buttonLabel.position = labelWithinButtonPos;
                 CGFloat buttonLabelY = 0 - (button.size.height * 0.20);
-                if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+                if( EKDeviceIsIPad() == true ) 
                     buttonLabelY = 0 - (button.size.height * 0.20);
                 buttonLabel.position = CGPointMake(0, buttonLabelY);
                 //[button addChild:buttonLabel z:VNSceneButtonTextLayer];

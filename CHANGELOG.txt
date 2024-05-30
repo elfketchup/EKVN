@@ -1,3 +1,6 @@
+version 1.2.4 May-29-2024
+. I did literally the bare minimum to get this to run on iOS 17. Also, EKRecord now uses the NSJSONSerialization to save data instead of NSKeyedArchiver, because NSKeyedArchiver kept NOT working for some reason. Everything works fine as long as you only store numbers and strings in EKRecord, but if you try to store binary data or an object, it's going to throw errors. 
+
 version 1.2.3 Aug-22-2016
 . [NEW] Added .ROLLDICE script command, which generates a random number and stores it in a flag named "DICEROLL" (useful if you need random numbers)
 

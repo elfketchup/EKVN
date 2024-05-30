@@ -51,7 +51,7 @@
     // Save all data into the dictionary, assuming the dictionary is mutable (it should be, but just to be sure...)
     if( [dict isKindOfClass:[NSMutableDictionary class]] ) {
         
-        [dict setValue:theTimeRightNow forKey:EKRecordDateSavedKey];            // Save NSDate object
+        //[dict setValue:theTimeRightNow forKey:EKRecordDateSavedKey];            // Save NSDate object
         [dict setValue:stringWithCurrentTime forKey:EKRecordDateSavedAsString]; // Save human-readable string
         
     } else {
@@ -350,12 +350,39 @@
         return nil;
     }
     
-    // Unarchive the information from NSData into NSDictionary
-    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    NSDictionary* dictFromData = [unarchiver decodeObjectForKey:EKRecordDataKey];
-    [unarchiver finishDecoding];
+    NSError* error = nil;
     
-    return [NSDictionary dictionaryWithDictionary:dictFromData];
+    /*
+    // Unarchive the information from NSData into NSDictionary
+    //NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+    
+    if( error ) {
+        NSLog(@"[EKRecord] ERROR: Could not get data from NSKeyedUnarchiver]");
+        return nil;
+    } else {
+        NSLog(@"WTF IS THIS DATA: %@", data);
+    }
+    
+    NSDictionary* dictFromData = [unarchiver decodeObjectForKey:EKRecordDataKey];
+    [unarchiver finishDecoding];*/
+    
+    NSDictionary* unarchivedDictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                                         options:NSJSONReadingAllowFragments
+                                                                           error:&error];
+    
+    if (error)
+    {
+        NSLog(@"[EKRecord] Failed to unarchive dictionary: %@", error.localizedDescription);
+    } else {
+        NSLog(@"Successfully unarchived dictionary: %@", unarchivedDictionary);
+    }
+    
+    //return [NSDictionary dictionaryWithDictionary:dictFromData];
+    //NSDictionary* dictionaryToReturn = [NSDictionary dictionaryWithDictionary:dictFromData];
+    NSLog(@"WTF IS THIS DICTIONARY: %@", unarchivedDictionary);
+    
+    return unarchivedDictionary;
 }
 
 // Load saved game data from a slot
@@ -434,16 +461,33 @@
     // Update the date/time information in the record to "right now."
     [self updateDateInDictionary:dict];
     
-    // Encode the dictionary into NSData format
-    NSMutableData* data = [[NSMutableData alloc] init];
-    NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    NSLog(@"WTF IS THIS DICTIONARY I'm TRYING TO SAVE: %@", dict);
+    
+    /*
+    NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:false];//
     [archiver encodeObject:dict forKey:EKRecordDataKey];
     [archiver finishEncoding];
     
     // Just note the size of the data object
-    NSLog(@"[EKRecord] 'dataFromRecord' has produced an NSData object of size %lu bytes.", (unsigned long)data.length);
+    //NSLog(@"[EKRecord] 'dataFromRecord' has produced an NSData object of size %lu bytes.", (unsigned long)data.length);
     
-    return [NSData dataWithData:data];
+    //return [NSData dataWithData:data];
+    return [archiver encodedData];*/
+    
+    NSDictionary* dictionaryToSave = [NSDictionary dictionaryWithDictionary:dict];
+    
+    NSError* error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionaryToSave
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    
+    if (error) {
+        NSLog(@"[EKRecord] Failed to archive dictionary: %@", error.localizedDescription);
+    } else {
+        NSLog(@"[EKRecord] Successfully archived dictionary to NSData");
+    }
+    
+    return data;
 }
 
 // Saves NSData object to a particular "slot" (which is located in NSUserDefaults's root dictionary)
