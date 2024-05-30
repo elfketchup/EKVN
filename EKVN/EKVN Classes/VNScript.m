@@ -14,10 +14,8 @@
 
 // Load the script from a Property List (.plist) file in the app bundle. Make sure to not include the ".plist" in the file name.
 // For example, if the script is stored as "ThisScript.plist" in the bundle, just pass in "ThisScript" as the parameter.
-- (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName
-{
+- (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName {
     if( self = [super init] ) {
-        
         // Load a dictionary from a .plist file in the app bundle
         NSString* filepath              = [[NSBundle mainBundle] pathForResource:nameOfFile ofType:@"plist"];
         NSDictionary* loadedDictionary  = [[NSDictionary alloc] initWithContentsOfFile:filepath]; // All data in the file
@@ -37,22 +35,20 @@
     return self;
 }
 
-- (id)initFromFile:(NSString *)nameOfFile
-{
+- (id)initFromFile:(NSString *)nameOfFile {
     return [self initFromFile:nameOfFile withConversation:VNScriptStartingPoint];
 }
 
 // Loads the script from a dictionary with a lot of other data (such as specific conversation names, indexes, etc).
 // This is used mostly for loading from saved games.
-- (id)initWithInfo:(NSDictionary*)dict
-{
-    if( dict == nil )
+- (id)initWithInfo:(NSDictionary*)dictionary {
+    if( dictionary == nil )
         return nil;
     
-    NSString* filenameValue     = [dict objectForKey:VNScriptFilenameKey]; // File to load script from
-    NSString* conversationValue = [dict objectForKey:VNScriptConversationNameKey]; // The conversation to start with
-    NSNumber* currentIndexValue = [dict objectForKey:VNScriptCurrentIndexKey]; // OPTIONAL: Which index to start processing on
-    NSNumber* indexesDoneValue  = [dict objectForKey:VNScriptIndexesDoneKey]; // OPTIONAL: Number of indexes processed already
+    NSString* filenameValue     = [dictionary objectForKey:VNScriptFilenameKey]; // File to load script from
+    NSString* conversationValue = [dictionary objectForKey:VNScriptConversationNameKey]; // The conversation to start with
+    NSNumber* currentIndexValue = [dictionary objectForKey:VNScriptCurrentIndexKey]; // OPTIONAL: Which index to start processing on
+    NSNumber* indexesDoneValue  = [dictionary objectForKey:VNScriptIndexesDoneKey]; // OPTIONAL: Number of indexes processed already
     
     if( filenameValue == nil || conversationValue == nil )
         return nil;
@@ -83,7 +79,7 @@
 
 // This processes the script, converting the data from its original Property List format into something
 // that can be used by VNLayer. (This new, converted format is stored in VNScript's "data" dictionary)
-- (void)prepareScript:(NSDictionary*)dict
+- (void)prepareScript:(NSDictionary*)dictionary
 {
     // NOTE: The Property List dictionary that holds all the script data has a "child" dictionary titled
     //       "actual script." In an earlier version of the VN system, the Property List also had a section
@@ -94,17 +90,17 @@
     
     // Here's a dictionary object that will hold all the text-to-binary-data translated conversations. It will
     // hold the "finished product" when this function is done processing.
-    NSMutableDictionary* translatedScript = [[NSMutableDictionary alloc] initWithCapacity:[dict count]];
+    NSMutableDictionary* translatedScript = [[NSMutableDictionary alloc] initWithCapacity:[dictionary count]];
     
     // Go through each NSArray (conversation) in the script and translate each conversation into something that's
     // easier for the program to process. This "outer" for loop will get all the conversation names and the loops
     // inside this one will translate each conversation.
-    for( NSString* conversationKey in [dict allKeys] ) {
+    for( NSString* conversationKey in [dictionary allKeys] ) {
         
         // This retrieves the actual array data so that it can be processed. There's an "original array" that holds
         // the raw text data (taken from the Property List) and then a "translated array" that holds the data that's
         // been converted to processed data.
-        NSArray* originalArray = [dict objectForKey:conversationKey]; // Get original text array
+        NSArray* originalArray = [dictionary objectForKey:conversationKey]; // Get original text array
         
         // Make sure this is actually an NSArray object, and not some other kind of object that just happened to be in the dictionary
         if( [originalArray isKindOfClass:[NSArray class]] ) {

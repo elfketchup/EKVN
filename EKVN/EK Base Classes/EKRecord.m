@@ -360,8 +360,6 @@
     if( error ) {
         NSLog(@"[EKRecord] ERROR: Could not get data from NSKeyedUnarchiver]");
         return nil;
-    } else {
-        NSLog(@"WTF IS THIS DATA: %@", data);
     }
     
     NSDictionary* dictFromData = [unarchiver decodeObjectForKey:EKRecordDataKey];
@@ -380,7 +378,7 @@
     
     //return [NSDictionary dictionaryWithDictionary:dictFromData];
     //NSDictionary* dictionaryToReturn = [NSDictionary dictionaryWithDictionary:dictFromData];
-    NSLog(@"WTF IS THIS DICTIONARY: %@", unarchivedDictionary);
+    NSLog(@"RAW DICTIONARY OUTPUT: %@", unarchivedDictionary);
     
     return unarchivedDictionary;
 }
@@ -460,8 +458,6 @@
     
     // Update the date/time information in the record to "right now."
     [self updateDateInDictionary:dict];
-    
-    NSLog(@"WTF IS THIS DICTIONARY I'm TRYING TO SAVE: %@", dict);
     
     /*
     NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:false];//

@@ -92,6 +92,17 @@
 #define VNScriptCommandModifyChoiceboxOffset    137
 #define VNScriptCommandScaleBackground          138
 #define VNScriptCommandScaleSprite              139
+#define VNScriptCommandAddToChoiceSet           140
+#define VNScriptCommandRemoveFromChoiceSet      141
+#define VNScriptCommandWipeChoiceSet            142
+#define VNScriptCommandShowChoiceSet            143
+#define VNScriptCommandIsFlagLessThanFlag       144
+#define VNScriptCommandIsFlagEqualToFlag        145
+#define VNScriptCommandIsFlagMoreThanFlag       146
+#define VNScriptCommandIncreaseFlagByFlag       147
+#define VNScriptCommandDecreaseFlagByFlag       148
+#define VNScriptCommandShowChoiceAndJump        149
+#define VNScriptCommandShowChoiceAndModify      150
 
 // The command strings. Each one starts with a dot (the parser will only check treat a line as a command if it starts
 // with a dot), and is followed by some parameters, separated by colons.
@@ -134,6 +145,17 @@
 #define VNScriptStringModifyChoiceboxOffset     @".modifychoiceboxoffset" // adds X/Y offset to button coordinates during choices (default = 0,0)
 #define VNScriptStringScaleBackground           @".scalebackground"     // changes background scale
 #define VNScriptStringScaleSprite               @".scalesprite"         // changes sprite scale
+#define VNScriptStringAddToChoiceSet            @".addtochoiceset"      // Adds a line of text choice and script section that it will jump to to a "choice set"
+#define VNScriptStringRemoveFromChoiceSet       @".removefromchoiceset" // Removes a line of text / jump from a choice set
+#define VNScriptStringWipeChoiceSet             @".wipechoiceset"       // Completely removes a Choice Set (this saves memory)
+#define VNScriptStringShowChoiceSet             @".showchoiceset"       // Shows a series of choices from a set that can be dynamically modified
+#define VNScriptStringIsFlagLessThanFlag        @".isflaglessthanflag"  // Runs a command if the first flag's value is lesser than the secon flag
+#define VNScriptStringIsFlagEqualToFlag         @".isflagequaltoflag"   // Runs a command if the two flags have the same value
+#define VNScriptStringIsFlagMoreThanFlag        @".isflagmorethanflag"  // Runs a command if the first flag's value is greater than the second flag
+#define VNScriptStringIncreaseFlagByFlag        @".increaseflagbyflag"  // Increases flag by however much another flag's value is
+#define VNScriptStringDecreaseFlagByFlag        @".decreaseflagbyflag"  // Subtracts the second flag's value from the first flag
+#define VNScriptStringShowChoiceAndJump         @".showchoiceandjump"   // Shows a line of dialogue and then displays choice at the same time
+#define VNScriptStringShowChoiceAndModify       @".showchoiceandmodify" // Shows a line of dialogue and then displays choice (for modifying flag)
 
 // Script syntax
 #define VNScriptSeparationString               @":"
@@ -170,11 +192,11 @@
 - (id)initFromFile:(NSString *)nameOfFile withConversation:(NSString*)conversationName;
 
 // This version is used for loading the dictionary AND jumping to a particular part of the script.
-- (id)initWithInfo:(NSDictionary*)dict;
+- (id)initWithInfo:(NSDictionary*)dictionary;
 
 // This converts the script from its default XML/Property-List format into a format that can be more easily
 // understood and used by the VN system.
-- (void)prepareScript:(NSDictionary*)dict;
+- (void)prepareScript:(NSDictionary*)dictionary;
 
 - (id)currentCommand;
 - (id)commandAtLine:(NSInteger)line;
